@@ -21,3 +21,8 @@ export * from "./i18n/src/index";
 export * from "./components/src/index";
 export * from "./config/src/index";
 export { useIsMobile } from "./hooks/use-mobile";
+
+// Re-export the per-source context-aware UI surface (per the
+// openspec/changes/cianchosaint-source-policy-v1 change).
+export { SourcePolicyCard } from "./components/SourcePolicyCard";
+export type { SourcePolicyCardProps } from "./components/SourcePolicyCard";

@@ -2,9 +2,12 @@
  * CIANCHOSAINT canonical AG-UI event types.
  *
  * Per the openspec/changes/cianchosaint-ag-ui-event-types-v1/
- * specs/cianchosaint-ag-ui-event-types/spec.md.
+ * specs/cianchosaint-ag-ui-event-types/spec.md (4 canonical event
+ * types) + the
+ * openspec/changes/cianchosaint-source-policy-v1/specs/cianchosaint-source-policy/spec.md
+ * (the 5th event — `SourcePolicyView`).
  *
- * The 4 canonical event types used across the 8 per-persona web apps
+ * The 5 canonical event types used across the 8 per-persona web apps
  * (ciafagent-ga-public, ciafagent-ga-internal, ciafagent-met-public,
  *  ciafagent-met-internal, ciafagent-psni-public,
  *  ciafagent-psni-internal, ciafagent-reform-uk-pilot, ciafagent-self-host)
@@ -14,6 +17,8 @@
  * field is the literal `"copy_to_official_website"` — the agent NEVER
  * directly submits forms to operational systems.
  */
+
+import type { SourcePolicyView } from "./source-policy-view";
 
 // ============================================================================
 // Type 1: FormFillRequest — the user initiated a non-emergency form fill
@@ -98,4 +103,7 @@ export type AGUIEvent =
   | FormFillRequest
   | FormFillResponse
   | OSINTEvidenceCitation
-  | JurisdictionDisambiguation;
+  | JurisdictionDisambiguation
+  | SourcePolicyView;
+
+export type { SourcePolicyView };

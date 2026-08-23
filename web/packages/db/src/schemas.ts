@@ -2,14 +2,19 @@
  * CIANCHOSAINT Convex schema definitions.
  *
  * Per the openspec/changes/cianchosaint-convex-schemas-v1/
- * specs/cianchosaint-convex-schemas/spec.md.
+ * specs/cianchosaint-convex-schemas/spec.md (6 canonical tables)
+ * + the
+ * openspec/changes/cianchosaint-source-policy-v1/specs/cianchosaint-source-policy/spec.md
+ * (the 7th table — `sourcePolicyIndex`).
  *
  * Defines the canonical Convex tables for the 7 per-persona apps + the
- * Reform UK pilot app.
+ * Reform UK pilot app + the per-source context-aware UI.
  */
 
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+
+import { sourcePolicyIndex } from "./source-policy-schemas";
 
 // ============================================================================
 // Shared tables (used by all 8 apps)
@@ -105,4 +110,5 @@ export default defineSchema({
   metCrimeQueries,
   psniCrossBorderQueries,
   reformUkPilotDossiers,
+  sourcePolicyIndex,
 });
