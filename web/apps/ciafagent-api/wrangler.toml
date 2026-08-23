@@ -1,6 +1,49 @@
 name = "ciafagent-api"
 compatibility_date = "2026-08-23"
 main = "apps/api/src/index.ts"
+
+# The consolidated Cloudflare Workers + Containers deployment for the
+# 8 per-persona web apps + the Hono API gateway under the cianchosaint.ie
+# zone. Per the openspec/changes/cianchosaint-cloudflare-deploy-v1/spec.md.
+
+[env.dev]
+  routes = [
+    { pattern = "dev.api.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "dev.ga.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "dev.ga-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "dev.met.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "dev.met-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "dev.psni.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "dev.psni-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "dev.reform-uk-pilot.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "dev.self-host.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }
+  ]
+  vars = { CONVEX_DEPLOYMENT = "dev:conic-api", COPILOTKIT_RUNTIME_URL = "/api/copilotkit" }
+
+[env.staging]
+  routes = [
+    { pattern = "staging.api.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "staging.ga.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "staging.ga-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "staging.met.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "staging.met-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "staging.psni.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "staging.psni-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "staging.reform-uk-pilot.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "staging.self-host.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }
+  ]
+  vars = { CONVEX_DEPLOYMENT = "staging:conic-api", COPILOTKIT_RUNTIME_URL = "/api/copilotkit" }
+
 [env.production]
-  routes = [{ pattern = "api.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }]
+  routes = [
+    { pattern = "api.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "ga.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "ga-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "met.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "met-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "psni.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "psni-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "reform-uk-pilot.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "self-host.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }
+  ]
   vars = { CONVEX_DEPLOYMENT = "prod:conic-api", COPILOTKIT_RUNTIME_URL = "/api/copilotkit" }

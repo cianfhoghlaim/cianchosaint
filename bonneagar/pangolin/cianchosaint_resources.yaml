@@ -1,0 +1,70 @@
+# CIANCHOSAINT Pangolin resource definitions.
+#
+# Per the openspec/changes/cianchosaint-pangolin-ingress-v1/spec.md.
+# Exposes the 8 per-persona web apps + the Hono API gateway at
+# *.cianchosaint.ie via Pangolin private resources.
+
+version: 1
+resources:
+  - name: ga.cianchosaint.ie
+    type: web
+    target: ciafagent-ga-public:7777
+    visibility: public
+    auth: pocketid
+    labels: {constituency: ga, app: ciafagent-ga-public, persona: public, role: web, jurisdiction: ireland, environment: prod}
+
+  - name: ga-internal.cianchosaint.ie
+    type: web
+    target: ciafagent-ga-internal:7777
+    visibility: private
+    auth: pocketid
+    labels: {constituency: ga, app: ciafagent-ga-internal, persona: internal, role: web, jurisdiction: ireland, environment: prod}
+
+  - name: met.cianchosaint.ie
+    type: web
+    target: ciafagent-met-public:7777
+    visibility: public
+    auth: pocketid
+    labels: {constituency: met, app: ciafagent-met-public, persona: public, role: web, jurisdiction: uk, environment: prod}
+
+  - name: met-internal.cianchosaint.ie
+    type: web
+    target: ciafagent-met-internal:7777
+    visibility: private
+    auth: pocketid
+    labels: {constituency: met, app: ciafagent-met-internal, persona: internal, role: web, jurisdiction: uk, environment: prod}
+
+  - name: psni.cianchosaint.ie
+    type: web
+    target: ciafagent-psni-public:7777
+    visibility: public
+    auth: pocketid
+    labels: {constituency: psni, app: ciafagent-psni-public, persona: public, role: web, jurisdiction: ni, environment: prod}
+
+  - name: psni-internal.cianchosaint.ie
+    type: web
+    target: ciafagent-psni-internal:7777
+    visibility: private
+    auth: pocketid
+    labels: {constituency: psni, app: ciafagent-psni-internal, persona: internal, role: web, jurisdiction: ni, environment: prod}
+
+  - name: reform-uk-pilot.cianchosaint.ie
+    type: web
+    target: ciafagent-reform-uk-pilot:7777
+    visibility: private
+    auth: pocketid
+    labels: {app: ciafagent-reform-uk-pilot, persona: pilot, role: web, jurisdiction: uk, environment: prod, constituency: uk_hoc}
+
+  - name: self-host.cianchosaint.ie
+    type: web
+    target: ciafagent-self-host:7777
+    visibility: private
+    auth: pocketid
+    labels: {app: ciafagent-self-host, persona: citizen, role: web, jurisdiction: uk, environment: prod, constituency: citizen}
+
+  - name: api.cianchosaint.ie
+    type: api
+    target: ciafagent-api:8787
+    visibility: private
+    auth: pocketid
+    labels: {app: ciafagent-api, role: hono-api-gateway, persona: service, jurisdiction: ireland, environment: prod, constituency: api}

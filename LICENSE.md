@@ -200,6 +200,28 @@ sanctioned organisations, paramilitary groups, or entities in violation
 of international human rights conventions is fundamentally excluded
 from this grant.
 
+---
+
+**NATURAL PERSON CITIZEN GRANT**
+
+Natural persons of the British Isles who are not affiliated with
+the bodies in (a), (b), or (c) above MAY use the Licensed Work for
+non-commercial personal purposes, including self-hosted deployment,
+subject to the prohibition on commercial monetisation in (1).
+
+This grant covers:
+  - Self-hosted deployment on a natural person's own machine
+    (per the cianchosaint-self-hosted-citizen spec)
+  - Personal OSINT investigation (subject to the OSINT allowlist
+    ceiling)
+  - Personal study, learning, and experimentation
+
+This grant DOES NOT cover:
+  - Public-facing deployment of any kind
+  - Commercial monetisation of any kind
+  - Use by any foreign entity (foreign intelligence agencies
+    remain explicitly banned)
+
 **Change Date:** Four (4) years from the date the specific version of the
 Licensed Work is published.
 

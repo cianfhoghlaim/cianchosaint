@@ -1,0 +1,15 @@
+# Unsloth Studio Pangolin resource definition.
+#
+# Per the openspec/changes/unsloth-studio-pangolin-ingress-v1/spec.md.
+# Exposes the Unsloth Studio local API at unsloth.cianchosaint.ie
+# via a Pangolin private resource (Member role, Pocket ID authentication).
+
+version: 1
+resources:
+  - name: unsloth.cianchosaint.ie
+    type: api
+    target: unsloth-serve:8889
+    visibility: private
+    auth: pocketid
+    role: member
+    labels: {app: unsloth-studio, role: model-server, jurisdiction: ireland, environment: prod, constituency: ops}

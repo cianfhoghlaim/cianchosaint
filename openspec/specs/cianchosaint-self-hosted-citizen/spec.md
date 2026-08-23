@@ -14,16 +14,17 @@ surfaces (see `cianchosaint-per-constituency-agents`).
 
 The `LICENSE.md` Additional Use Grant covers use by British Isles
 public-sector bodies. Members of the public using cianchosaint for
-personal interaction with their own government's services do not
-fall under the Additional Use Grant as drafted. A follow-up
-`cianchosaint-citizen-use-grant-v1` openspec change will extend the
-licence to grant citizen self-host use, conditioned on: (i) the
-citizen is a natural person, (ii) the citizen's own machine, (iii)
-no commercial monetisation, (iv) no public-facing deployment.
+personal interaction with their own government's services are now
+covered by the **Natural Person Citizen Grant** (per the
+`cianchosaint-citizen-use-grant` spec, archived 2026-08-23), which
+extends the licence to grant citizen self-host use, conditioned on:
+(i) the citizen is a natural person of the British Isles, (ii) the
+citizen's own machine, (iii) no commercial monetisation, (iv) no
+public-facing deployment, (v) no foreign use.
 
-Until that change lands, the self-hosted citizen option is
-**experimental** and licensed under the same grant as the rest of
-the platform.
+The self-hosted citizen option is now **production-ready** for
+natural persons of the British Isles, subject to the 5 binding
+constraints in the Natural Person Citizen Grant.
 
 ## Requirements
 
