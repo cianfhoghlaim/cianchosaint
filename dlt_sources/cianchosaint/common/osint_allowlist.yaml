@@ -40,6 +40,36 @@
 # contain Jersey / Guernsey / Isle of Man entries; the 3 forces below
 # are added per the spec's BIPP v1 cohort grid requirement.
 
+- url: "https://www.mi5.gov.uk/"
+  category: intelligence_agency
+  body: "MI5 (Security Service)"
+  jurisdiction: "uk"
+  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
+
+- url: "https://www.sis.gov.uk/"
+  category: intelligence_agency
+  body: "MI6 (Secret Intelligence Service)"
+  jurisdiction: "uk"
+  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
+
+- url: "https://www.gchq.gov.uk/"
+  category: intelligence_agency
+  body: "GCHQ (Government Communications Headquarters)"
+  jurisdiction: "uk"
+  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
+
+- url: "https://www.gov.uk/government/organisations/defence-intelligence"
+  category: intelligence_agency
+  body: "Defence Intelligence (DI)"
+  jurisdiction: "uk"
+  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
+
+- url: "https://www.hmgcc.gov.uk/"
+  category: intelligence_agency
+  body: "HMGCC (His Majesty's Government Communications Centre)"
+  jurisdiction: "uk"
+  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
+
 version: 1
 category: cianchosaint_osint_allowlist
 description: >-
