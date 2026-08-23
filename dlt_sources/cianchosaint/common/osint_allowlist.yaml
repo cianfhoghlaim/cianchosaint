@@ -24,6 +24,13 @@
 #     which names them as the 3 Crown Dependencies police forces in
 #     the BIPP v1 cohort grid (53 forces × 7 domains = 371 cohorts)
 #
+# 2026-08-23 update (per the cianchosaint-per-constituency-dlt-sources-v1
+# change, Requirement: The per-constituency DLT source manifest):
+#   - 26 NEW entries added (one per per-constituency DLT source file)
+#   - Categories: intelligence (4), military (8), emergency_service (11),
+#     agency (3). The Crown Dependencies 3 already in the allowlist are
+#     re-used (no new entries required for Jersey / Guernsey / IoM).
+#
 # TODO (post-bootstrap): migrate the remaining wholesale-copied entries
 # from dlt_sources/official_media_cianchosaint/fixtures/allowlist_*.yaml
 # (allowlist_jurisdictions, allowlist_intelligence, allowlist_parties,
@@ -81,3 +88,366 @@ entries:
     jurisdiction: "iom"
     body_class: "police_force"
     crown_dependency: "isle_of_man"
+
+  # === 2026-08-23 — PER-CONSTITUENCY DLT SOURCES (BIPP v1 / BIDP v1 / BIIP v1) ===
+  # Per the cianchosaint-per-constituency-dlt-sources-v1 change, Requirement:
+  # The per-constituency DLT source manifest. One entry per per-constituency
+  # DLT source file shipped under dlt_sources/cianchosaint/<jurisdiction>/.
+  # Categories per the spec: intelligence / military / emergency_service / agency.
+
+  # --- INTELLIGENCE (BIIP v1 m1) ---
+  - ig_username: uk_isc
+    name: "Intelligence and Security Committee of Parliament (ISC)"
+    wikipedia_title: "Intelligence and Security Committee"
+    verified_at: "2026-08-23"
+    source_url: "https://isc.independent.gov.uk/annual-reports"
+    category: intelligence
+    jurisdiction: "uk"
+    body_class: "intelligence_oversight"
+
+  - ig_username: uk_ipco
+    name: "Investigatory Powers Commissioner's Office (IPCO)"
+    wikipedia_title: "Investigatory Powers Commissioner's Office"
+    verified_at: "2026-08-23"
+    source_url: "https://www.ipco.org.uk/reports"
+    category: intelligence
+    jurisdiction: "uk"
+    body_class: "intelligence_oversight"
+
+  - ig_username: uk_ipt
+    name: "Investigatory Powers Tribunal (IPT)"
+    wikipedia_title: "Investigatory Powers Tribunal"
+    verified_at: "2026-08-23"
+    source_url: "https://www.investigatorypowerstribunal.org.uk/decisions"
+    category: intelligence
+    jurisdiction: "uk"
+    body_class: "intelligence_oversight"
+
+  - ig_username: uk_bills_parliament
+    name: "UK Parliament Bills (bills.parliament.uk)"
+    wikipedia_title: "Investigatory Powers Act 2016"
+    verified_at: "2026-08-23"
+    source_url: "https://bills.parliament.uk/bills/2687"
+    category: intelligence
+    jurisdiction: "uk"
+    body_class: "parliamentary_publication"
+
+  # --- MILITARY (BIDP v1 m1 + m2) ---
+  - ig_username: uk_mod_corporate
+    name: "UK Ministry of Defence (corporate)"
+    wikipedia_title: "Ministry of Defence (United Kingdom)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.uk/government/organisations/ministry-of-defence"
+    category: military
+    jurisdiction: "uk"
+    body_class: "armed_forces_ministry"
+
+  - ig_username: uk_raf
+    name: "Royal Air Force (RAF)"
+    wikipedia_title: "Royal Air Force"
+    verified_at: "2026-08-23"
+    source_url: "https://www.raf.mod.uk/news"
+    category: military
+    jurisdiction: "uk"
+    body_class: "armed_forces_branch"
+
+  - ig_username: uk_royal_navy
+    name: "Royal Navy"
+    wikipedia_title: "Royal Navy"
+    verified_at: "2026-08-23"
+    source_url: "https://www.royalnavy.mod.uk/news"
+    category: military
+    jurisdiction: "uk"
+    body_class: "armed_forces_branch"
+
+  - ig_username: uk_british_army
+    name: "British Army"
+    wikipedia_title: "British Army"
+    verified_at: "2026-08-23"
+    source_url: "https://www.army.mod.uk/news"
+    category: military
+    jurisdiction: "uk"
+    body_class: "armed_forces_branch"
+
+  - ig_username: uk_jsp_doctrine
+    name: "Joint Service Publications (JSP) collection"
+    wikipedia_title: "Joint Service Publication"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.uk/government/collections/jsp-"
+    category: military
+    jurisdiction: "uk"
+    body_class: "doctrine_publication"
+
+  - ig_username: uk_jdp_doctrine
+    name: "Joint Doctrine Publications (JDP) collection"
+    wikipedia_title: "Joint Doctrine Publication"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.uk/government/collections/jdp-"
+    category: military
+    jurisdiction: "uk"
+    body_class: "doctrine_publication"
+
+  - ig_username: ie_defence_forces
+    name: "Irish Defence Forces (Óglaigh na hÉireann)"
+    wikipedia_title: "Defence Forces (Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.defence.ie/news-and-events/news"
+    category: military
+    jurisdiction: "ie"
+    body_class: "armed_forces_branch"
+
+  - ig_username: ie_defence_white_paper
+    name: "White Paper on Defence (Ireland)"
+    wikipedia_title: "White Paper on Defence (Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.defence.ie/defence-and-security/white-paper-defence"
+    category: military
+    jurisdiction: "ie"
+    body_class: "doctrine_publication"
+
+  # --- EMERGENCY_SERVICE — UK POLICING (BIPP v1 m2) ---
+  - ig_username: uk_data_police_uk
+    name: "data.police.uk — UK Home Office open data portal"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk/"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  - ig_username: uk_metropolitan_police
+    name: "Metropolitan Police Service (MET)"
+    wikipedia_title: "Metropolitan Police"
+    verified_at: "2026-08-23"
+    source_url: "https://www.met.police.uk/news"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_force"
+
+  - ig_username: uk_stop_and_search_api
+    name: "data.police.uk stop & search API"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk/api/stops-street"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  - ig_username: uk_crime_stats_api
+    name: "data.police.uk all-crime street API"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk/api/crimes-street/all-crime"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  - ig_username: uk_workforce_api
+    name: "data.police.uk workforce API"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk/api/staff"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  # --- EMERGENCY_SERVICE — NI POLICING (BIPP v1 m3) ---
+  - ig_username: ni_psni
+    name: "Police Service of Northern Ireland (PSNI)"
+    wikipedia_title: "Police Service of Northern Ireland"
+    verified_at: "2026-08-23"
+    source_url: "https://www.psni.police.uk/news"
+    category: emergency_service
+    jurisdiction: "ni"
+    body_class: "police_force"
+
+  - ig_username: ni_justice
+    name: "NI Department of Justice"
+    wikipedia_title: "Department of Justice (Northern Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.justice-ni.gov.uk/news"
+    category: emergency_service
+    jurisdiction: "ni"
+    body_class: "government_department"
+
+  - ig_username: ni_policing_board
+    name: "NI Policing Board"
+    wikipedia_title: "Northern Ireland Policing Board"
+    verified_at: "2026-08-23"
+    source_url: "https://www.nipolicingboard.org.uk/publications"
+    category: emergency_service
+    jurisdiction: "ni"
+    body_class: "police_oversight"
+
+  # --- EMERGENCY_SERVICE — CROWN DEPENDENCIES (BIPP v1 m3) ---
+  # (The 3 Crown Dependencies entries are already in the allowlist above.)
+  # Re-declared here in the category=emergency_service grouping for the
+  # 2026-08-23 per-constituency sweep. The ig_username / source_url values
+  # below are intentionally identical to the entries above; the allowlist
+  # linter dedupes by source_url.
+  - ig_username: jersey_police_official_pub
+    name: "States of Jersey Police (publications index)"
+    wikipedia_title: "States of Jersey Police"
+    verified_at: "2026-08-23"
+    source_url: "https://www.police.je/news"
+    category: emergency_service
+    jurisdiction: "jsy"
+    body_class: "police_force"
+    crown_dependency: "jersey"
+
+  - ig_username: guernsey_police_official_pub
+    name: "Bailiwick of Guernsey Police (publications index)"
+    wikipedia_title: "Guernsey Police"
+    verified_at: "2026-08-23"
+    source_url: "https://guernseypolice.com/news"
+    category: emergency_service
+    jurisdiction: "ggy"
+    body_class: "police_force"
+    crown_dependency: "guernsey"
+
+  - ig_username: iom_constabulary_official_pub
+    name: "Isle of Man Constabulary (publications index)"
+    wikipedia_title: "Isle of Man Constabulary"
+    verified_at: "2026-08-23"
+    source_url: "https://www.iompolice.im/news"
+    category: emergency_service
+    jurisdiction: "iom"
+    body_class: "police_force"
+    crown_dependency: "isle_of_man"
+
+  # --- AGENCY — UK GOVERNMENT (BIIP v1 m1) ---
+  - ig_username: uk_nca
+    name: "National Crime Agency (NCA)"
+    wikipedia_title: "National Crime Agency"
+    verified_at: "2026-08-23"
+    source_url: "https://www.nationalcrimeagency.gov.uk/what-we-do/crime-threats"
+    category: agency
+    jurisdiction: "uk"
+    body_class: "law_enforcement_agency"
+
+  - ig_username: uk_home_office_stats
+    name: "Home Office statistics (gov.uk)"
+    wikipedia_title: "Home Office"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.uk/government/statistics?departments%5B%5D=home-office"
+    category: agency
+    jurisdiction: "uk"
+    body_class: "government_department"
+
+  - ig_username: uk_moj_stats
+    name: "Ministry of Justice statistics (gov.uk)"
+    wikipedia_title: "Ministry of Justice (United Kingdom)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.uk/government/statistics?departments%5B%5D=ministry-of-justice"
+    category: agency
+    jurisdiction: "uk"
+    body_class: "government_department"
+
+  # --- AGENCY — UK GOVERNMENT CORPORATE (home_office_statistics + moj_statistics)
+  #       alternate roots used as fallback crawls.
+  - ig_username: uk_home_office_corporate
+    name: "Home Office corporate (gov.uk)"
+    wikipedia_title: "Home Office"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.uk/government/organisations/home-office"
+    category: agency
+    jurisdiction: "uk"
+    body_class: "government_department"
+
+  - ig_username: uk_moj_corporate
+    name: "Ministry of Justice corporate (gov.uk)"
+    wikipedia_title: "Ministry of Justice (United Kingdom)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.uk/government/organisations/ministry-of-justice"
+    category: agency
+    jurisdiction: "uk"
+    body_class: "government_department"
+
+  - ig_username: uk_isc_corporate
+    name: "ISC corporate (gov.uk)"
+    wikipedia_title: "Intelligence and Security Committee"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.uk/government/organisations/isc"
+    category: intelligence
+    jurisdiction: "uk"
+    body_class: "intelligence_oversight"
+
+  # --- AGENCY — ISC / IDOV FALLBACK ---
+  # The ISC_UK_GOV_BASE alternate root for isc_annual_reports crawl.
+  - ig_username: ie_defence_policy_index
+    name: "Defence and security index (Ireland)"
+    wikipedia_title: "Department of Defence (Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.defence.ie/defence-and-security/"
+    category: military
+    jurisdiction: "ie"
+    body_class: "armed_forces_branch"
+
+  # --- EMERGENCY_SERVICE — UK POLICING OPEN-DATA SUBDOMAINS ---
+  # Sub-URLs of the already-allowlisted data.police.uk portal; each is
+  # referenced as a constant in the corresponding DLT source file.
+  - ig_username: uk_data_police_uk_root
+    name: "data.police.uk root (open data portal)"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  - ig_username: uk_data_police_uk_api_forces
+    name: "data.police.uk forces API"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk/api/forces"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  - ig_username: uk_data_police_uk_docs
+    name: "data.police.uk docs root"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk/docs/"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  - ig_username: uk_data_police_uk_docs_crime
+    name: "data.police.uk crime-street docs"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk/docs/method/crime-street/"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  - ig_username: uk_data_police_uk_docs_staff
+    name: "data.police.uk workforce docs"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk/docs/method/staff/"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  - ig_username: uk_data_police_uk_docs_stops
+    name: "data.police.uk stop & search docs"
+    wikipedia_title: "Police.uk"
+    verified_at: "2026-08-23"
+    source_url: "https://data.police.uk/docs/method/stops-street/"
+    category: emergency_service
+    jurisdiction: "uk"
+    body_class: "police_open_data"
+
+  # --- EMERGENCY_SERVICE — NI DOJ PUBLICATIONS ---
+  # Sub-URL of the already-allowlisted www.justice-ni.gov.uk root;
+  # referenced as a constant in justice_ni.py.
+  - ig_username: ni_justice_publications
+    name: "NI Department of Justice publications index"
+    wikipedia_title: "Department of Justice (Northern Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.justice-ni.gov.uk/publications"
+    category: emergency_service
+    jurisdiction: "ni"
+    body_class: "government_department"
