@@ -288,6 +288,7 @@ class FirecrawlMCPClient:
         api_key: str | None = None,
         mcp_url: str | None = None,
         timeout_seconds: float = 60.0,
+        provider_router: Any | None = None,
     ) -> None:
         """Construct the client.
 
@@ -301,6 +302,14 @@ class FirecrawlMCPClient:
                 the `FIRECRAWL_MCP_URL` env var or the official
                 hosted endpoint.
             timeout_seconds: The per-call timeout.
+            provider_router: The cianchosaint 4-tier ModelProviderRouter
+                (per the cianchosaint-repo-foundation-v1 spec +
+                cianchosaint-agentic-interaction-v1 spec). When set,
+                the LLM-using endpoints (`/extract`, `/agent`,
+                `/research`, etc.) inject the active provider config
+                (base_url + api_key + model name) into Firecrawl's
+                LLM parameters. When None, the client falls back to
+                the Firecrawl default (uses Firecrawl's hosted LLM).
         """
         self.api_key = api_key or os.environ.get("FIRECRAWL_API_KEY")
         self.mcp_url = (
@@ -309,6 +318,7 @@ class FirecrawlMCPClient:
             or "https://mcp.firecrawl.dev/v2/mcp"
         )
         self.timeout_seconds = timeout_seconds
+        self.provider_router = provider_router  # NEW — 4-tier ModelProviderRouter
         self._has_auth = bool(self.api_key)
 
     # ----- The 12 wrapped tools -----
@@ -505,12 +515,19 @@ class FirecrawlMCPClient:
         Credit cost: dynamic, ~10 credits/cell via spark-1-mini or
         hundreds/run via spark-1-pro. 5 free runs/day on every plan.
 
+        Per the cianchosaint 4-tier ModelProviderRouter (Unsloth Studio
+        -> LiteLLM -> MiniMax -> Gemini): when self.provider_router is
+        set, the active provider config is injected into the
+        Firecrawl `model` parameter so the agent uses the same LLM as
+        every other cianchosaint BAML extraction. When None, falls
+        back to Firecrawl's hosted LLM (Firecrawl default).
+
         Canonical docs: https://docs.firecrawl.dev/features/agent
         """
         params: dict[str, Any] = {
             "prompt": prompt,
             "maxCredits": max_credits,
-            "model": model,
+            "model": self._resolve_llm_model(model),
         }
         if urls:
             params["urls"] = urls
@@ -519,6 +536,24 @@ class FirecrawlMCPClient:
         return FirecrawlAgentResponse.model_validate(
             self._call_mcp("firecrawl_agent", params)
         )
+
+    def _resolve_llm_model(self, default_model: str = "spark-1-mini") -> str:
+        """Resolve the LLM model to use for Firecrawl's LLM-using endpoints.
+
+        When the cianchosaint 4-tier ModelProviderRouter is set, the
+        active provider's model name is returned (so every BAML
+        extraction + every Firecrawl call uses the SAME model).
+
+        When the router is None, the default_model (Firecrawl's
+        hosted LLM) is returned unchanged.
+        """
+        if self.provider_router is None:
+            return default_model
+        try:
+            active = self.provider_router.get_active_config()
+            return active.get("model", default_model)
+        except Exception:  # noqa: BLE001 — provider_router errors must NOT break Firecrawl
+            return default_model
 
     @observe(name="firecrawl_agent_status")
     def agent_status(self, job_id: str) -> FirecrawlAgentResponse:
