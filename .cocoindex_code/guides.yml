@@ -1,0 +1,294 @@
+# cianchosaint — `.cocoindex_code/guides.yml`
+#
+# Original (this file): new-build by Cian Mhac An Deisigh on 2026-08-23
+# Licence: BUSL-1.1 (CIANCHOSAINT edition, per LICENSE.md)
+#
+# This file is part of cianchosaint (the British Isles defence / policing /
+# intelligence-oversight open-source data platform). See LICENSE.md for
+# the full Additional Use Grant + the 3-step foreign-use gate + the
+# warrant-to-enforce clause.
+#
+# Loaded by ccc at search time. Each entry maps a high-level concept
+# to the canonical files that best describe it. When a search query
+# matches a guide's description, ccc returns a [guide] hit pointing
+# the user at the canonical set, even if no individual file scored
+# high on its own.
+#
+# Schema:
+#   - title:        short label
+#   - description:  what this guide is for (used for matching)
+#   - files:        list of file paths (relative to project root) to surface
+#   - tags:         optional list of keywords for matching
+#   - domain:       optional human-readable category
+#
+# Post-2026-08-23: 12 initial guides (the cianchosaint-bootstrap-v2 cutover).
+# The OSINT allowlist gates every guide on British-Isles-only sources per
+# the cianchosaint-pipeline spec § Requirement: OSINT source URL allowlist.
+
+- title: "openspec-change-search"
+  description: |
+    How to find any openspec change (pending or archived) by keyword,
+    spec, or implementation status. Use when the user asks "what changes
+    have we made for X", "is there a spec for Y", "where is the BIPP v1
+    policing spec", "where is the BIIP v1 oversight spec", or "what is
+    the umbrella cianchosaint-pipeline spec". 3 pending + 5 specs.
+    Every change ships a proposal.md + tasks.md + cross-repo-sync.md +
+    spec deltas (per the cianchosaint-pipeline spec § Requirement:
+    Cross-repo openspec sync documentation).
+  files:
+    - openspec/AGENTS.md
+    - openspec/specs/cianchosaint-pipeline/spec.md
+    - openspec/specs/cianchosaint-per-constituency-agents/spec.md
+    - openspec/specs/cianchosaint-agentic-interaction/spec.md
+    - openspec/specs/cianchosaint-bootstrap-v2/spec.md
+    - openspec/specs/cianchosaint-self-hosted-citizen/spec.md
+    - openspec/changes/cianchosaint-repo-foundation-v1/proposal.md
+    - openspec/changes/cianchosaint-repo-bootstrap-v2/proposal.md
+    - openspec/changes/cianchosaint-agentic-interaction-v1/proposal.md
+  tags: [openspec, changes, specs, archive, knowledge, cianchosaint]
+  domain: "00-openspec"
+
+- title: "dlt-source-search"
+  description: |
+    How to find any DLT data source by name, jurisdiction, or output
+    destination. Use when the user asks 'is my DLT source up to date',
+    'how many DLT sources do we have', 'does my DLT source use the
+    canonical helpers', 'which DLT sources have drift', 'where is the
+    HMGCC rolling-window source', 'where is the States of Jersey Police
+    source'. All sources MUST be OSINT-allowlisted per
+    dlt_sources/cianchosaint/common/osint_allowlist.yaml.
+  files:
+    - dlt_sources/cianchosaint/ireland/law/__init__.py
+    - dlt_sources/cianchosaint/ireland/law/courts_ie.py
+    - dlt_sources/cianchosaint/ireland/law/irish_statute_book.py
+    - dlt_sources/cianchosaint/ireland/law/doj.py
+    - dlt_sources/cianchosaint/ireland/law/lawreform.py
+    - dlt_sources/cianchosaint/ireland/law/workplace_relations.py
+    - dlt_sources/cianchosaint/ireland/law/citizensinformation.py
+    - dlt_sources/cianchosaint/ireland/law/injuries_ie.py
+    - dlt_sources/cianchosaint/ireland/law/gov_ie_law.py
+    - dlt_sources/official_media_cianchosaint/__init__.py
+    - dlt_sources/official_media_cianchosaint/ggy/sources.py
+    - dlt_sources/official_media_cianchosaint/iom/sources.py
+    - dlt_sources/official_media_cianchosaint/jsy/sources.py
+    - dlt_sources/official_media_cianchosaint/hmgcc/rolling_window.py
+    - dlt_sources/official_media_cianchosaint/allowlist.py
+    - dlt_sources/cianchosaint/common/osint_allowlist.yaml
+  tags: [dlt, sources, jurisdictions, dlt_sources, cianchosaint, osint]
+  domain: "08-dlt"
+
+- title: "baml-function-search"
+  description: |
+    How to find any BAML extraction function by name, output type, or
+    client model. Use when the user asks 'what BAML functions extract
+    Irish court judgments', 'which function uses the unsloth_studio
+    client', 'how do I call the ExtractCourtJudgment function', 'where
+    is the Irish law BAML family'. The 4-tier provider chain (Unsloth
+    Studio → LiteLLM → MiniMax → Gemini) is wired in baml_src/clients.baml
+    + baml_src/_shared/provider_router.py per the cianchosaint-pipeline
+    spec § Requirement: 4-tier model provider chain.
+  files:
+    - baml_src/clients.baml
+    - baml_src/_shared/provider_router.py
+    - baml_src/cianchosaint/__init__.py
+    - baml_src/cianchosaint/ireland/law/__init__.py
+    - baml_src/cianchosaint/ireland/law/court_rules.baml
+    - baml_src/cianchosaint/ireland/law/courts.baml
+    - baml_src/cianchosaint/ireland/law/judgements.baml
+    - baml_src/cianchosaint/ireland/law/legal_aid.baml
+    - baml_src/cianchosaint/ireland/law/piab.baml
+    - baml_src/cianchosaint/ireland/law/shared_legal_enums.baml
+    - baml_src/cianchosaint/processing/official_media.baml
+  tags: [baml, extraction, functions, clients, schema, cianchosaint, unsloth]
+  domain: "08-baml"
+
+- title: "cocoindex-flow-search"
+  description: |
+    How to find any CocoIndex v1 App by name, jurisdiction, or output
+    embedding table. Use when the user asks 'which v1 Apps are wired in
+    cianchosaint', 'where is the Ireland legal embedding flow', 'how
+    do I add a new v1 App for the BIPP v1 policing cohorts', 'where is
+    the CocoIndex factory'. The shared lifespan (the canonical embedder
+    BAAI/bge-m3 1024-d) lives at cocoindex_flows/_shared/_lifespan.py.
+  files:
+    - cocoindex_flows/__init__.py
+    - cocoindex_flows/_shared/_lifespan.py
+    - cocoindex_flows/cianchosaint/__init__.py
+    - cocoindex_flows/cianchosaint/_factory.py
+    - cocoindex_flows/cianchosaint/_factory/
+    - cocoindex_flows/cianchosaint/ireland/__init__.py
+    - cocoindex_flows/cianchosaint/ireland/court_rules.py
+    - cocoindex_flows/cianchosaint/ireland/legal_aid.py
+    - cocoindex_flows/cianchosaint/ireland/legal_embedding.py
+  tags: [cocoindex, v1-app, embedding, lance, bge-m3, cianchosaint]
+  domain: "08-cocoindex"
+
+- title: "browser-tool-router-search"
+  description: |
+    The browser-tool router (Crawl4AI + Stagehand + Firecrawl + Playwright)
+    in cianchosaint. Use when the user asks 'which browser tool fits
+    task X', 'how do I add a new browser backend', 'where is the
+    authentication-aware browser flow', 'how do I scrape a gov.uk
+    press-release', 'how do I respect robots.txt + the OSINT allowlist'.
+    All scrapes MUST pass the OSINT allowlist check before the browser
+    tool is dispatched. The wrapper exposes Langfuse @observe + Pydantic
+    validation per the centralised agent-observability stack.
+  files:
+    - agents/meaisinfhoghlaim/firecrawl_mcp/__init__.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/client.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/__init__.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/router.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/lancedb_store.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/cognee_store.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/graphiti_store.py
+  tags: [browser, crawl4ai, firecrawl, stagehand, playwright, router, cianchosaint]
+  domain: "00-browser-tool-router"
+
+- title: "bipp-v1-policing"
+  description: |
+    BIPP v1 — British Isles Policing Pipeline. Ingest 53 forces × 7
+    domains = ~371 cohorts. 43 UK territorial forces + PSNI +
+    Metropolitan Police + Police Scotland + 4 Welsh forces + BTP +
+    Crown Dependencies police forces (States of Jersey Police,
+    Bailiwick of Guernsey Police, Isle of Man Constabulary). 7 domains
+    are street-level crime, stop & search, outcomes, anti-social
+    behaviour, police workforce, FOI responses, press releases. Per
+    cianchosaint-pipeline spec § Requirement: BIPP v1 sub-pipeline.
+  files:
+    - openspec/specs/cianchosaint-pipeline/spec.md
+    - dlt_sources/cianchosaint/ireland/law/courts_ie.py
+    - dlt_sources/official_media_cianchosaint/__init__.py
+    - dlt_sources/official_media_cianchosaint/ggy/sources.py
+    - dlt_sources/official_media_cianchosaint/iom/sources.py
+    - dlt_sources/official_media_cianchosaint/jsy/sources.py
+    - dlt_sources/cianchosaint/common/osint_allowlist.yaml
+  tags: [bipp, policing, bipp-v1, british-isles, psni, metpolice, police-scotland, btp, jersey, guernsey, isle-of-man]
+  domain: "01-bipp-v1-policing"
+
+- title: "bidp-v1-defence"
+  description: |
+    BIDP v1 — British Isles Defence Pipeline. Ingest 4 UK services +
+    Irish DF + UK MoD + 2 doctrine series = 64 cohorts. The 4 UK
+    services are RAF, Royal Navy, British Army, Royal Marines. The
+    2 doctrine series are JSP (Joint Service Publications) + JDP
+    (Joint Doctrine Publications). Irish DF is Óglaigh na hÉireann
+    (Army + Air Corps + Naval Service). Per cianchosaint-pipeline
+    spec § Requirement: BIDP v1 sub-pipeline.
+  files:
+    - openspec/specs/cianchosaint-pipeline/spec.md
+    - dlt_sources/cianchosaint/ireland/law/__init__.py
+    - dlt_sources/cianchosaint/ireland/law/doj.py
+    - dlt_sources/cianchosaint/ireland/law/gov_ie_law.py
+    - dlt_sources/official_media_cianchosaint/__init__.py
+    - dlt_sources/cianchosaint/common/osint_allowlist.yaml
+  tags: [bidp, defence, bidp-v1, british-army, raf, royal-navy, royal-marines, irish-df, mod, jsp, jdp]
+  domain: "01-bidp-v1-defence"
+
+- title: "biip-v1-intel-oversight"
+  description: |
+    BIIP v1 — British Isles Intelligence Oversight Pipeline. Ingest
+    6 oversight bodies × 8 document kinds = 48 cohorts. The 6
+    oversight bodies are UK ISC (Intelligence and Security Committee),
+    UK IPCO (Investigatory Powers Commissioner's Office), UK IPT
+    (Investigatory Powers Tribunal), NI Policing Board, ROI Policing
+    Authority, Garda Inspectorate. Per cianchosaint-pipeline spec
+    § Requirement: BIIP v1 sub-pipeline.
+  files:
+    - openspec/specs/cianchosaint-pipeline/spec.md
+    - dlt_sources/cianchosaint/ireland/law/lawreform.py
+    - dlt_sources/cianchosaint/ireland/law/doj.py
+    - dlt_sources/official_media_cianchosaint/__init__.py
+    - dlt_sources/official_media_cianchosaint/hmgcc/rolling_window.py
+    - dlt_sources/cianchosaint/common/osint_allowlist.yaml
+  tags: [biip, intel-oversight, biip-v1, isc, ipco, ipt, policing-board, policing-authority, garda-inspectorate]
+  domain: "01-biip-v1-intel-oversight"
+
+- title: "firecrawl-corpus-search"
+  description: |
+    The FirecrawlMCPClient wrapper + the polyglot memory router
+    (Graphiti for temporal + LanceDB for vector + Cognee for
+    cross-doc). Use when the user asks 'how do I scrape gov.uk press
+    releases', 'how do I respect the Firecrawl budget', 'how do I
+    integrate a new Firecrawl tool', 'where is the FirecrawlMCPClient
+    wrapper'. Every Firecrawl call MUST be OSINT-allowlisted per the
+    cianchosaint-pipeline spec § Requirement: OSINT source URL allowlist.
+    The Firecrawl corpus (the 2-layer index of British-Isles government
+    sources) lives at agents/meaisinfhoghlaim/firecrawl_mcp/corpus.py.
+  files:
+    - agents/meaisinfhoghlaim/firecrawl_mcp/__init__.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/client.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/corpus.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/__init__.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/router.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/lancedb_store.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/cognee_store.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/memory/graphiti_store.py
+  tags: [firecrawl, mcp, scrape, crawl, map, agent, cianchosaint, osint, corpus]
+  domain: "00-dual-search"
+
+- title: "agent-fleet-search"
+  description: |
+    The 24 per-constituency agents in cianchosaint (1 root + 23
+    specialists per the cianchosaint-per-constituency-agents spec).
+    Use when the user asks 'which agent handles X', 'how many agents
+    are there', 'where is the GA agent', 'where is the MET agent',
+    'where is the PSNI agent', 'how do I add a new per-constituency
+    agent'. The agent registry lives at agents/agent_registry.py.
+    Every agent MUST be OSINT-allowlisted per the cianchosaint-pipeline
+    spec § Requirement: OSINT source URL allowlist.
+  files:
+    - agents/__init__.py
+    - agents/agent_registry.py
+    - agents/adk/__init__.py
+    - agents/adk/agent_registry.py
+    - agents/adk/config.py
+    - agents/adk/celtic_tutor_agent.py
+    - agents/adk/curriculum_comparison_agent.py
+    - agents/adk/litellm_agent.py
+    - agents/adk/tuatha_root_agent.py
+    - agents/meaisinfhoghlaim/firecrawl_mcp/client.py
+    - openspec/specs/cianchosaint-per-constituency-agents/spec.md
+  tags: [agents, fleet, cianchosaint, ncca, agents_md, per-constituency, ga, met, psni]
+  domain: "08-agents"
+
+- title: "per-persona-web-surfaces"
+  description: |
+    The 7 per-persona web surfaces in cianchosaint (one per
+    government-analyst persona per the cianchosaint-self-hosted-citizen
+    spec). Use when the user asks 'where is the X persona surface',
+    'how do I add a new persona', 'how do I wire AG-UI + CopilotKit',
+    'where are the TanStack Start routes'. The web stack uses TanStack
+    Start + Convex + Hono + CopilotKit + AG-UI per the centralised
+    agentic-frontend-frameworks skill. Every web surface is
+    OSINT-allowlisted.
+  files:
+    - web/apps/
+    - web/hono-api/
+    - web/packages/
+    - openspec/specs/cianchosaint-self-hosted-citizen/spec.md
+    - openspec/specs/cianchosaint-agentic-interaction/spec.md
+  tags: [web, tanstack-start, convex, hono, copilotkit, ag-ui, persona, cianchosaint]
+  domain: "02-web"
+
+- title: "cianchosaint-pipeline-overview"
+  description: |
+    The umbrella spec for the cianchosaint repo. Use when the user asks
+    'what is cianchosaint', 'where is the licence', 'what is the OSINT
+    ceiling', 'what are the BIPP + BIDP + BIIP sub-pipelines', 'how do
+    the 4-tier provider chain + the OSINT allowlist + the cross-repo
+    sync + the per-spec AGENTS.md convention fit together'. The licence
+    in LICENSE.md is the load-bearing architectural constraint; every
+    decision is subordinate to it.
+  files:
+    - AGENTS.md
+    - LICENSE.md
+    - README.md
+    - openspec/specs/cianchosaint-pipeline/spec.md
+    - openspec/specs/cianchosaint-pipeline/AGENTS.md
+    - dlt_sources/cianchosaint/common/osint_allowlist.yaml
+    - mise.toml
+    - pyproject.toml
+    - package.json
+    - openspec/AGENTS.md
+  tags: [cianchosaint, umbrella, pipeline, licence, osint, british-isles, busl-1.1]
+  domain: "00-cianchosaint"

@@ -1,0 +1,66 @@
+# cianchosaint — `.cocoindex_code/settings.yml`
+#
+# Original (this file): new-build by Cian Mhac An Deisigh on 2026-08-23
+# Licence: BUSL-1.1 (CIANCHOSAINT edition, per LICENSE.md)
+#
+# This file is part of cianchosaint (the British Isles defence / policing /
+# intelligence-oversight open-source data platform). See LICENSE.md for
+# the full Additional Use Grant + the 3-step foreign-use gate + the
+# warrant-to-enforce clause.
+#
+# Scope (per LICENSE.md): OSINT-only British Isles defence / policing /
+# intelligence-oversight data platform. Strictly restricted to public-sector
+# bodies of the Republic of Ireland, the United Kingdom of Great Britain and
+# Northern Ireland, the Crown Dependencies (Jersey, Guernsey, Isle of Man),
+# and their respective defence, security, intelligence, and policing bodies.
+
+exclude_patterns:
+- '**/.*'
+- '**/__pycache__'
+- '**/node_modules'
+- '**/target'
+- '**/build/assets'
+- '**/dist'
+- '**/vendor/*.*/*'
+- '**/vendor/*'
+- '**/.cocoindex_code'
+- '**/.turbo'
+- '**/.next'
+- '**/.cache'
+include_patterns:
+- '**/*.py'
+- '**/*.pyi'
+- '**/*.js'
+- '**/*.jsx'
+- '**/*.ts'
+- '**/*.tsx'
+- '**/*.mjs'
+- '**/*.cjs'
+- '**/*.baml'
+- '**/*.md'
+- '**/*.mdx'
+- '**/*.txt'
+- '**/*.rst'
+- '**/*.yml'
+- '**/*.yaml'
+- '**/*.toml'
+- '**/*.json'
+
+# Explicit top-priority patterns for the agent discovery Apps
+# (added 2026-08-23 during the cianchosaint-bootstrap-v2 cutover).
+# The agent_registry v1 App reads `opencode.json` (single file at repo root).
+# The agents_md v1 App reads the canonical AGENTS.md files.
+# The license_lint v1 App reads the OSINT allowlist + walks every DLT source.
+# These patterns ensure the new v1 Apps pick up the right files first on
+# incremental re-index.
+priority_patterns:
+- 'AGENTS.md'
+- '**/cianchosaint/AGENTS.md'
+- '**/agents/AGENTS.md'
+- '**/dlt_sources/AGENTS.md'
+- '**/baml_src/AGENTS.md'
+- '**/cocoindex_flows/AGENTS.md'
+- '**/bonneagar/AGENTS.md'
+- 'opencode.json'
+- 'dlt_sources/cianchosaint/common/osint_allowlist.yaml'
+- 'openspec/specs/cianchosaint-pipeline/spec.md'

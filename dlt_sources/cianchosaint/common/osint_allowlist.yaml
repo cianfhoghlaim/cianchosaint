@@ -1,0 +1,83 @@
+# cianchosaint — `dlt_sources/cianchosaint/common/osint_allowlist.yaml`
+#
+# Original (this file): new-build by Cian Mhac An Deisigh on 2026-08-23
+# Licence: BUSL-1.1 (CIANCHOSAINT edition, per LICENSE.md)
+#
+# This file is part of cianchosaint (the British Isles defence / policing /
+# intelligence-oversight open-source data platform). See LICENSE.md for
+# the full Additional Use Grant + the 3-step foreign-use gate + the
+# warrant-to-enforce clause.
+#
+# The canonical OSINT allowlist for the cianchosaint repo. Every DLT
+# source URL must appear here or scripts/lint_license.py will refuse to
+# scaffold. Per the cianchosaint-pipeline spec § Requirement: OSINT
+# source URL allowlist + § Scenario: Source not in allowlist is rejected
+# at scaffold time + § Scenario: Allowlist entry must reference a
+# British Isles body.
+#
+# Initial population (NEW-BUILD stub, 2026-08-23):
+#   - HMGCC entry verbatim from the wholesale-copied
+#     dlt_sources/official_media_cianchosaint/fixtures/allowlist_intelligence.yaml
+#   - 3 Crown Dependencies entries (States of Jersey Police, Bailiwick
+#     of Guernsey Police, Isle of Man Constabulary) constructed from
+#     the cianchosaint-pipeline spec § Requirement: BIPP v1 sub-pipeline
+#     which names them as the 3 Crown Dependencies police forces in
+#     the BIPP v1 cohort grid (53 forces × 7 domains = 371 cohorts)
+#
+# TODO (post-bootstrap): migrate the remaining wholesale-copied entries
+# from dlt_sources/official_media_cianchosaint/fixtures/allowlist_*.yaml
+# (allowlist_jurisdictions, allowlist_intelligence, allowlist_parties,
+# allowlist_schools, allowlist_universities) into this canonical
+# allowlist. The Crown Dependencies entries below are constructed
+# because the wholesale-copied allowlist_jurisdictions.yaml does NOT
+# contain Jersey / Guernsey / Isle of Man entries; the 3 forces below
+# are added per the spec's BIPP v1 cohort grid requirement.
+
+version: 1
+category: cianchosaint_osint_allowlist
+description: >-
+  Canonical OSINT allowlist for cianchosaint. Every DLT source URL must
+  appear here or scripts/lint_license.py exits 1. Every entry MUST
+  reference a British Isles public-sector body per LICENSE.md.
+entries:
+  # === INTELLIGENCE (verbatim from allowlist_intelligence.yaml) ===
+  - ig_username: hmgcc
+    name: "HMGCC — His Majesty's Government Communications Centre"
+    wikipedia_title: "HMGCC"
+    verified_at: "2026-06-18"
+    source_url: "https://www.hmgcc.gov.uk/contact-us/"
+
+  # === CROWN DEPENDENCIES — POLICE FORCES ===
+  # Per the cianchosaint-pipeline spec § Requirement: BIPP v1 sub-pipeline,
+  # the 53 BIPP v1 forces include the Crown Dependencies police forces:
+  # States of Jersey Police, Bailiwick of Guernsey Police, Isle of Man
+  # Constabulary. The wholesale-copied
+  # dlt_sources/official_media_cianchosaint/fixtures/allowlist_jurisdictions.yaml
+  # does NOT contain Jersey / Guernsey / Isle of Man entries; the 3
+  # entries below are added to satisfy the BIPP v1 cohort grid.
+  - ig_username: jersey_police_official
+    name: "States of Jersey Police"
+    wikipedia_title: "States of Jersey Police"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.je/government/pages/police.aspx"
+    jurisdiction: "jsy"
+    body_class: "police_force"
+    crown_dependency: "jersey"
+
+  - ig_username: guernsey_police_official
+    name: "Bailiwick of Guernsey Police"
+    wikipedia_title: "Guernsey Police"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.gg/police"
+    jurisdiction: "ggy"
+    body_class: "police_force"
+    crown_dependency: "guernsey"
+
+  - ig_username: iom_constabulary_official
+    name: "Isle of Man Constabulary"
+    wikipedia_title: "Isle of Man Constabulary"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.im/about-the-government/departments/home-affairs/constabulary/"
+    jurisdiction: "iom"
+    body_class: "police_force"
+    crown_dependency: "isle_of_man"
