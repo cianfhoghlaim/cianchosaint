@@ -86,19 +86,18 @@ asyncio_mode = "auto"
 packages = ["cianchosaint"]
 
 # -----------------------------------------------------------------------------
-# Cross-repo Python source map (per the
-# openspec/changes/cianchosaint-agentic-interaction-v1/cross-repo-sync.md)
+# Cross-repo Python source map — REMOVED per Q24 of the bootstrap-v2 plan.
 #
-# Cianchosaint MIRRORS (not migrates) the Cianfhoghlaim legal pipelines:
-# - dlt_sources/british_isles/ireland/law/{irish_statute_book.py, courts_ie.py}
-# - baml_src/british_isles/ireland/education/law/{piab, courts, judgements, court_rules, legal_aid}.baml
-# - baml_src/british_isles/ireland/education/law/shared_legal_enums.baml
-# - cocoindex_flows/british_isles/ireland/ireland_legal_embedding.py
+# Cianchosaint is a STANDALONE iteration of the project. It does NOT
+# consume any files from Cianfhoghlaim at runtime. The relevant
+# Cianfhoghlaim assets (DLT sources + BAML schemas + CocoIndex flows +
+# agents framework + web framework + IaC stacks + skills) are wholesale-
+# copied into Cianchosaint via the
+# `openspec/changes/cianchosaint-repo-bootstrap-v2` openspec change,
+# then renamed to the cianchosaint namespace and refactored for the
+# defence / policing / intelligence-oversight domain.
 #
-# Cianfhoghlaim retains ownership for education use; cianchosaint
-# consumes them via this cross-repo source map. The path is the
-# sibling worktree of Cianfhoghlaim on the developer's machine.
+# This file intentionally has NO [tool.uv.sources] section.
 # -----------------------------------------------------------------------------
 
-[tool.uv.sources]
-cianfhoghlaim-legal = { path = "../kings_college_galway/baml_src/british_isles/ireland/education/law/", editable = true }
+# [tool.uv.sources] removed — Cianchosaint is standalone (Q24)
