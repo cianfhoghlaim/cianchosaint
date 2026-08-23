@@ -1,0 +1,1 @@
+{ "name": "@ciafagent-self-host/convex", "private": true, "type": "module", "main": "./src/schema.ts", "types": "./src/schema.ts", "scripts": { "typecheck": "tsc --noEmit" }, "dependencies": { "convex": "^1.40.0", "zod": "^4.0.0" }, "devDependencies": { "@types/node": "^22.0.0", "typescript": "^5.7.0" } }

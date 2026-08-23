@@ -1,0 +1,3 @@
+/* ciafagent-psni-internal styles */
+:root { --ciafagent-bg: #020617; --ciafagent-fg: #e2e8f0; --ciafagent-accent: #10b981; --ciafagent-border: #064e3b; }
+body { margin: 0; background-color: var(--ciafagent-bg); color: var(--ciafagent-fg); }

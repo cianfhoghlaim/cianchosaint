@@ -1,0 +1,6 @@
+name = "ciafagent-api"
+compatibility_date = "2026-08-23"
+main = "apps/api/src/index.ts"
+[env.production]
+  routes = [{ pattern = "api.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }]
+  vars = { CONVEX_DEPLOYMENT = "prod:conic-api", COPILOTKIT_RUNTIME_URL = "/api/copilotkit" }

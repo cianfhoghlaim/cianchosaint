@@ -1,0 +1,17 @@
+/* ciafagent-ga-internal styles */
+@import "@cianchosaint/ui-kit/theme/tailwind.css";
+
+:root {
+  --ciafagent-bg: #020617;
+  --ciafagent-fg: #e2e8f0;
+  --ciafagent-accent: #3b82f6;
+  --ciafagent-accent-hover: #2563eb;
+  --ciafagent-border: #1e3a8a;
+}
+
+body {
+  margin: 0;
+  background-color: var(--ciafagent-bg);
+  color: var(--ciafagent-fg);
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+}

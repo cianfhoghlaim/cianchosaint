@@ -1,0 +1,32 @@
+name = "ciafagent-ga-internal"
+compatibility_date = "2026-08-23"
+pages_build_output_dir = "dist"
+main = "apps/web/app.config.ts"
+
+[env.production]
+  routes = [
+    { pattern = "ga-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "ga-internal-api.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }
+  ]
+  vars = {
+    CONVEX_DEPLOYMENT = "prod:conic-ga-internal"
+    COPILOTKIT_RUNTIME_URL = "/api/copilotkit"
+    ROOT_AGENT = "ga_root_agent"
+    JURISDICTION = "ga"
+    AUDIENCE = "internal"
+    PORTAL_PUBLIC_URL = "https://ga-internal.cianchosaint.ie"
+    CIANCHOSAINT_BUILD = "production"
+  }
+
+[env.staging]
+  routes = [
+    { pattern = "staging-ga-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }
+  ]
+  vars = {
+    CONVEX_DEPLOYMENT = "staging:conic-ga-internal"
+    COPILOTKIT_RUNTIME_URL = "/api/copilotkit"
+    ROOT_AGENT = "ga_root_agent"
+    JURISDICTION = "ga"
+    AUDIENCE = "internal"
+    CIANCHOSAINT_BUILD = "staging"
+  }

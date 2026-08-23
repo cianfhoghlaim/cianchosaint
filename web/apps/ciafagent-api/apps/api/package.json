@@ -1,0 +1,10 @@
+{
+  "name": "@ciafagent-api/server", "type": "module",
+  "scripts": { "dev": "bun run --hot src/index.ts", "build": "bun build src/index.ts --outdir dist", "typecheck": "tsc --noEmit", "start": "bun run dist/index.js" },
+  "dependencies": {
+    "@cianchosaint/auth": "workspace:*", "@cianchosaint/db": "workspace:*",
+    "@hono/node-server": "^1.0.0", "@orpc/server": "^1.12.0", "@orpc/openapi": "^1.12.0", "@orpc/zod": "^1.12.0",
+    "convex": "^1.40.0", "hono": "^4.8.0", "zod": "^4.0.0"
+  },
+  "devDependencies": { "@types/bun": "^1.2.0", "typescript": "^5.7.0" }
+}

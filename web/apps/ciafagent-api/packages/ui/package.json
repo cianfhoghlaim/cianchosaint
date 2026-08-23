@@ -1,0 +1,1 @@
+{ "name": "@ciafagent-api/ui", "private": true, "type": "module", "main": "./src/index.ts", "types": "./src/index.ts", "scripts": { "typecheck": "tsc --noEmit" }, "dependencies": { "@cianchosaint/ui-kit": "workspace:*" }, "devDependencies": { "typescript": "^5.7.0" } }

@@ -1,0 +1,6 @@
+name = "ciafagent-self-host"
+compatibility_date = "2026-08-23"
+pages_build_output_dir = "dist"
+main = "apps/web/app.config.ts"
+[env.production]
+  vars = { CONVEX_DEPLOYMENT = "self-hosted:conic-self-host", COPILOTKIT_RUNTIME_URL = "/api/copilotkit", OFFLINE_MODE = "true" }

@@ -1,0 +1,1 @@
+{ "name": "@ciafagent-psni-internal/db", "private": true, "type": "module", "main": "./src/client.ts", "types": "./src/client.ts", "scripts": { "typecheck": "tsc --noEmit" }, "dependencies": { "convex": "^1.40.0" }, "devDependencies": { "typescript": "^5.7.0" } }

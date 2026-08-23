@@ -1,0 +1,10 @@
+name = "ciafagent-psni-internal"
+compatibility_date = "2026-08-23"
+pages_build_output_dir = "dist"
+main = "apps/web/app.config.ts"
+[env.production]
+  routes = [{ pattern = "psni-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }]
+  vars = { CONVEX_DEPLOYMENT = "prod:conic-psni-internal", COPILOTKIT_RUNTIME_URL = "/api/copilotkit", ROOT_AGENT = "psni_root_agent", JURISDICTION = "psni", AUDIENCE = "internal" }
+[env.staging]
+  routes = [{ pattern = "staging-psni-internal.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }]
+  vars = { CONVEX_DEPLOYMENT = "staging:conic-psni-internal", COPILOTKIT_RUNTIME_URL = "/api/copilotkit", ROOT_AGENT = "psni_root_agent", JURISDICTION = "psni", AUDIENCE = "internal" }

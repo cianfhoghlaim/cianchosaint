@@ -1,0 +1,1 @@
+node_modules/ dist/ .output/ .turbo/ .tanstack/ *.log .DS_Store .env convex/_generated/ .wrangler/ .dev.vars

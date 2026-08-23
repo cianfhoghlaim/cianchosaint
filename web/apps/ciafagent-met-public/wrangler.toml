@@ -1,0 +1,23 @@
+name = "ciafagent-met-public"
+compatibility_date = "2026-08-23"
+pages_build_output_dir = "dist"
+main = "apps/web/app.config.ts"
+
+[env.production]
+  routes = [
+    { pattern = "met-public.cianchosaint.ie/*", zone_name = "cianchosaint.ie" },
+    { pattern = "met-public-api.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }
+  ]
+  vars = {
+    CONVEX_DEPLOYMENT = "prod:conic-met-public"
+    COPILOTKIT_RUNTIME_URL = "/api/copilotkit"
+    ROOT_AGENT = "met_root_agent"
+    JURISDICTION = "met"
+    AUDIENCE = "public"
+  }
+
+[env.staging]
+  routes = [
+    { pattern = "staging-met-public.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }
+  ]
+  vars = { CONVEX_DEPLOYMENT = "staging:conic-met-public", COPILOTKIT_RUNTIME_URL = "/api/copilotkit", ROOT_AGENT = "met_root_agent", JURISDICTION = "met", AUDIENCE = "public" }
