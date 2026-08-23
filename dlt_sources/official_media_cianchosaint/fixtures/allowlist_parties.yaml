@@ -169,3 +169,332 @@ entries:
     wikipedia_title: "Green Party of England and Wales"
     verified_at: "2026-06-18"
     source_url: "https://greenparty.org.uk/contact/"
+
+  # ─────────────────────────────────────────────────────────────────────
+  # Per the openspec/changes/cianchosaint-political-party-pipeline-v1/
+  # spec § Requirement: The 24 per-party DLT source modules, the 24
+  # per-party /news /press rooms are extended below as canonical
+  # DLT source endpoints. Each entry below is the SOURCE_BASE of one
+  # of the 24 per-party DLT source modules at
+  # dlt_sources/cianchosaint/political_parties/<jurisdiction>/<party>.py.
+  #
+  # The original 24 /contact entries above are wholesale-copied from
+  # Cianfhoghlaim (the education platform); the 24 /news entries
+  # below are the canonical ingestion endpoints for the cianchosaint
+  # intelligence platform. The /contact entries remain the canonical
+  # party official-resource declarations; the /news entries are the
+  # canonical DLT ingestion endpoints.
+  #
+  # category: party_press_release (vs category: party for the
+  # wholesale-copied /contact entries above)
+  # ─────────────────────────────────────────────────────────────────────
+
+  # --- UK HoC party_press_release endpoints (7) ---
+  - party_id: conservative-uk
+    category: party_press_release
+    jurisdiction: uk_hoc
+    name: "Conservative and Unionist Party (UK) — press releases"
+    wikipedia_title: "Conservative Party (UK)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.conservatives.com/our-plan"
+
+  - party_id: labour-uk
+    category: party_press_release
+    jurisdiction: uk_hoc
+    name: "Labour Party (UK) — press releases"
+    wikipedia_title: "Labour Party (UK)"
+    verified_at: "2026-08-23"
+    source_url: "https://labour.org.uk/news"
+
+  - party_id: liberal-democrats-uk
+    category: party_press_release
+    jurisdiction: uk_hoc
+    name: "Liberal Democrats — press releases"
+    wikipedia_title: "Liberal Democrats"
+    verified_at: "2026-08-23"
+    source_url: "https://www.libdems.org.uk/news"
+
+  - party_id: reform-uk
+    category: party_press_release
+    jurisdiction: uk_hoc
+    name: "Reform UK — press releases (canonical pilot)"
+    wikipedia_title: "Reform UK"
+    verified_at: "2026-08-23"
+    source_url: "https://www.reformparty.uk/news"
+
+  - party_id: green-party-ew
+    category: party_press_release
+    jurisdiction: uk_hoc
+    name: "Green Party of England and Wales — press releases"
+    wikipedia_title: "Green Party of England and Wales)"
+    verified_at: "2026-08-23"
+    source_url: "https://greenparty.org.uk/news"
+
+  - party_id: plaid-cymru
+    category: party_press_release
+    jurisdiction: uk_hoc
+    name: "Plaid Cymru (UK HoC scope) — press releases"
+    wikipedia_title: "Plaid Cymru"
+    verified_at: "2026-08-23"
+    source_url: "https://www.partyof.wales/news"
+
+  - party_id: snp
+    category: party_press_release
+    jurisdiction: uk_hoc
+    name: "Scottish National Party (UK HoC scope) — press releases"
+    wikipedia_title: "Scottish National Party"
+    verified_at: "2026-08-23"
+    source_url: "https://www.snp.org/news"
+
+  # --- ROI Dáil + Seanad party_press_release endpoints (12) ---
+  - party_id: fianna-fail
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Fianna Fáil — press releases"
+    wikipedia_title: "Fianna Fáil"
+    verified_at: "2026-08-23"
+    source_url: "https://www.fiannafail.ie/news"
+
+  - party_id: fine-gael
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Fine Gael — press releases"
+    wikipedia_title: "Fine Gael"
+    verified_at: "2026-08-23"
+    source_url: "https://www.finegael.ie/our-news/"
+
+  - party_id: sinn-fein-roi
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Sinn Féin (Republic of Ireland branch) — press releases"
+    wikipedia_title: "Sinn Féin"
+    verified_at: "2026-08-23"
+    source_url: "https://www.sinnfein.ie/news"
+
+  - party_id: labour-roi
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Irish Labour Party — press releases"
+    wikipedia_title: "Labour Party (Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.labour.ie/news/"
+
+  - party_id: social-democrats
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Social Democrats (Ireland) — press releases"
+    wikipedia_title: "Social Democrats (Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.socialdemocrats.ie/news/"
+
+  - party_id: pbp-solidarity
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "People Before Profit–Solidarity (all-island) — press releases"
+    wikipedia_title: "People Before Profit–Solidarity"
+    verified_at: "2026-08-23"
+    source_url: "https://www.pbp.ie/news/"
+
+  - party_id: green-party-roi
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Green Party / Comhaontas Glas (Ireland) — press releases"
+    wikipedia_title: "Green Party (Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.greenparty.ie/news/"
+
+  - party_id: aontu
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Aontú (all-island) — press releases"
+    wikipedia_title: "Aontú"
+    verified_at: "2026-08-23"
+    source_url: "https://aontu.ie/news/"
+
+  - party_id: independent-ireland
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Independent Ireland — press releases"
+    wikipedia_title: "Independent Ireland"
+    verified_at: "2026-08-23"
+    source_url: "https://www.independentireland.ie/news/"
+
+  - party_id: irish-freedom-party
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Irish Freedom Party — press releases"
+    wikipedia_title: "Irish Freedom Party"
+    verified_at: "2026-08-23"
+    source_url: "https://www.irishfreedomparty.ie/news"
+
+  - party_id: national-party-roi
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "National Party (Ireland) — press releases"
+    wikipedia_title: "National Party (Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.nationalparty.ie/news"
+
+  - party_id: rise-roi
+    category: party_press_release
+    jurisdiction: roi_dail
+    name: "Rise (Republic of Ireland) — press releases"
+    wikipedia_title: "Rise (Republic of Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.riseparty.ie/news"
+
+  # --- NI Assembly party_press_release endpoints (7) ---
+  - party_id: dup
+    category: party_press_release
+    jurisdiction: ni_assembly
+    name: "Democratic Unionist Party — press releases"
+    wikipedia_title: "Democratic Unionist Party"
+    verified_at: "2026-08-23"
+    source_url: "https://mydup.com/news"
+
+  - party_id: sinn-fein-ni
+    category: party_press_release
+    jurisdiction: ni_assembly
+    name: "Sinn Féin (Northern Ireland branch) — press releases"
+    wikipedia_title: "Sinn Féin"
+    verified_at: "2026-08-23"
+    source_url: "https://www.sinnfein.ie/ni/news"
+
+  - party_id: alliance-ni
+    category: party_press_release
+    jurisdiction: ni_assembly
+    name: "Alliance Party of Northern Ireland — press releases"
+    wikipedia_title: "Alliance Party of Northern Ireland"
+    verified_at: "2026-08-23"
+    source_url: "https://www.allianceparty.org/news"
+
+  - party_id: uup
+    category: party_press_release
+    jurisdiction: ni_assembly
+    name: "Ulster Unionist Party — press releases"
+    wikipedia_title: "Ulster Unionist Party"
+    verified_at: "2026-08-23"
+    source_url: "https://uup.org/news/"
+
+  - party_id: sdlp
+    category: party_press_release
+    jurisdiction: ni_assembly
+    name: "Social Democratic and Labour Party — press releases"
+    wikipedia_title: "Social Democratic and Labour Party"
+    verified_at: "2026-08-23"
+    source_url: "https://www.sdlp.ie/news/"
+
+  - party_id: tuv-ni
+    category: party_press_release
+    jurisdiction: ni_assembly
+    name: "Traditional Unionist Voice — press releases"
+    wikipedia_title: "Traditional Unionist Voice"
+    verified_at: "2026-08-23"
+    source_url: "https://www.tuv.org.uk/news/"
+
+  - party_id: pbp-ni
+    category: party_press_release
+    jurisdiction: ni_assembly
+    name: "People Before Profit (Northern Ireland) — press releases"
+    wikipedia_title: "People Before Profit (Northern Ireland)"
+    verified_at: "2026-08-23"
+    source_url: "https://www.pbp.ie/ni/news/"
+
+  # --- Wales Senedd party_press_release endpoints (4) ---
+  - party_id: plaid-cymru-senedd
+    category: party_press_release
+    jurisdiction: senedd
+    name: "Plaid Cymru (Senedd scope) — press releases"
+    wikipedia_title: "Plaid Cymru"
+    verified_at: "2026-08-23"
+    source_url: "https://www.partyof.wales/senedd"
+
+  - party_id: labour-wales
+    category: party_press_release
+    jurisdiction: senedd
+    name: "Welsh Labour — press releases"
+    wikipedia_title: "Welsh Labour"
+    verified_at: "2026-08-23"
+    source_url: "https://www.welshlabour.wales/news"
+
+  - party_id: conservative-wales
+    category: party_press_release
+    jurisdiction: senedd
+    name: "Welsh Conservatives — press releases"
+    wikipedia_title: "Welsh Conservatives"
+    verified_at: "2026-08-23"
+    source_url: "https://www.welshconservatives.co.uk/news"
+
+  - party_id: liberal-democrats-wales
+    category: party_press_release
+    jurisdiction: senedd
+    name: "Welsh Liberal Democrats — press releases"
+    wikipedia_title: "Welsh Liberal Democrats"
+    verified_at: "2026-08-23"
+    source_url: "https://www.welshlibdems.wales/news"
+
+  # --- Scotland Holyrood party_press_release endpoints (5) ---
+  - party_id: snp-scottish
+    category: party_press_release
+    jurisdiction: holyrood
+    name: "Scottish National Party (Holyrood scope) — press releases"
+    wikipedia_title: "Scottish National Party"
+    verified_at: "2026-08-23"
+    source_url: "https://www.snp.org/holyrood"
+
+  - party_id: scottish-labour
+    category: party_press_release
+    jurisdiction: holyrood
+    name: "Scottish Labour — press releases"
+    wikipedia_title: "Scottish Labour"
+    verified_at: "2026-08-23"
+    source_url: "https://www.scottishlabour.org.uk/news"
+
+  - party_id: scottish-conservatives
+    category: party_press_release
+    jurisdiction: holyrood
+    name: "Scottish Conservatives — press releases"
+    wikipedia_title: "Scottish Conservatives"
+    verified_at: "2026-08-23"
+    source_url: "https://www.scottishconservatives.com/news"
+
+  - party_id: scottish-liberal-democrats
+    category: party_press_release
+    jurisdiction: holyrood
+    name: "Scottish Liberal Democrats — press releases"
+    wikipedia_title: "Scottish Liberal Democrats"
+    verified_at: "2026-08-23"
+    source_url: "https://www.scotlibdems.org.uk/news"
+
+  - party_id: scottish-greens
+    category: party_press_release
+    jurisdiction: holyrood
+    name: "Scottish Greens — press releases"
+    wikipedia_title: "Scottish Greens"
+    verified_at: "2026-08-23"
+    source_url: "https://greens.scot/news/"
+
+  # --- Crown Dependencies party_press_release endpoints (3) ---
+  - party_id: jersey-party
+    category: party_press_release
+    jurisdiction: jsy
+    name: "Jersey (States Assembly + Reform Jersey) — press releases"
+    wikipedia_title: "States of Jersey"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.je/Government/Pages/States.aspx"
+
+  - party_id: guernsey-party
+    category: party_press_release
+    jurisdiction: ggy
+    name: "Guernsey (States of Guernsey) — press releases"
+    wikipedia_title: "States of Guernsey"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.gg/StatesofGuernsey"
+
+  - party_id: iom-party
+    category: party_press_release
+    jurisdiction: iom
+    name: "Isle of Man (Tynwald + Tinvaal + Liberal Vannin) — press releases"
+    wikipedia_title: "Tynwald"
+    verified_at: "2026-08-23"
+    source_url: "https://www.gov.im/parliament"
