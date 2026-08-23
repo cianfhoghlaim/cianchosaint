@@ -1,0 +1,172 @@
+[env]
+# Minimal mise.toml for cianchosaint — canonical 9-namespace task catalogue
+# to be extended per the dev-tooling-surfaces spec (mirrors Cianfhoghlaim).
+
+mise.toml_format = "0.1"
+
+_.python.compile = true
+
+
+# ---------------------------------------------------------------------------
+# core — dev env (sync + install + lint + test + format)
+# ---------------------------------------------------------------------------
+
+[tasks.core]
+description = "Core dev env: sync + install + lint + test + format"
+run = "mise run sync:all && mise run lint:openspec && mise run test:smoke"
+
+
+# ---------------------------------------------------------------------------
+# openspec — validate / archive / view
+# ---------------------------------------------------------------------------
+
+[tasks."openspec:validate"]
+description = "Validate one openspec change with --strict"
+run = "openspec validate $argv --strict"
+usage = '''
+arg "<change-id>" help="The change ID to validate"
+'''
+
+[tasks."openspec:validate-all"]
+description = "Validate ALL openspec changes + specs with --strict"
+run = "openspec validate --all --strict"
+
+[tasks."openspec:archive"]
+description = "Archive a deployed openspec change"
+run = "openspec archive $argv --yes"
+usage = '''
+arg "<change-id>" help="The change ID to archive"
+'''
+
+[tasks."openspec:list"]
+description = "List pending openspec changes"
+run = "openspec list"
+
+[tasks."openspec:view"]
+description = "Interactive dashboard of all specs + changes"
+run = "openspec view"
+
+
+# ---------------------------------------------------------------------------
+# cianchosaint — sub-pipeline gates + provider health
+# ---------------------------------------------------------------------------
+
+# BIPP v1 — British Isles Policing Pipeline
+[tasks."cianchosaint:bipp:v1:m1"]
+description = "BIPP v1 milestone gate m1: An Garda Síochána (14 cohorts)"
+run = [
+  "mise run openspec:validate-all",
+  "uv run python -m dlt_sources.cianchosaint.garda.pipeline",
+]
+
+[tasks."cianchosaint:bipp:v1:m2"]
+description = "BIPP v1 milestone gate m2: UK-wide (data.police.uk + 43 forces)"
+run = [
+  "mise run openspec:validate-all",
+  "uv run python -m dlt_sources.cianchosaint.uk.policing.pipeline",
+]
+
+[tasks."cianchosaint:bipp:v1:m3"]
+description = "BIPP v1 milestone gate m3: Crown Dependencies (3 forces)"
+run = [
+  "mise run openspec:validate-all",
+  "uv run python -m dlt_sources.cianchosaint.crown_dependencies.policing.pipeline",
+]
+
+# BIDP v1 — British Isles Defence Pipeline
+[tasks."cianchosaint:bidp:v1:m1"]
+description = "BIDP v1 milestone gate m1: UK MoD + RAF + RN + Army (32 cohorts)"
+run = [
+  "mise run openspec:validate-all",
+  "uv run python -m dlt_sources.cianchosaint.uk.defence.pipeline",
+]
+
+[tasks."cianchosaint:bidp:v1:m2"]
+description = "BIDP v1 milestone gate m2: Irish Defence Forces (16 cohorts)"
+run = [
+  "mise run openspec:validate-all",
+  "uv run python -m dlt_sources.cianchosaint.ireland.defence.pipeline",
+]
+
+[tasks."cianchosaint:bidp:v1:m3"]
+description = "BIDP v1 milestone gate m3: JSP/JDP doctrine series (16 cohorts)"
+run = [
+  "mise run openspec:validate-all",
+  "uv run python -m dlt_sources.cianchosaint.doctrine.pipeline",
+]
+
+# BIIP v1 — British Isles Intelligence Oversight Pipeline
+[tasks."cianchosaint:biip:v1:m1"]
+description = "BIIP v1 milestone gate m1: UK ISC + IPCO + IPT (24 cohorts)"
+run = [
+  "mise run openspec:validate-all",
+  "uv run python -m dlt_sources.cianchosaint.uk.intel_oversight.pipeline",
+]
+
+[tasks."cianchosaint:biip:v1:m2"]
+description = "BIIP v1 milestone gate m2: ROI oversight bodies (12 cohorts)"
+run = [
+  "mise run openspec:validate-all",
+  "uv run python -m dlt_sources.cianchosaint.ireland.intel_oversight.pipeline",
+]
+
+[tasks."cianchosaint:biip:v1:m3"]
+description = "BIIP v1 milestone gate m3: NI Policing Board + Garda Inspectorate (12 cohorts)"
+run = [
+  "mise run openspec:validate-all",
+  "uv run python -m dlt_sources.cianchosaint.ni.intel_oversight.pipeline",
+]
+
+# Cross-cutting
+[tasks."cianchosaint:provider:health-check"]
+description = "Ping the 4-tier provider chain (Unsloth / LiteLLM / MiniMax / Gemini) + report health table"
+run = "uv run python -m baml_src._shared.provider_router.health_check"
+
+
+# ---------------------------------------------------------------------------
+# lint — openspec + licence + drift + skills
+# ---------------------------------------------------------------------------
+
+[tasks.lint]
+description = "Lint: openspec + licence + drift + skills"
+run = [
+  "mise run openspec:validate-all",
+  "mise run lint:license",
+]
+
+[tasks."lint:license"]
+description = "Audit OSINT allowlist + British Isles body check"
+run = "uv run python scripts/lint_license.py"
+
+[tasks."lint:drift-docs"]
+description = "Validate every AGENTS.md number claim against ground truth"
+run = "uv run python scripts/lint_drift_docs.py"
+
+[tasks."lint:skills"]
+description = "Validate .agents/skills/ metadata (YAML frontmatter)"
+run = "uv run python scripts/lint_skills.py"
+
+
+# ---------------------------------------------------------------------------
+# sync — knowledge sync loop (paths + ccc + cognee + skills + mcp + drift)
+# ---------------------------------------------------------------------------
+
+[tasks."sync:all"]
+description = "Run all 14 sync layers"
+run = "uv run python scripts/sync_all.py"
+
+[tasks."sync:paths"]
+description = "Layer 1: pre-v7 path drift cleanup"
+run = "uv run python scripts/sync_paths.py"
+
+
+# ---------------------------------------------------------------------------
+# test — smoke tests
+# ---------------------------------------------------------------------------
+
+[tasks."test:smoke"]
+description = "Smoke test: every openspec change validates + every spec parses"
+run = [
+  "mise run openspec:validate-all",
+  "uv run pytest tests/smoke/ -v",
+]
