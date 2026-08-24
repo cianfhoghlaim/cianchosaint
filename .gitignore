@@ -90,3 +90,6 @@ Thumbs.db
 .scratch/
 .tmp/
 .tmp_*/
+
+# Nested git repos in .agents/skills
+.agents/skills/copilotkit/
