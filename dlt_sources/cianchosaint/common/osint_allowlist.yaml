@@ -481,3 +481,92 @@ entries:
     category: emergency_service
     jurisdiction: "ni"
     body_class: "government_department"
+# ---------------------------------------------------------------------------
+# BIPP v2 — British Isles Political Accountability Pipeline (per
+# openspec/specs/cianchosaint-bipp-v2/spec.md). Per-cohort additions.
+# ---------------------------------------------------------------------------
+
+# Cohort 1: Reform UK accountability (UK HoC)
+- url: "https://www.reformparty.uk/news"
+  category: political_party_accountability
+  body: "Reform UK"
+  jurisdiction: "uk"
+  cohort: "reform_uk_accountability"
+  note: "Reform UK press releases — the canonical Reform UK accountability BIPP v2 cohort"
+- url: "https://find-and-update.company-information.service.gov.uk/"
+  category: political_party_accountability
+  body: "Companies House"
+  jurisdiction: "uk"
+  cohort: "reform_uk_accountability"
+  note: "Companies House bulk data for Reform UK donor filings"
+- url: "https://www.electoralcommission.org.uk/"
+  category: political_party_accountability
+  body: "Electoral Commission"
+  jurisdiction: "uk"
+  cohort: "reform_uk_accountability"
+  note: "Electoral Commission register of political parties"
+
+# Cohort 3: NI political accountability
+- url: "https://www.nidirect.gov.uk/"
+  category: political_accountability
+  body: "Northern Ireland government"
+  jurisdiction: "ni"
+  cohort: "ni_political_accountability"
+  note: "NI government — Sinn Féin funding + DUP + NI Assembly"
+
+# Cohort 4: Scottish political accountability
+- url: "https://www.scotcourts.gov.uk/"
+  category: political_accountability
+  body: "Scottish Courts"
+  jurisdiction: "scotland"
+  cohort: "scottish_political_accountability"
+  note: "Scottish Courts + Russell Group whistleblowers"
+
+# Cohort 5: Welsh + London political accountability
+- url: "https://www.senedd.wales/"
+  category: political_accountability
+  body: "Welsh Parliament"
+  jurisdiction: "wales"
+  cohort: "welsh_london_political_accountability"
+  note: "Welsh Parliament (Senedd)"
+- url: "https://www.london.gov.uk/"
+  category: political_accountability
+  body: "Greater London Authority"
+  jurisdiction: "england"
+  cohort: "welsh_london_political_accountability"
+  note: "Greater London Authority"
+
+# Cohort 6: ROI political accountability
+- url: "https://www.gov.ie/"
+  category: political_accountability
+  body: "Government of Ireland"
+  jurisdiction: "ireland"
+  cohort: "roi_political_accountability"
+  note: "Government of Ireland — Fine Gael coalition + Sinn Féin ROI + Varadkar controversy"
+
+# Cohort 7: Cross-cutting intelligence / cybersecurity
+- url: "https://www.gov.uk/government/organisations"
+  category: intelligence_cybersecurity
+  body: "UK Government"
+  jurisdiction: "uk"
+  cohort: "cross_cutting_intelligence_cybersecurity"
+  note: "UK Government organisations (intelligence agencies + cyber defence)"
+- url: "https://www.ncsc.gov.uk/"
+  category: intelligence_cybersecurity
+  body: "National Cyber Security Centre (UK)"
+  jurisdiction: "uk"
+  cohort: "cross_cutting_intelligence_cybersecurity"
+  note: "NCSC — UK cyber security guidance"
+- url: "https://www.mi5.gov.uk/"
+  category: intelligence_cybersecurity
+  body: "MI5 (Security Service)"
+  jurisdiction: "uk"
+  cohort: "cross_cutting_intelligence_cybersecurity"
+  note: "MI5 public-facing content for the cross-cutting intelligence cohort"
+- url: "https://www.gchq.gov.uk/"
+  category: intelligence_cybersecurity
+  body: "GCHQ"
+  jurisdiction: "uk"
+  cohort: "cross_cutting_intelligence_cybersecurity"
+  note: "GCHQ public-facing content for the cross-cutting intelligence cohort"
+
