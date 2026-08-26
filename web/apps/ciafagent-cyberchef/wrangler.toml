@@ -1,0 +1,10 @@
+name = "ciafagent-cyberchef"
+compatibility_date = "2026-08-23"
+pages_build_output_dir = "dist"
+main = "apps/web/app.config.ts"
+[env.production]
+  routes = [{ pattern = "cyberchef.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }]
+  vars = { CONVEX_DEPLOYMENT = "prod:conic-cyberchef", COPILOTKIT_RUNTIME_URL = "/api/copilotkit", ROOT_AGENT = "cyberchef_root_agent", JURISDICTION = "uk", AUDIENCE = "internal", CYBERCHEF_BASE_URL = "http://cyberchef-server:8080" }
+[env.staging]
+  routes = [{ pattern = "staging-cyberchef.cianchosaint.ie/*", zone_name = "cianchosaint.ie" }]
+  vars = { CONVEX_DEPLOYMENT = "staging:conic-cyberchef", COPILOTKIT_RUNTIME_URL = "/api/copilotkit", ROOT_AGENT = "cyberchef_root_agent", JURISDICTION = "uk", AUDIENCE = "internal", CYBERCHEF_BASE_URL = "http://cyberchef-server:8080" }

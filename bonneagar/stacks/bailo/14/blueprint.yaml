@@ -1,0 +1,16 @@
+# CIANCHOSAINT new-build: the Bailo Pangolin private-resource blueprint (stack 14).
+#
+# Mirrors the crawl4ai blueprint.yaml pattern.
+#
+# Licence: BUSL-1.1 (per LICENSE.md)
+
+private-resources:
+  bailo:
+    name: "Bailo ML Model Registry"
+    mode: "http"
+    destination-port: 8080
+    full-domain: "bailo.cianchosaint.ie"
+    protocol: "http"
+    roles:
+      - "Member"
+    destination: "bailo"

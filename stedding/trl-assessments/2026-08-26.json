@@ -1,0 +1,351 @@
+{
+  "date": "2026-08-26",
+  "reference": "hmgcc/Eligibility of technology readiness levels (TRL).md",
+  "trl_definitions": {
+    "1": "basic principles observed and reported",
+    "2": "technology concept or application formulated",
+    "3": "analytical and experimental critical function or characteristic proof-of-concept",
+    "4": "technology basic validation in a laboratory environment",
+    "5": "technology basic validation in a relevant environment",
+    "6": "technology model or prototype demonstration in a relevant environment",
+    "7": "technology prototype demonstration in an operational environment",
+    "8": "actual technology completed and qualified through test and demonstration",
+    "9": "actual technology qualified through successful mission operations."
+  },
+  "summary": {
+    "total_changes": 11,
+    "trl_distribution": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 6,
+      "5": 4,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "at_trl_9": [],
+    "at_trl_below_3": [
+      "cianchosaint-langfuse-dashboard-v1"
+    ],
+    "pending_audit": []
+  },
+  "assessments": [
+    {
+      "change_id": "2026-08-24-cianchosaint-init-v1",
+      "title": "Change: `2026-08-24-cianchosaint-init-v1` \u2014 cianchosaint sister-repo init",
+      "current_trl": 5,
+      "target_trl": 8,
+      "gap_analysis": "3 TRL stages remaining (current 5 \u2192 target 8). Next stage: TRL 6 (technology model or prototype demonstration in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/2026-08-24-cianchosaint-init-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/2026-08-24-cianchosaint-init-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/2026-08-24-cianchosaint-init-v1/specs/cianchosaint-dlt-sources-split/spec.md",
+        "all 15 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 6 (technology model or prototype demonstration in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-bipp-v2-baml-v1",
+      "title": "Change: cianchosaint-bipp-v2-baml-v1",
+      "current_trl": 4,
+      "target_trl": 7,
+      "gap_analysis": "3 TRL stages remaining (current 4 \u2192 target 7). Next stage: TRL 5 (technology basic validation in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-bipp-v2-baml-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-bipp-v2-baml-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/cianchosaint-bipp-v2-baml-v1/specs/cianchosaint-bipp-v2/spec.md",
+        "13/18 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 5 (technology basic validation in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-bipp-v2-political-party-v2-v1",
+      "title": "Change: cianchosaint-bipp-v2-political-party-v2-v1",
+      "current_trl": 4,
+      "target_trl": 7,
+      "gap_analysis": "3 TRL stages remaining (current 4 \u2192 target 7). Next stage: TRL 5 (technology basic validation in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-bipp-v2-political-party-v2-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-bipp-v2-political-party-v2-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/cianchosaint-bipp-v2-political-party-v2-v1/specs/cianchosaint-bipp-v2/spec.md",
+        "10/18 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 5 (technology basic validation in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-bipp-v2-spec-v1",
+      "title": "Change: cianchosaint-bipp-v2-spec-v1",
+      "current_trl": 4,
+      "target_trl": 7,
+      "gap_analysis": "3 TRL stages remaining (current 4 \u2192 target 7). Next stage: TRL 5 (technology basic validation in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-bipp-v2-spec-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-bipp-v2-spec-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/cianchosaint-bipp-v2-spec-v1/specs/cianchosaint-bipp-v2/spec.md",
+        "6/18 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 5 (technology basic validation in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-cognee-graphiti-political-v1",
+      "title": "Change: cianchosaint-cognee-graphiti-political-v1",
+      "current_trl": 5,
+      "target_trl": 8,
+      "gap_analysis": "3 TRL stages remaining (current 5 \u2192 target 8). Next stage: TRL 6 (technology model or prototype demonstration in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-cognee-graphiti-political-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-cognee-graphiti-political-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/cianchosaint-cognee-graphiti-political-v1/specs/cianchosaint-political-graph/spec.md",
+        "all 8 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 6 (technology model or prototype demonstration in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-collaboration-workspace-v1",
+      "title": "Change: cianchosaint-collaboration-workspace-v1",
+      "current_trl": 5,
+      "target_trl": 8,
+      "gap_analysis": "3 TRL stages remaining (current 5 \u2192 target 8). Next stage: TRL 6 (technology model or prototype demonstration in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-collaboration-workspace-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-collaboration-workspace-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/cianchosaint-collaboration-workspace-v1/specs/cianchosaint-collaboration-workspace/spec.md",
+        "all 8 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 6 (technology model or prototype demonstration in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-garda-prompt-workflow-v1",
+      "title": "Change: cianchosaint-garda-prompt-workflow-v1",
+      "current_trl": 4,
+      "target_trl": 7,
+      "gap_analysis": "3 TRL stages remaining (current 4 \u2192 target 7). Next stage: TRL 5 (technology basic validation in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-garda-prompt-workflow-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-garda-prompt-workflow-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/cianchosaint-garda-prompt-workflow-v1/specs/cianchosaint-garda-prompt-workflow/spec.md",
+        "9/13 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 5 (technology basic validation in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-generative-ui-kit-v1",
+      "title": "Change: cianchosaint-generative-ui-kit-v1",
+      "current_trl": 4,
+      "target_trl": 7,
+      "gap_analysis": "3 TRL stages remaining (current 4 \u2192 target 7). Next stage: TRL 5 (technology basic validation in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-generative-ui-kit-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-generative-ui-kit-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/cianchosaint-generative-ui-kit-v1/specs/cianchosaint-generative-ui-kit/spec.md",
+        "8/13 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 5 (technology basic validation in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-langfuse-dashboard-v1",
+      "title": "cianchosaint-langfuse-dashboard-v1",
+      "current_trl": 1,
+      "target_trl": 4,
+      "gap_analysis": "3 TRL stages remaining (current 1 \u2192 target 4). Next stage: TRL 2 (technology concept or application formulated). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-langfuse-dashboard-v1",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-langfuse-dashboard-v1"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 2 (technology concept or application formulated)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-langfuse-prompt-management-v1",
+      "title": "Change: cianchosaint-langfuse-prompt-management-v1",
+      "current_trl": 4,
+      "target_trl": 7,
+      "gap_analysis": "3 TRL stages remaining (current 4 \u2192 target 7). Next stage: TRL 5 (technology basic validation in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-langfuse-prompt-management-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-langfuse-prompt-management-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/cianchosaint-langfuse-prompt-management-v1/specs/cianchosaint-langfuse-prompt-management/spec.md",
+        "11/36 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 5 (technology basic validation in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    },
+    {
+      "change_id": "cianchosaint-ragas-eval-pipeline-v1",
+      "title": "Change: cianchosaint-ragas-eval-pipeline-v1",
+      "current_trl": 5,
+      "target_trl": 8,
+      "gap_analysis": "3 TRL stages remaining (current 5 \u2192 target 8). Next stage: TRL 6 (technology model or prototype demonstration in a relevant environment). Evidence collected so far: change directory exists at openspec/changes/cianchosaint-ragas-eval-pipeline-v1; proposal.md exists; tasks.md exists...",
+      "evidence": [
+        "change directory exists at openspec/changes/cianchosaint-ragas-eval-pipeline-v1",
+        "proposal.md exists",
+        "tasks.md exists",
+        "1 spec delta(s) present at openspec/changes/cianchosaint-ragas-eval-pipeline-v1/specs/cianchosaint-ragas-eval-pipeline/spec.md",
+        "all 8 tasks.md items checked off"
+      ],
+      "recommendation": "open a follow-up change advancing to TRL 6 (technology model or prototype demonstration in a relevant environment)",
+      "trl_definitions_inline": [
+        "TRL 1: basic principles observed and reported",
+        "TRL 2: technology concept or application formulated",
+        "TRL 3: analytical and experimental critical function or characteristic proof-of-concept",
+        "TRL 4: technology basic validation in a laboratory environment",
+        "TRL 5: technology basic validation in a relevant environment",
+        "TRL 6: technology model or prototype demonstration in a relevant environment",
+        "TRL 7: technology prototype demonstration in an operational environment",
+        "TRL 8: actual technology completed and qualified through test and demonstration",
+        "TRL 9: actual technology qualified through successful mission operations."
+      ],
+      "osint_ceiling_enforced": true,
+      "licence_posture": "BUSL-1.1 v2 (British-Isles-only)",
+      "analyst_review_required": true
+    }
+  ]
+}

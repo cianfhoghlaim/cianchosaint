@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@cianchosaint/ciafagent-ui-kit/*": ["./src/*"],
+      "@cianchosaint/ui-kit": ["../ui-kit/src/index.ts"],
+      "@ukic/web-components": ["./src/ic-web-components/index.ts"]
+    },
+    "types": ["react", "react-dom", "node"]
+  },
+  "include": ["./src/**/*", "./package.json"],
+  "exclude": ["node_modules", "dist"]
+}

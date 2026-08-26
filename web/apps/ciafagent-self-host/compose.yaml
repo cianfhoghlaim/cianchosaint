@@ -1,0 +1,116 @@
+# CIANCHOSAINT — ciafagent-self-host Docker Compose bundle.
+# =============================================================================
+# The self-hosted citizen footprint (per §3.1 of
+# HOW-BRITISH-ISLES-INTELLIGENCE-DEFENCE-POLICING-ENTITIES-USE-CIANCHOSAINT.md).
+#
+# Citizens run `docker compose up` on their own hardware (RPi5, NAS,
+# laptop). The bundle ships:
+#   - the AG-UI chat window (TanStack Start)
+#   - a minimal Hono API for the agent stream
+#   - the 3 cianchosaint root agents (Python, offline fallback)
+#   - a local SQLite cache
+#   - the NCSC device-security pre-flight service (Integration 6)
+#   - the PDF reference service (Integration 8)
+#
+# All dependencies are local — no cloud egress required.
+#
+# Licence: BUSL-1.1 (per LICENSE.md)
+# =============================================================================
+
+name: ciafagent-self-host
+
+services:
+  # ---------------------------------------------------------------------------
+  # AG-UI chat window (TanStack Start)
+  # ---------------------------------------------------------------------------
+  chat:
+    container_name: ciafagent-chat
+    build:
+      context: ../..
+      dockerfile: web/apps/ciafagent-self-host/Dockerfile
+    image: ciafagent-self-host:latest
+    restart: unless-stopped
+    ports:
+      - "7777:3086"   # the AG-UI chat window (per §3.1 of the locked plan)
+      - "8793:8793"   # the embedded Hono API
+    volumes:
+      # Persist the NCSC compliance certificate + the PDF reference cache.
+      - ./.state:/app/.state
+      # Read-only mount of the wholesale NCSC pack + the HMGCC PDF.
+      - ../../hmgcc/Device-Security-Guidance-Configuration-Packs:/hmgcc/Device-Security-Guidance-Configuration-Packs:ro
+      - ../../hmgcc/a176bba9_de078709_1777299087.pdf:/hmgcc/a176bba9_de078709_1777299087.pdf:ro
+    environment:
+      OFFLINE_MODE: "true"
+      AGENT_LOCALE: "en-GB"
+      # Paths used by the FunctionTools + the pre-flight script.
+      CIANCHOSAINT_SELF_HOST_DIR: "/app"
+      CIANCHOSAINT_REPO_ROOT: "/repo"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "wget -q -O- http://localhost:3086/health || exit 1"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      ncsc-check:
+        condition: service_completed_successfully
+    networks:
+      - ciafagent-self-host
+
+  # ---------------------------------------------------------------------------
+  # NCSC device-security pre-flight service (Integration 6)
+  # ---------------------------------------------------------------------------
+  # Runs once at `docker compose up`. If the host's NCSC device-security
+  # configuration is compliant, the script emits a signed certificate to
+  # .state/ncsc-cert.pem. If non-compliant, the script prints the
+  # remediation recommendations but the chat window still starts (the
+  # citizen is WARNED, not blocked — conservative posture).
+  ncsc-check:
+    container_name: ciafagent-ncsc-check
+    image: alpine:3.20
+    restart: "no"
+    profiles: ["preflight"]
+    volumes:
+      - .:/app:ro
+      - ../../hmgcc/Device-Security-Guidance-Configuration-Packs:/hmgcc/Device-Security-Guidance-Configuration-Packs:ro
+      - ./.state:/app/.state
+    working_dir: /app
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        apk add --no-cache bash openssl python3 >/dev/null 2>&1 && \
+        bash scripts/setup_ncsc_device_security.sh || \
+        (echo "NCSC device-security check failed; see recommendations above." && exit 0)
+    networks:
+      - ciafagent-self-host
+
+  # ---------------------------------------------------------------------------
+  # PDF reference extraction service (Integration 8)
+  # ---------------------------------------------------------------------------
+  # Runs once at `docker compose up` if `CIANCHOSAINT_PDF_REFERENCE_REBUILD=1`
+  # is set. Extracts the HMGCC wargaming-audio PDF text via pdftotext and
+  # caches the BAML-extracted PDFReference record.
+  pdf-reference:
+    container_name: ciafagent-pdf-reference
+    image: alpine:3.20
+    restart: "no"
+    profiles: ["preflight"]
+    volumes:
+      - ../../:/repo:ro
+      - ./.state:/app/.state
+    working_dir: /repo
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        apk add --no-cache poppler-utils python3 >/dev/null 2>&1 && \
+        pdftotext hmgcc/a176bba9_de078709_1777299087.pdf /tmp/opencode/hmgcc_challenge.txt && \
+        echo "PDF reference extracted to /tmp/opencode/hmgcc_challenge.txt" || \
+        (echo "PDF reference extraction failed." && exit 0)
+    networks:
+      - ciafagent-self-host
+
+networks:
+  ciafagent-self-host:
+    driver: bridge

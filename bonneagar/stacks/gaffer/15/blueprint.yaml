@@ -1,0 +1,16 @@
+# CIANCHOSAINT new-build: the Gaffer Pangolin private-resource blueprint (stack 15).
+#
+# Mirrors the crawl4ai blueprint.yaml pattern.
+#
+# Licence: BUSL-1.1 (per LICENSE.md)
+
+private-resources:
+  gaffer:
+    name: "Gaffer Cross-Source Relationship Graph"
+    mode: "http"
+    destination-port: 8080
+    full-domain: "gaffer.cianchosaint.ie"
+    protocol: "http"
+    roles:
+      - "Member"
+    destination: "gaffer"

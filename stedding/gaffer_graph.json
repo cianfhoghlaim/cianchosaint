@@ -1,0 +1,96 @@
+{
+  "edges": [
+    {
+      "confidence": "0.80",
+      "provenance": "IPCO reports cite ISC findings in the joint annual oversight cycle",
+      "relationship_type": "source_cites_source",
+      "source_1_id": "ipco",
+      "source_2_id": "isc"
+    },
+    {
+      "confidence": "0.85",
+      "provenance": "Reform UK press releases cite Companies House filings (Q12 case study)",
+      "relationship_type": "source_cites_source",
+      "source_1_id": "reform_uk",
+      "source_2_id": "companies_house_crown_filter"
+    },
+    {
+      "confidence": "0.70",
+      "provenance": "Reform UK press releases cite IPB submissions (Q12 case study)",
+      "relationship_type": "source_cites_source",
+      "source_1_id": "reform_uk",
+      "source_2_id": "investigatory_powers_bill_evidence"
+    },
+    {
+      "confidence": "0.95",
+      "provenance": "Reform UK is financed by donors registered with the Electoral Commission",
+      "relationship_type": "source_financed_by",
+      "source_1_id": "reform_uk",
+      "source_2_id": "donors_register"
+    },
+    {
+      "confidence": "0.85",
+      "provenance": "City of London Police operates under the UK Home Office",
+      "relationship_type": "source_is_branch_of_source",
+      "source_1_id": "city_of_london_police",
+      "source_2_id": "home_office"
+    },
+    {
+      "confidence": "0.90",
+      "provenance": "MET Police operates under the UK Home Office (police service branch)",
+      "relationship_type": "source_is_branch_of_source",
+      "source_1_id": "metropolitan_police",
+      "source_2_id": "home_office"
+    },
+    {
+      "confidence": "0.95",
+      "provenance": "NCA is an agency of the UK Home Office",
+      "relationship_type": "source_is_branch_of_source",
+      "source_1_id": "nca_national_crime_agency",
+      "source_2_id": "home_office"
+    },
+    {
+      "confidence": "1.00",
+      "provenance": "An Garda S\u00edoch\u00e1na operates in the ROI jurisdiction under the Dept of Justice",
+      "relationship_type": "source_is_in_jurisdiction_of",
+      "source_1_id": "garda",
+      "source_2_id": "doj_roi"
+    },
+    {
+      "confidence": "1.00",
+      "provenance": "PSNI operates in the NI jurisdiction under the NI Department of Justice",
+      "relationship_type": "source_is_in_jurisdiction_of",
+      "source_1_id": "psni",
+      "source_2_id": "doj_ni"
+    },
+    {
+      "confidence": "1.00",
+      "provenance": "ISC oversees GCHQ (Government Communications Headquarters)",
+      "relationship_type": "source_oversees_source",
+      "source_1_id": "isc",
+      "source_2_id": "gchq"
+    },
+    {
+      "confidence": "1.00",
+      "provenance": "ISC (Intelligence and Security Committee of Parliament) oversees MI5",
+      "relationship_type": "source_oversees_source",
+      "source_1_id": "isc",
+      "source_2_id": "mi5"
+    },
+    {
+      "confidence": "1.00",
+      "provenance": "ISC oversees MI6 (Secret Intelligence Service)",
+      "relationship_type": "source_oversees_source",
+      "source_1_id": "isc",
+      "source_2_id": "mi6"
+    }
+  ],
+  "relationship_types": [
+    "source_cites_source",
+    "source_financed_by",
+    "source_oversees_source",
+    "source_is_branch_of_source",
+    "source_is_in_jurisdiction_of"
+  ],
+  "schema_version": 1
+}

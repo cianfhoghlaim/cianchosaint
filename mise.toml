@@ -246,7 +246,33 @@ arg "<query>" help="The semantic search query"
 
 
 # ---------------------------------------------------------------------------
-# 12. cianchosaint:web — per-persona web app health
+# 12a. cianchosaint:cyberchef — GCHQ CyberChef (Apache 2.0) wholesale
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:cyberchef:smoke"]
+description = "CyberChef smoke test (verifies the GCHQ CyberChef wholesale source is reachable + the operation catalog is intact)"
+run = "python3 -m dlt_sources.cianchosaint.uk.cyberchef.recipe_extraction"
+
+[tasks."cianchosaint:cyberchef:extract-recipe"]
+description = "Extract a CyberChef recipe from a user's analysis request (delegates to the ExtractCyberChefRecipe BAML function)"
+run = "python3 -c \"import asyncio; from agents.cianchosaint.tools.cyberchef_execute import cyberchef_execute; print(asyncio.run(cyberchef_execute(operations=['From_Base64','JSON_Beautify'], input_text='eyJoZWxsbyI6IndvcmxkIn0=', recipe_name='decode-base64+json-beautify', analyst_user_id='cianchosaint_analyst')))\""
+
+
+# ---------------------------------------------------------------------------
+# 12b. cianchosaint:stroom — GCHQ stroom (Apache 2.0) wholesale
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:stroom:health-check"]
+description = "Stroom health check (verifies the GCHQ stroom wholesale source is reachable)"
+run = "python3 -m dlt_sources.cianchosaint.uk.stroom.log_extraction"
+
+[tasks."cianchosaint:stroom:route-logs"]
+description = "Stroom route-logs: routes craw4ai browser logs + Langfuse observability traces to stroom for XSL transformation + enrichment"
+run = "python3 -c \"import asyncio; from agents.cianchosaint.tools.stroom_query import stroom_query; print(asyncio.run(stroom_query(query='SELECT event_type, COUNT(*) FROM structured_events WHERE source_id IN (\\'craw4ai\\', \\'langfuse\\') GROUP BY event_type', analyst_user_id='cianchosaint_analyst')))\""
+
+
+# ---------------------------------------------------------------------------
+# 13. cianchosaint:web — per-persona web app health
 # ---------------------------------------------------------------------------
 
 [tasks."cianchosaint:web:list"]
@@ -255,7 +281,36 @@ run = "ls web/apps/ | grep cianchosaint-"
 
 
 # ---------------------------------------------------------------------------
-# 13. test — smoke tests
+# 13. cianchosaint:ncsc:device-security — NCSC device-security pre-flight
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:ncsc:device-security:check"]
+description = "NCSC device-security pre-flight check: validates the citizen's host per the official UK government standards"
+run = "bash web/apps/ciafagent-self-host/scripts/setup_ncsc_device_security.sh"
+
+[tasks."cianchosaint:ncsc:device-security:setup"]
+description = "NCSC device-security pre-flight + certificate issuance (BUSL-1.1 v2 signed cert at .state/ncsc-cert.pem)"
+run = "bash web/apps/ciafagent-self-host/scripts/setup_ncsc_device_security.sh && cat web/apps/ciafagent-self-host/.state/ncsc-cert.pem"
+
+
+# ---------------------------------------------------------------------------
+# 14. cianchosaint:pdf-reference — PDF reference extraction + search
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:pdf-reference:extract"]
+description = "Extract the HMGCC wargaming-audio PDF text via pdftotext + cache the BAML-extracted PDFReference record at dlt_sources/cianchosaint/uk/intelligence_agencies/hmgcc_pdf_reference.json"
+run = "mkdir -p dlt_sources/cianchosaint/uk/intelligence_agencies/ && pdftotext hmgcc/a176bba9_de078709_1777299087.pdf /tmp/opencode/hmgcc_challenge.txt && python3 -m agents.cianchosaint.tools.pdf_reference_search"
+
+[tasks."cianchosaint:pdf-reference:search"]
+description = "Search the extracted HMGCC wargaming-audio PDF content (e.g. 'TRL requirements' or 'Bluetooth')"
+run = "python3 -c 'import asyncio; from agents.cianchosaint.tools.pdf_reference_search import pdf_reference_search; import json; print(json.dumps(asyncio.run(pdf_reference_search($0, max_results=10)), indent=2))'"
+usage = '''
+arg "<query>" help="The search query (e.g. 'TRL requirements')"
+'''
+
+
+# ---------------------------------------------------------------------------
+# 15. test — smoke tests
 # ---------------------------------------------------------------------------
 
 [tasks."test:smoke"]
@@ -264,3 +319,62 @@ run = [
   "mise run openspec:validate-all",
   "python3 -m pytest tests/smoke/ -v",
 ]
+
+
+# ---------------------------------------------------------------------------
+# 14. cianchosaint:bailo — Bailo (GCHQ ML model registry) stack
+#     Per openspec/changes/cianchosaint-bailo-integration-v1/spec.md
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:bailo:health-check"]
+description = "Ping the Bailo (GCHQ ML model registry) instance + report health"
+run = "python3 -m baml_src._shared.bailo_integration"
+
+[tasks."cianchosaint:bailo:register-models"]
+description = "Register the 4 tier-chain models in Bailo (unsloth_studio/minimax-m3, litellm/minimax-m3, minimax_token_plan/minimax-m3, gemini_api/gemini-2.5-pro)"
+run = "python3 -c 'from baml_src._shared.bailo_integration import BailoClient; from dlt_sources.cianchosaint.uk.bailo.model_registry import BAILO_TIER_CHAIN_MODELS; c = BailoClient(); [c.register_model(m[\"model_id\"], m[\"provider\"], m[\"model_name\"]) for m in BAILO_TIER_CHAIN_MODELS]; print(\"registered\", len(BAILO_TIER_CHAIN_MODELS), \"models\")'"
+
+
+# ---------------------------------------------------------------------------
+# 15. cianchosaint:gaffer — Gaffer (GCHQ graph database) stack
+#     Per openspec/changes/cianchosaint-gaffer-integration-v1/spec.md
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:gaffer:health-check"]
+description = "Ping the Gaffer (GCHQ graph database) instance + report health"
+run = "python3 -m baml_src._shared.gaffer_integration"
+
+[tasks."cianchosaint:gaffer:build-graph"]
+description = "Build the cross-source relationship graph from the per-source policy aggregator + write to stedding/gaffer_graph.json"
+run = "python3 scripts/build_gaffer_graph.py"
+
+
+# ---------------------------------------------------------------------------
+# 16. cianchosaint:ic-ui-kit — HMGCC IC Design System integration (Integration 1)
+#     Per openspec/changes/2026-08-26-cianchosaint-ic-ui-kit-integration-v1/spec.md
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:ic-ui-kit:smoke"]
+description = "Verify the ciafagent-ui-kit wholesale-copy is intact + every wholesale-copied .ts/.tsx file carries the licence attribution header (60+ ic-* dirs + 9 ciafagent integration wrappers)"
+run = "bash web/packages/ciafagent-ui-kit/scripts/ic_ui_kit_smoke.sh"
+
+
+# ---------------------------------------------------------------------------
+# 17. cianchosaint:trl — TRL (UKRI/STFC Technology Readiness Level) assessment (Integration 7)
+#     Per openspec/changes/2026-08-26-cianchosaint-ic-ui-kit-integration-v1/spec.md
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:trl:assess"]
+description = "Assess every pending openspec change against the 9 UKRI/STFC TRL definitions (writes JSON to stedding/trl-assessments/<date>.json + prints a summary table)"
+run = "python3 scripts/trl_assess.py"
+
+[tasks."cianchosaint:trl:assess-json"]
+description = "Same as cianchosaint:trl:assess but output JSON to stdout (for CI integration)"
+run = "python3 scripts/trl_assess.py --json"
+
+[tasks."cianchosaint:trl:assess-one"]
+description = "Assess ONE specific openspec change by id"
+run = "python3 scripts/trl_assess.py $argv"
+usage = '''
+arg "<change-id>" help="The openspec change id (e.g. cianchosaint-source-policy-v1)"
+'''

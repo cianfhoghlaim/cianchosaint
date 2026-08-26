@@ -1,0 +1,20 @@
+# CIANCHOSAINT new-build: the Gaffer Pangolin routing overlay (stack 15).
+#
+# Per the openspec/changes/cianchosaint-gaffer-integration-v1/
+# specs/cianchosaint-gaffer/spec.md, Requirement: The 15th compose
+# stack Pangolin resource.
+#
+# Gaffer exposes 1 private resource:
+# - gaffer-rest: the Gaffer REST API (port 8080, /rest/v2/*)
+#
+# Licence: BUSL-1.1 (per LICENSE.md)
+
+pangolin:
+  private-resources:
+    gaffer-rest:
+      name: gaffer-rest
+      mode: http
+      full-domain: gaffer-rest.cianchosaint.ie
+      destination-port: 8080
+      protocol: http
+      roles[0]: tinyauth@file

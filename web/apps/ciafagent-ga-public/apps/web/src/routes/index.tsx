@@ -8,6 +8,11 @@
 // routes/index.tsx — ciafagent-ga-public landing page
 
 import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  CianchosaintClassificationBanner,
+  CianchosaintFooter,
+  CianchosaintPrivacyDisclaimer,
+} from "@cianchosaint/ciafagent-ui-kit";
 
 export const Route = createFileRoute("/")({
   component: LandingComponent,
@@ -15,20 +20,30 @@ export const Route = createFileRoute("/")({
 
 function LandingComponent() {
   return (
-    <div className="max-w-4xl mx-auto flex flex-col gap-8 p-8">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-4xl font-bold text-emerald-400">
-          An Garda Síochána
-        </h1>
-        <p className="text-slate-300 text-lg">
-          Your gateway to non-emergency Garda services. For emergencies, call{" "}
-          <strong className="text-red-400">999</strong> or <strong className="text-red-400">112</strong>{" "}
-          immediately.
-        </p>
-        <p className="text-slate-500 text-sm font-mono">
-          ga-public.cianchosaint.ie · powered by the ga_root_agent (Google ADK) + 5 GA specialists
-        </p>
-      </div>
+    <>
+      <CianchosaintClassificationBanner
+        classification="official"
+        show_jurisdiction_badge={true}
+        jurisdiction="ga"
+      />
+      <CianchosaintPrivacyDisclaimer
+        audience="public-facing"
+        jurisdiction="ga"
+      />
+      <div className="max-w-4xl mx-auto flex flex-col gap-8 p-8">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-4xl font-bold text-emerald-400">
+            An Garda Síochána
+          </h1>
+          <p className="text-slate-300 text-lg">
+            Your gateway to non-emergency Garda services. For emergencies, call{" "}
+            <strong className="text-red-400">999</strong> or <strong className="text-red-400">112</strong>{" "}
+            immediately.
+          </p>
+          <p className="text-slate-500 text-sm font-mono">
+            ga-public.cianchosaint.ie · powered by the ga_root_agent (Google ADK) + 5 GA specialists
+          </p>
+        </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {SERVICES.map((s) => (
           <Link
@@ -55,7 +70,9 @@ function LandingComponent() {
           portal is for non-emergency queries only.
         </p>
       </div>
-    </div>
+      </div>
+      <CianchosaintFooter build_sha="cianchosaint-ga-public" />
+    </>
   );
 }
 

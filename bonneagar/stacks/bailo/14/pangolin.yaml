@@ -1,0 +1,38 @@
+# CIANCHOSAINT new-build: the Bailo Pangolin routing overlay (stack 14).
+#
+# Per the openspec/changes/cianchosaint-bailo-integration-v1/
+# specs/cianchosaint-bailo/spec.md, Requirement: The 14th compose
+# stack Pangolin resource.
+#
+# Mirrors the crawl4ai pangolin.yaml pattern.
+#
+# Bailo exposes 3 private resources:
+# - bailo-ui: the GCHQ ML registry web UI (port 8080)
+# - bailo-api: the Bailo REST API (port 8080, /api/v2/*)
+# - bailo-minio: the MinIO S3 console (port 9001) for model artefact uploads
+#
+# Licence: BUSL-1.1 (per LICENSE.md)
+
+pangolin:
+  private-resources:
+    bailo-ui:
+      name: bailo-ui
+      mode: http
+      full-domain: bailo-ui.cianchosaint.ie
+      destination-port: 8080
+      protocol: http
+      roles[0]: tinyauth@file
+    bailo-api:
+      name: bailo-api
+      mode: http
+      full-domain: bailo-api.cianchosaint.ie
+      destination-port: 8080
+      protocol: http
+      roles[0]: tinyauth@file
+    bailo-minio:
+      name: bailo-minio
+      mode: http
+      full-domain: bailo-minio.cianchosaint.ie
+      destination-port: 9001
+      protocol: http
+      roles[0]: tinyauth@file

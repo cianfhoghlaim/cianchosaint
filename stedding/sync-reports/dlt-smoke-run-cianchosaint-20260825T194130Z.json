@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-08-24-cianchosaint-init-v1",
+  "phase": "2.2",
+  "sister_repo": "cianchosaint",
+  "generated_at": "2026-08-25T19:41:30.851974+00:00",
+  "python_version": "3.9.6",
+  "dlt_sources_dir": "dlt_sources",
+  "total_subtrees": 6,
+  "ok_count": 3,
+  "fail_count": 3,
+  "total_duration_ms": 23,
+  "overall_duration_ms": 24,
+  "results": [
+    {
+      "subtree": "_cross",
+      "status": "fail",
+      "error": "ImportError: datetime: cannot import name 'UTC' from 'datetime' (/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/datetime.py)",
+      "duration_ms": 1
+    },
+    {
+      "subtree": "british_isles",
+      "status": "ok",
+      "error": null,
+      "duration_ms": 0
+    },
+    {
+      "subtree": "cianchosaint",
+      "status": "ok",
+      "error": null,
+      "duration_ms": 0
+    },
+    {
+      "subtree": "common",
+      "status": "ok",
+      "error": null,
+      "duration_ms": 21
+    },
+    {
+      "subtree": "law_enforcement",
+      "status": "fail",
+      "error": "ImportError: datetime: cannot import name 'UTC' from 'datetime' (/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/datetime.py)",
+      "duration_ms": 1
+    },
+    {
+      "subtree": "official_media_cianchosaint",
+      "status": "fail",
+      "error": "ImportError: dlt_sources.official_media: No module named 'dlt_sources.official_media'",
+      "duration_ms": 0
+    }
+  ]
+}

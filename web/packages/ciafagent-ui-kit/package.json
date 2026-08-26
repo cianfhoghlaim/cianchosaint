@@ -1,0 +1,59 @@
+{
+  "name": "@cianchosaint/ciafagent-ui-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CIANCHOSAINT — ciafagent UI kit (the HMGCC ic-ui-kit wholesale-copy + integration wrappers)",
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./ic-ic-classification-banner": "./src/ic-ic-classification-banner.tsx",
+    "./ic-ic-top-navigation": "./src/ic-ic-top-navigation.tsx",
+    "./ic-ic-search-bar": "./src/ic-ic-search-bar.tsx",
+    "./ic-ic-data-table": "./src/ic-ic-data-table.tsx",
+    "./ic-ic-tab-group": "./src/ic-ic-tab-group.tsx",
+    "./ic-ic-drawer": "./src/ic-ic-drawer.tsx",
+    "./ic-ic-card-vertical": "./src/ic-ic-card-vertical.tsx",
+    "./ic-ic-footer": "./src/ic-ic-footer.tsx",
+    "./ic-privacy-disclaimer": "./src/ic-privacy-disclaimer.tsx",
+    "./ic-web-components/*": "./src/ic-web-components/*",
+    "./ic-react": "./src/ic-react/index.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "smoke": "bash scripts/ic_ui_kit_smoke.sh"
+  },
+  "keywords": [
+    "cianchosaint",
+    "ciafagent",
+    "ic-ui-kit",
+    "hmgcc",
+    "mi6",
+    "gchq",
+    "mi5",
+    "react",
+    "stencil",
+    "web-components",
+    "design-system"
+  ],
+  "license": "BUSL-1.1 AND MIT AND OGL-3.0",
+  "dependencies": {
+    "@ukic/web-components": "npm:@ukic/web-components@^4.0.0",
+    "@ukic/react": "npm:@ukic/react@^4.0.0",
+    "@ukic/fonts": "npm:@ukic/fonts@^4.0.0",
+    "@cianchosaint/ui-kit": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "stencil": "^4.20.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

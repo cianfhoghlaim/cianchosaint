@@ -1,0 +1,93 @@
+# CIANCHOSAINT new-build: the Bailo ML model registry stack (stack 14).
+#
+# Per the openspec/changes/cianchosaint-bailo-integration-v1/
+# specs/cianchosaint-bailo/spec.md, Requirement: The 14th compose
+# stack (Bailo ML model registry).
+#
+# Bailo (https://github.com/gchq/Bailo) is GCHQ's ML model registry.
+# Originally published under the Apache License 2.0 by GCHQ.
+# Wholesale source: hmgcc/Bailo/ (vendored from gchq/Bailo @ main).
+# Licence: Apache 2.0 (per hmgcc/Bailo/LICENSE.txt).
+#
+# This compose stack ships Bailo's docker-compose + the cianchosaint
+# Locket sidecar for secret injection + Pangolin routing for the
+# private registry API endpoint.
+#
+# Licence: BUSL-1.1 (per LICENSE.md)
+
+version: '3.8'
+
+# Shared configuration for all environments
+x-base-config: &base-config
+  restart: unless-stopped
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:8080/api/v2/health", "-o", "/dev/null", "-w", "%{http_code}", "|", "grep", "-qE", "^(200|401)$"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 60s
+  deploy:
+    resources:
+      limits:
+        memory: 4G
+      reservations:
+        memory: 1G
+
+services:
+  bailo:
+    # Per hmgcc/Bailo/README.md §"Running Locally with Docker",
+    # the upstream compose.yaml uses port 8080 for the UI and
+    # /api/v2/* for the REST API. The cianchosaint stack pins
+    # to the upstream gchq/Bailo image tag and overlays the
+    # cianchosaint Locket sidecar (sidecar.yaml).
+    image: ${IMAGE:-ghcr.io/gchq/bailo:${TAG:-2.0.0}}
+    ports:
+      - "8080:8080"  # Bailo UI + REST API
+    environment:
+      - NODE_ENV=production
+      - BAILO_MONGO_URL=${BAILO_MONGO_URL:-mongodb://bailo-mongo:27017/bailo}
+      - BAILO_MINIO_URL=${BAILO_MINIO_URL:-http://bailo-minio:9000}
+      - BAILO_REDIS_URL=${BAILO_REDIS_URL:-redis://bailo-redis:6379}
+      - BAILO_JWT_SECRET=${BAILO_JWT_SECRET:-}
+      - BAILO_API_TOKEN=${BAILO_API_TOKEN:-}
+    volumes:
+      - bailo-uploads:/data/uploads
+    <<: *base-config
+
+  bailo-mongo:
+    image: ${BAILO_MONGO_IMAGE:-mongo:7.0}
+    volumes:
+      - bailo-mongo-data:/data/db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  bailo-minio:
+    image: ${BAILO_MINIO_IMAGE:-minio/minio:${BAILO_MINIO_TAG:-RELEASE.2024-09-13T20-26-02Z}}
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${BAILO_MINIO_ROOT_USER:-bailo}
+      MINIO_ROOT_PASSWORD: ${BAILO_MINIO_ROOT_PASSWORD:-bailo}
+    volumes:
+      - bailo-minio-data:/data
+    ports:
+      - "9000:9000"  # MinIO S3 API
+      - "9001:9001"  # MinIO console
+    restart: unless-stopped
+
+  bailo-redis:
+    image: ${BAILO_REDIS_IMAGE:-redis:7.2-alpine}
+    restart: unless-stopped
+
+volumes:
+  bailo-uploads:
+  bailo-mongo-data:
+  bailo-minio-data:

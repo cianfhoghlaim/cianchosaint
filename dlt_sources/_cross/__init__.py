@@ -18,9 +18,12 @@
 # The jurisdiction_pipeline_base.py is wholesale-copied verbatim
 # (the JurisdictionPipelineBase subclass pattern is generic).
 
-"""British Isles subject registry (BIEP v3 cross-cutting).
+"""British Isles subject registry (BIEP v3 cross-cutting) +
+the per-vertical law-enforcement aggregator (carve-out v1).
 
-Per the 2026-07-27-biep-v3-canonical-registry-v1 change.
+Per the 2026-07-27-biep-v3-canonical-registry-v1 change +
+the `2026-09-XX-cianchosaint-initial-carveout-v1` change (adds the
+law-enforcement vertical aggregator).
 """
 from dlt_sources.british_isles._cross.registry_api import (
     SubjectRegistryRow,
@@ -30,6 +33,14 @@ from dlt_sources.british_isles._cross.registry_api import (
     query_cross_jurisdiction_bridges,
     insert_subject,
 )
+from dlt_sources._cross.law_enforcement_registry import (
+    LAW_ENFORCEMENT_JURISDICTIONS,
+    LAW_ENFORCEMENT_PER_JURISDICTION,
+    LawEnforcementJurisdiction,
+    get_law_enforcement_pipeline,
+    iter_law_enforcement_pipelines,
+    law_enforcement_intelligence_sources,
+)
 
 __all__ = [
     "SubjectRegistryRow",
@@ -38,4 +49,11 @@ __all__ = [
     "query_by_stage",
     "query_cross_jurisdiction_bridges",
     "insert_subject",
+    # Law-enforcement vertical aggregator (carve-out v1).
+    "LAW_ENFORCEMENT_JURISDICTIONS",
+    "LAW_ENFORCEMENT_PER_JURISDICTION",
+    "LawEnforcementJurisdiction",
+    "get_law_enforcement_pipeline",
+    "iter_law_enforcement_pipelines",
+    "law_enforcement_intelligence_sources",
 ]

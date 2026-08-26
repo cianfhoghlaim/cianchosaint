@@ -116,7 +116,11 @@ class ModelProviderRouter:
     (circuit-breaker closed).
     """
 
-    def __init__(self, providers: list[ProviderConfig] | None = None) -> None:
+    def __init__(
+        self,
+        providers: list[ProviderConfig] | None = None,
+        bailo_client: Any | None = None,
+    ) -> None:
         if providers is None:
             providers = self._load_providers()
         self.providers: list[ProviderConfig] = providers
@@ -126,6 +130,21 @@ class ModelProviderRouter:
         # Per-call Langfuse span attributes (placeholder; the real
         # implementation calls @observe-decorated langfuse.span())
         self._last_span: dict[str, Any] = {}
+        # The BailoClient is optional — when supplied (per the
+        # cianchosaint-bailo-integration-v1 change), every
+        # ``get_active_config()`` call gates the active provider on
+        # its Bailo provenance + ACL record. Per the BUSL-1.1 v2
+        # licence posture, every LLM call MUST be auditable +
+        # access-controlled + provenance-tracked.
+        self._bailo_client = bailo_client
+        try:
+            if self._bailo_client is None:
+                from .bailo_integration import BailoClient
+
+                self._bailo_client = BailoClient()
+        except Exception as exc:  # noqa: BLE001 - defensive
+            logger.warning("bailo_client_init_failed: %s", exc)
+            self._bailo_client = None
 
     @staticmethod
     def _load_providers() -> list[ProviderConfig]:
@@ -150,14 +169,45 @@ class ModelProviderRouter:
 
         Per the openspec/changes/cianchosaint-provider-router-v1/spec.md,
         Requirement: The 4-tier provider chain.
+
+        Per the openspec/changes/cianchosaint-bailo-integration-v1/
+        specs/cianchosaint-bailo/spec.md, Requirement: The Bailo
+        provenance gate — the active provider MUST be Bailo-approved
+        for the ``cianchosaint-l4`` group. If Bailo rejects the
+        active provider (offline + not the default group, OR
+        ``approval_state != "approved"``, OR the group is not in
+        ``access_control_read``), the next provider in the chain is
+        tried. Returns None if all 4 providers are Bailo-rejected
+        (matches the existing circuit-breaker-open behaviour).
         """
         for provider in self.providers:
             if not provider.enabled:
                 continue
             if self.circuit_breakers[provider.name].is_open_now():
                 continue
+            # Bailo provenance gate (per
+            # cianchosaint-bailo-integration-v1). When the Bailo
+            # client is unavailable the gate is a no-op (so the
+            # router still works in offline / CI mode).
+            if self._bailo_client is not None:
+                model_id = f"{provider.name}/{provider.model}"
+                try:
+                    if not self._bailo_client.is_approved_for(model_id):
+                        logger.info(
+                            "bailo_rejected_provider",
+                            extra={"provider": provider.name, "model_id": model_id},
+                        )
+                        continue
+                except Exception as exc:  # noqa: BLE001 - defensive
+                    logger.warning(
+                        "bailo_gate_failed",
+                        extra={"provider": provider.name, "error": str(exc)},
+                    )
+                    # On gate error: continue with the existing
+                    # provider — don't block traffic on a stale
+                    # Bailo response.
             return provider
-        return None  # All providers are down
+        return None  # All providers are down (or Bailo-rejected)
 
     def invoke(self, prompt: str, model_family: str = "text_llm", **kwargs: Any) -> dict[str, Any]:
         """Invoke the highest-priority active provider.

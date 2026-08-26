@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-08-24-cianchosaint-init-v1",
+  "phase": "2.2",
+  "sister_repo": "cianchosaint",
+  "generated_at": "2026-08-25T03:42:49.519380+00:00",
+  "python_version": "3.9.6",
+  "dlt_sources_dir": "dlt_sources",
+  "total_subtrees": 5,
+  "ok_count": 2,
+  "fail_count": 3,
+  "total_duration_ms": 24,
+  "overall_duration_ms": 25,
+  "results": [
+    {
+      "subtree": "_cross",
+      "status": "fail",
+      "error": "ImportError: dlt_sources.british_isles: No module named 'dlt_sources.british_isles'",
+      "duration_ms": 0
+    },
+    {
+      "subtree": "cianchosaint",
+      "status": "ok",
+      "error": null,
+      "duration_ms": 0
+    },
+    {
+      "subtree": "common",
+      "status": "ok",
+      "error": null,
+      "duration_ms": 24
+    },
+    {
+      "subtree": "law_enforcement",
+      "status": "fail",
+      "error": "ImportError: dlt_sources.british_isles: No module named 'dlt_sources.british_isles'",
+      "duration_ms": 0
+    },
+    {
+      "subtree": "official_media_cianchosaint",
+      "status": "fail",
+      "error": "ImportError: dlt_sources.official_media: No module named 'dlt_sources.official_media'",
+      "duration_ms": 0
+    }
+  ]
+}

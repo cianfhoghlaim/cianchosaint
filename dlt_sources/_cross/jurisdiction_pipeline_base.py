@@ -36,7 +36,13 @@ from typing import Any, ClassVar
 import dlt
 import dlt_sources
 
-from dlt_sources.common.destinations_cianfhoghlaim import get_dlt_destination
+# Wholesale-copy fix (per the
+# `2026-09-XX-cianchosaint-initial-carveout-v1` change): the cianchosaint
+# sister-repo renamed `destinations_cianfhoghlaim` → `destinations_cianchosaint`
+# per the per-sister namespace convention (the legal/procedural sister
+# ciandlíthe renamed it → `destinations_ciandlithe`; cianchosaint uses
+# `destinations_cianchosaint`).
+from dlt_sources.common.destinations_cianchosaint import get_dlt_destination
 
 
 VALID_JURISDICTIONS: tuple[str, ...] = (

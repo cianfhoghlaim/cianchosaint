@@ -2,19 +2,39 @@
   "name": "@cianchosaint/ciafagent-met-public",
   "private": true,
   "type": "module",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "turbo dev", "dev:web": "cd apps/web && bun run dev", "dev:api": "cd apps/api && bun run dev",
-    "build": "turbo build", "typecheck": "turbo typecheck", "lint": "biome check --write .", "clean": "turbo clean"
+    "dev": "turbo dev",
+    "dev:web": "cd apps/web && bun run dev",
+    "dev:api": "cd apps/api && bun run dev",
+    "build": "turbo build",
+    "typecheck": "turbo typecheck",
+    "lint": "biome check --write .",
+    "clean": "turbo clean"
   },
   "dependencies": {
-    "@ag-ui/core": "^0.5.0", "@ag-ui/client": "^0.5.0", "@ag-ui/server": "^0.5.0",
-    "@cianchosaint/ui-kit": "workspace:*", "@cianchosaint/auth": "workspace:*", "@cianchosaint/db": "workspace:*",
-    "convex": "^1.40.0", "zod": "^4.0.0", "dotenv": "^17.2.2"
+    "@ag-ui/client": "^0.5.0",
+    "@ag-ui/core": "^0.5.0",
+    "@ag-ui/server": "^0.5.0",
+    "@cianchosaint/auth": "workspace:*",
+    "@cianchosaint/ciafagent-ui-kit": "workspace:*",
+    "@cianchosaint/db": "workspace:*",
+    "@cianchosaint/ui-kit": "workspace:*",
+    "convex": "^1.40.0",
+    "dotenv": "^17.2.2",
+    "zod": "^4.0.0"
   },
   "devDependencies": {
-    "turbo": "^2.6.0", "@biomejs/biome": "^2.3.0", "typescript": "^5.7.0",
-    "@types/node": "^22.0.0", "@types/react": "^19.2.0", "@types/react-dom": "^19.2.0", "@types/bun": "^1.2.6"
+    "turbo": "^2.6.0",
+    "@biomejs/biome": "^2.3.0",
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/bun": "^1.2.6"
   },
   "packageManager": "bun@1.3.0"
 }

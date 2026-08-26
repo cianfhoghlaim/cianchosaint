@@ -2,7 +2,10 @@
   "name": "@cianchosaint/ciafagent-api",
   "private": true,
   "type": "module",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "turbo dev",
     "dev:api": "cd apps/api && bun run dev",
@@ -13,13 +16,14 @@
     "start": "cd apps/api && bun run start"
   },
   "dependencies": {
-    "@cianchosaint/ui-kit": "workspace:*",
     "@cianchosaint/auth": "workspace:*",
+    "@cianchosaint/ciafagent-ui-kit": "workspace:*",
     "@cianchosaint/db": "workspace:*",
-    "@orpc/server": "^1.12.0",
-    "@orpc/openapi": "^1.12.0",
-    "@orpc/zod": "^1.12.0",
+    "@cianchosaint/ui-kit": "workspace:*",
     "@hono/node-server": "^1.0.0",
+    "@orpc/openapi": "^1.12.0",
+    "@orpc/server": "^1.12.0",
+    "@orpc/zod": "^1.12.0",
     "convex": "^1.40.0",
     "dotenv": "^17.2.2",
     "hono": "^4.8.0",

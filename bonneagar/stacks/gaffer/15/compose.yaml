@@ -1,0 +1,62 @@
+# CIANCHOSAINT new-build: the Gaffer graph database stack (stack 15).
+#
+# Per the openspec/changes/cianchosaint-gaffer-integration-v1/
+# specs/cianchosaint-gaffer/spec.md, Requirement: The 15th compose
+# stack (Gaffer cross-source relationship graph database).
+#
+# Gaffer (https://github.com/gchq/Gaffer) is GCHQ's graph database
+# framework. Originally published under the Apache License 2.0 by
+# GCHQ. Wholesale source: hmgcc/Gaffer/ (vendored from gchq/Gaffer
+# @ main — project is archived but the source is preserved).
+# Licence: Apache 2.0 (per hmgcc/Gaffer/LICENSE).
+#
+# Gaffer ships as a Java + Maven project + a REST API. The
+# canonical containerised Gaffer deployment is
+# ghcr.io/gchq/gaffer-rest (the upstream Gaffer REST API image).
+# Per the gaffer-docker README, the REST API listens on port 8080
+# and exposes /rest/v2/* endpoints.
+#
+# The cianchosaint stack uses the in-memory Map Store (no Accumulo)
+# for dev / CI + the upstream REST API image for production.
+#
+# Licence: BUSL-1.1 (per LICENSE.md)
+
+version: '3.8'
+
+# Shared configuration for all environments
+x-base-config: &base-config
+  restart: unless-stopped
+  healthcheck:
+    test: ["CMD-SHELL", "curl -f http://localhost:8080/rest/v2/status || exit 1"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 60s
+  deploy:
+    resources:
+      limits:
+        memory: 4G
+      reservations:
+        memory: 1G
+
+services:
+  gaffer:
+    # Per hmgcc/Gaffer/rest-api/README.md + gaffer-docker.
+    # The upstream image is ghcr.io/gchq/gaffer-rest:latest
+    # with the in-memory Map Store (suitable for dev + the
+    # cianchosaint cross-source relationship workload).
+    image: ${IMAGE:-ghcr.io/gchq/gaffer-rest:${TAG:-2.0.0}}
+    ports:
+      - "8080:8080"  # Gaffer REST API
+    environment:
+      - GAFFER_STORE_TYPE=${GAFFER_STORE_TYPE:-map}
+      - GAFFER_REST_HOST=0.0.0.0
+      - GAFFER_REST_PORT=8080
+      - GAFFER_GRAPH_ID=${GAFFER_GRAPH_ID:-cianchosaint_cross_source}
+      - JAVA_OPTS=${JAVA_OPTS:--Xmx2g}
+    volumes:
+      - gaffer-data:/data
+    <<: *base-config
+
+volumes:
+  gaffer-data:

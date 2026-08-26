@@ -26,7 +26,9 @@ into 10 topics:
 | 08 | [`08-courts-and-tribunals.md`](08-courts-and-tribunals.md) | UK + ROI + NI + Scotland + Crown Dependencies courts | 12 |
 | 09 | [`09-political-parties.md`](09-political-parties.md) | Active political parties in the OSINT allowlist | 24 |
 | 10 | [`10-other-bodies.md`](10-other-bodies.md) | ICO, NAO, C&AG, HoC Library, Senedd, Electoral Commission, etc. | 15 |
-| | | **Total** | **~130** |
+| 16 | [`16-uk-ncsc-device-security.md`](16-uk-ncsc-device-security.md) | NCSC device-security guidance → ciafagent-self-host (Integration 6) | 3 (platforms) |
+| 17 | [`17-uk-hmgcc-pdf-reference.md`](17-uk-hmgcc-pdf-reference.md) | HMGCC PDF reference → per-source policy aggregator (Integration 8) | 1 (file) |
+| | | **Total** | **~133** |
 
 ## How to use this catalogue
 

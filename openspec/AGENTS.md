@@ -120,3 +120,52 @@ The change CANNOT archive until blockers archive.
 - Use "should" or "may" in Requirement bodies — SHALL/MUST only
 - Leave Scenarios empty — minimum WHEN X THEN Y AND Z triple
 - Archive before CI gates pass + deployments verified
+
+## TRL compliance (UKRI / STFC Technology Readiness Level)
+
+Per
+openspec/changes/2026-08-26-cianchosaint-ic-ui-kit-integration-v1/
+specs/cianchosaint-ic-ui-kit-integration/spec.md (Integration 7), every
+openspec change SHOULD carry a TRL pair (current_trl + target_trl + 
+gap_analysis + evidence + recommendation) so the platform demonstrates
+maturity to UKRI / STFC / HMGCC / MoD / NAO evaluators.
+
+The 9 TRL definitions (verbatim per
+hmgcc/Eligibility of technology readiness levels (TRL).md):
+
+- **TRL 1**: basic principles observed and reported
+- **TRL 2**: technology concept or application formulated
+- **TRL 3**: analytical and experimental critical function or characteristic proof-of-concept
+- **TRL 4**: technology basic validation in a laboratory environment
+- **TRL 5**: technology basic validation in a relevant environment
+- **TRL 6**: technology model or prototype demonstration in a relevant environment
+- **TRL 7**: technology prototype demonstration in an operational environment
+- **TRL 8**: actual technology completed and qualified through test and demonstration
+- **TRL 9**: actual technology qualified through successful mission operations.
+
+### TRL assessment tooling
+
+```bash
+mise run cianchosaint:trl:assess          # summary table + JSON file
+mise run cianchosaint:trl:assess-json     # JSON to stdout (for CI)
+mise run cianchosaint:trl:assess-one <change-id>  # one change
+```
+
+The BAML extraction function lives at
+`baml_src/cianchosaint/processing/trl_assessment.baml` and exposes the
+`ExtractTRLAssessment` function + the `TRLAssessment` schema. The
+heuristic Python assessor lives at `scripts/trl_assess.py` and writes
+the per-day JSON report to `stedding/trl-assessments/<YYYY-MM-DD>.json`.
+
+### Conservative posture
+
+Every TRL record enforces:
+- `osint_ceiling_enforced: true` (always)
+- `licence_posture: "BUSL-1.1 v2 (British-Isles-only)"` (always)
+- `analyst_review_required: true` (always)
+- `current_trl >= 1` and `current_trl <= 9`
+- `target_trl - current_trl >= 2` (conservative gap; not simply 1)
+- `target_trl >= current_trl`
+
+See `docs/TRL-COMPLIANCE.md` for the canonical explainer + worked
+examples.

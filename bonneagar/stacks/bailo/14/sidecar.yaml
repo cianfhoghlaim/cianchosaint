@@ -1,0 +1,83 @@
+# CIANCHOSAINT new-build: the Bailo Locket sidecar overlay (stack 14).
+#
+# Per the openspec/changes/cianchosaint-bailo-integration-v1/
+# specs/cianchosaint-bailo/spec.md, Requirement: The 14th compose
+# stack Locket sidecar for secret injection.
+#
+# Mirrors the crawl4ai sidecar.yaml pattern (the canonical
+# 6-file GOLD_STANDARD pattern, see stacks-sync skill).
+#
+# Licence: BUSL-1.1 (per LICENSE.md)
+
+services:
+  locket:
+    image: ghcr.io/cianfhoghlaim/locket-shim:infisical-0.2.1
+    environment:
+      LOCKET_FALLBACK_FILE: /run/secrets/locket/env-fallback.env
+    container_name: bailo-locket
+    restart: unless-stopped
+    user: "65532:65532"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    command:
+      - "--provider=infisical"
+      - "--infisical-client-id=$${INFISICAL_CLIENT_ID}"
+      - "--infisical-client-secret=file:/run/secrets/infisical_secret"
+      - "--map=/templates:/run/secrets/locket"
+      - "--mode=${LOCKET_MODE:-watch}"
+    secrets:
+      - infisical_secret
+    volumes:
+      - ./secrets.env:/templates/secrets.env:ro
+      - ${INFISICAL_FALLBACK_FILE}:/run/secrets/locket/env-fallback.env:ro
+      - stack-secrets:/run/secrets/locket
+    healthcheck:
+      test: ["CMD", "/locket", "healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - stack
+
+  bailo:
+    depends_on:
+      locket:
+        condition: service_healthy
+    volumes:
+      - stack-secrets:/run/secrets/locket:ro
+    env_file:
+      - /run/secrets/locket/secrets.env
+
+  bailo-mongo:
+    depends_on:
+      locket:
+        condition: service_healthy
+
+  bailo-minio:
+    depends_on:
+      locket:
+        condition: service_healthy
+
+  bailo-redis:
+    depends_on:
+      locket:
+        condition: service_healthy
+
+secrets:
+  infisical_secret:
+    file: $${INFISICAL_SECRET_FILE:-../../infisical_secret}
+
+volumes:
+  stack-secrets:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: uid=65532,gid=65532,mode=700
+
+networks:
+  stack:
+    driver: bridge
