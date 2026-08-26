@@ -123,6 +123,35 @@ intel oversight), licence (broader cultural grant vs tighter
 British-Isles-only OSINT grant with warrant-to-enforce), and provider
 chain (LiteLLM-primary vs Unsloth Studio primary + 3-tier fallback).
 
+## HMGCC + GCHQ + NCSC + UKRI + Imperial College integration
+
+The platform integrates with 7 GCHQ + HMGCC + NCSC + UKRI + Imperial College open-source projects (wholesale-copied from `hmgcc/`). These integrations eliminate the burden of building custom UI components + ML model registries + graph databases + data processing pipelines + data analysis tools + device security standards + TRL assessment from scratch.
+
+### Integrations
+
+| Integration | Source | License | What it does |
+|---|---|---|---|
+| **ic-ui-kit** | MI6 + GCHQ + MI5 + HMGCC | OGLv3 + MIT | The UK Intelligence Community UI Kit — the `ic-classification-banner` (top of every page), `ic-top-navigation`, `ic-search-bar`, `ic-data-table`, `ic-tab-group`, `ic-drawer`, `ic-card-vertical`, `ic-footer`, `ic-footer-link` are adopted in the 8 ciafagent-* web apps (`web/packages/ciafagent-ui-kit/src/`). |
+| **Bailo** | GCHQ | Apache 2.0 | The ML model registry — the 4-tier provider chain models (Unsloth Studio / LiteLLM / MiniMax Token Plan / Gemini API) are registered in Bailo for provenance + approvals + access control + audit trails. The `ModelProviderRouter.get_active_config()` method gates every LLM call on the Bailo provenance + access control. |
+| **Gaffer** | GCHQ | Apache 2.0 (archived but still usable) | The graph database framework — the cross-source relationship graph (which source URL cross-references which other source URL) is stored in Gaffer. The 5 relationship types are: `source_cites_source`, `source_financed_by`, `source_oversees_source`, `source_is_branch_of_source`, `source_is_in_jurisdiction_of`. The initial graph has 12 edges covering all 5 relationship types (per `scripts/build_gaffer_graph.py`). |
+| **CyberChef** | GCHQ | Apache 2.0 | The Cyber Swiss Army Knife — the 300+ operations (encoding, encryption, hashing, IPv6, X.509) are available via the AG-UI chat window. The `ExtractCyberChefRecipe` BAML function generates a recipe from the user's analysis request, the `cyberchef_execute` FunctionTool invokes CyberChef's API. The new `web/apps/ciafagent-cyberchef/` web app is the GUI-based companion. |
+| **stroom** | GCHQ | Apache 2.0 | The data processing pipeline — high-volume log data (craw4ai browser logs + Langfuse observability traces) is routed through stroom for transformation + enrichment. The `ExtractStroomLog` BAML function parses the structured events. The stroom XSL transforms convert raw log data into structured events that the DLT sources can ingest. |
+| **Device-Security-Guidance-Configuration-Packs** | NCSC | Apache 2.0 (Crown Copyright 2025) | The official UK government device security guidance for Apple/Google/Microsoft MDM (Intune, Jamf Pro, Workspace) — the ciafagent-self-host Docker bundle includes a `setup_ncsc_device_security.sh` script that validates + configures the citizen's device per the official standards (encryption, lock screen, app allowlist, OS up-to-date). The `ncsc_device_security_status` FunctionTool is available via the AG-UI chat. |
+| **TRL doc** | UKRI / STFC | (open UK gov doc) | The official UK government Technology Readiness Level definitions (TRL 1-9) — the `ExtractTRLAssessment` BAML function evaluates every openspec change against the 9 TRL definitions. The `cianchosaint:trl:assess` mise task runs the assessment on all pending openspec changes. The TRL assessment feeds into the openspec validate gate. |
+| **PDF reference** | HMGCC | (with MSIP Purview label) | The HMGCC Co-Creation Challenge Form PDF (OFFICIAL classification, MSIP label `d8a60473-494b-4586-a1bb-b0e663054676`) — the `ExtractPDFReference` BAML function parses the PDF. The `pdf_reference_search` FunctionTool is available via the AG-UI chat. |
+
+### Example use cases
+
+1. **A citizen** running the self-hosted Docker bundle can verify their device is configured per NCSC standards before consulting Cian (via `setup_ncsc_device_security.sh`).
+2. **A public-sector analyst** investigating a Reform UK donation can trace the chain through Bailo-approved models + Gaffer graph relationships.
+3. **An analyst** decoding a leaked document can use CyberChef's 300+ operations via the AG-UI chat window.
+4. **An analyst** investigating cross-border activity (PSNI + Garda) can see the relationship graph via Gaffer + the per-source policy context via ic-ui-kit.
+5. **A department** deploying ciafagent can follow the official UK government TRL assessment to determine if the platform is production-ready.
+6. **An investigator** processing high-volume log data can use stroom for the transformation + cianchosaint DLT sources for the structured extraction.
+
+For the canonical sub-projects, see the [hmgcc sub-directory](hmgcc/).
+
+
 ## Cross-references
 
 - [`LICENSE.md`](LICENSE.md) — the load-bearing legal document
