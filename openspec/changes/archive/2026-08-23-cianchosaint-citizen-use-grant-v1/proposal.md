@@ -98,6 +98,6 @@ The grant is conditioned on:
 ## Cross-repo sync
 
 This change touches **ONLY the `cianchosaint` repo**. The Cianfhoghlaim
-`LICENSE.md` (at `/Users/cianmacandeisigh/dev/kings_college_galway/LICENSE.md`)
+`LICENSE.md` (at `${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/LICENSE.md`)
 remains **completely unchanged**. See `cross-repo-sync.md` for the
 full commit plan.

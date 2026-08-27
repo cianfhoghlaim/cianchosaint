@@ -1,7 +1,7 @@
 # Cross-Repo Sync: cianchosaint-vlm-ocr-pipeline-v1
 
 This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) and the
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) and the
 `leabharlann/` corpus remain **completely unchanged**.
 
 ## Order of Operations

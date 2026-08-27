@@ -1,6 +1,6 @@
 # Cross-Repo Sync: cianchosaint-per-persona-app-bundles-v1
 
-This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`/Users/cianmacandeisigh/dev/kings_college_galway/`) remains **completely unchanged**.
+This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) remains **completely unchanged**.
 
 ## Order of Operations
 
@@ -81,7 +81,7 @@ ls web/apps/ | grep ciafagent-
 # Expected: 8 directories (ciafagent-ga-public + ciafagent-ga-internal + ciafagent-met-public + ciafagent-met-internal + ciafagent-psni-public + ciafagent-psni-internal + ciafagent-self-host + ciafagent-api)
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: unchanged from the start of this change
 ```

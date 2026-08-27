@@ -1,6 +1,6 @@
 # Cross-Repo Sync: cianchosaint-intelligence-agency-pipeline-v1
 
-This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`/Users/cianmacandeisigh/dev/kings_college_galway/`) remains **completely unchanged**.
+This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) remains **completely unchanged**.
 
 ## Order of Operations
 
@@ -78,7 +78,7 @@ ls dlt_sources/cianchosaint/uk/intelligence_agencies/
 # Expected: __init__.py, _base.py, _registry.py, mi5.py, mi6.py, gchq.py, defence_intelligence.py, hmgcc_rolling_window.py
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: unchanged
 ```

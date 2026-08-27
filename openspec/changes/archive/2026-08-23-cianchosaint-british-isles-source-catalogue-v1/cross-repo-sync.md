@@ -1,7 +1,7 @@
 # Cross-Repo Sync: cianchosaint-british-isles-source-catalogue-v1
 
 This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) remains **completely
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) remains **completely
 unchanged**.
 
 This is a DOCUMENT-ONLY change — no code, no config, no schema changes
@@ -128,7 +128,7 @@ ls docs/source-catalogue/
 # Expected: 11 files (README.md + 01..10 topic files)
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: unchanged from the start of this change
 ```

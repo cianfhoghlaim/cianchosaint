@@ -1,8 +1,8 @@
 # Cross-Repo Sync: cianchosaint-pangolin-ingress-v1
 
 This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) and leabharlann
-(`/Users/cianmacandeisigh/dev/kings_college_galway/leabharlann/` — a
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) and leabharlann
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/leabharlann/` — a
 separate repo per the cianfhoghlaim AGENTS.md) remain **completely
 unchanged**.
 
@@ -74,7 +74,7 @@ python3.13 -c "import yaml; print(len(yaml.safe_load(open('bonneagar/pangolin/ci
 # Expected: 9 (8 web apps + 1 API gateway)
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: unchanged
 ```

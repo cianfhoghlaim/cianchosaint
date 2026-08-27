@@ -265,7 +265,7 @@ docker volume rm openchamber_openchamber-config
 #   - host opencode 1.17.9 is still running on 127.0.0.1:4096
 #   - host opencode session store is unchanged
 #   - host MCP config in ~/.config/opencode/opencode.jsonc is unchanged
-#   - host repository /Users/cianmacandeisigh/dev/kings_college_galway is unchanged
+#   - host repository /Users/cianmacandeisigh/dev/cianfhoghlaim is unchanged
 ```
 
 The arm1-oci production rollback follows the same pattern via

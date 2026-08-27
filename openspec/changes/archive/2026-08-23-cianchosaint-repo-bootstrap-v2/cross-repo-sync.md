@@ -1,6 +1,6 @@
 # Cross-Repo Sync: cianchosaint-repo-bootstrap-v2
 
-This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`/Users/cianmacandeisigh/dev/kings_college_galway/`) remains **completely unchanged**.
+This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) remains **completely unchanged**.
 
 This is the OPPOSITE pattern from the foundation change (which wholesale-migrated 8 specific assets from Cianfhoghlaim into Cianchosaint). In the bootstrap-v2, the relevant Cianfhoghlaim files are **read** as templates but **wholesale-copied + renamed + refactored into Cianchosaint** as new files in the `cianchosaint` namespace.
 
@@ -156,7 +156,7 @@ openspec validate --all --strict
 # Expected: All pass
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: unchanged from the start of this change
 ```

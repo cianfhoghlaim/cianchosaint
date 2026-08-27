@@ -108,7 +108,7 @@ the schema level.
 ## Cross-repo sync
 
 This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) and leabharlann
-(`/Users/cianmacandeisigh/dev/kings_college_galway/leabharlann/`)
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) and leabharlann
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/leabharlann/`)
 remain **completely unchanged**. See `cross-repo-sync.md` for the
 full commit plan.

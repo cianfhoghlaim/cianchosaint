@@ -1,6 +1,6 @@
 # Cross-Repo Sync: cianchosaint-per-constituency-dlt-sources-v1
 
-This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`/Users/cianmacandeisigh/dev/kings_college_galway/`) remains **completely unchanged**.
+This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) remains **completely unchanged**.
 
 ## Order of Operations
 
@@ -74,7 +74,7 @@ find dlt_sources/cianchosaint -name "*.py" -not -path "*/__pycache__/*" | wc -l
 # Expected: ~30 (per the 30 NEW DLT source files)
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: unchanged from the start of this change
 ```

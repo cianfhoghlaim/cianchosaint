@@ -97,7 +97,7 @@ cross-repo source maps via `[tool.uv.sources]`:
 # Cianfhoghlaim continues to own these files for education use; cianchosaint
 # consumes them via local path (a sibling git worktree) or via the published
 # git tag.
-cianfhoghlaim-legal = { path = "../kings_college_galway/baml_src/british_isles/ireland/education/law/", editable = true }
+cianfhoghlaim-legal = { path = "../cianfhoghlaim/baml_src/british_isles/ireland/education/law/", editable = true }
 ```
 
 This is the canonical Python-native cross-repo pattern (mirrors the
@@ -152,7 +152,7 @@ openspec validate --all --strict
 # Expected: All pass
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: unchanged from the start of this change
 ```

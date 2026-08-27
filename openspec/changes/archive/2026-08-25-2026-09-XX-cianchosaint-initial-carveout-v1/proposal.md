@@ -3,7 +3,7 @@
 > **Parent change**: [`2026-08-24-dlt-sources-to-multi-repo-scaffold-v1`](../../../../../2026-08-24-dlt-sources-to-multi-repo-scaffold-v1/proposal.md) §21.2 (hand-off)
 > **Companion plan**: [`openspec/plans/2026-08-24-dlt-deep-analysis-v2.md`](../../../../../openspec/plans/2026-08-24-dlt-deep-analysis-v2.md) §Phase 4.1
 > **Capability spec**: this is a **CAPABILITY** spec (per the openspec convention), describing the end state of the `law_enforcement/` carve-out into cianchosaint.
-> **Mirror change**: [`kings_college_galway/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/`](../../../../../../kings_college_galway/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/proposal.md) (the cianfhoghlaim-side mirror per the openspec bidirectional cascade contract #1).
+> **Mirror change**: [`cianfhoghlaim/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/`](../../../../../../cianfhoghlaim/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/proposal.md) (the cianfhoghlaim-side mirror per the openspec bidirectional cascade contract #1).
 > **Precedent**: [`2026-08-24-cianchosaint-init-v1/`](../2026-08-24-cianchosaint-init-v1/proposal.md) (the Phase 2.2 sister-repo init change).
 > **Status**: SKELETON COMPLETE — Phase 4 wire-up of the actual sources is deferred to a follow-up openspec change.
 
@@ -71,7 +71,7 @@ Per the parent change §"What changes" + the new `openspec/specs/cianfhoghlaim-d
 - **Scope**: cianchosaint (8 NEW per-jurisdiction skeleton subtrees + 1 NEW `_cross/law_enforcement_registry.py` + 1 NEW `dlt_sources/__init__.py`) + 1 MINIMAL modification to cianfhoghlaim proper (adding `"law_enforcement"` to `VALID_STAGES`).
 - **Risk**: **low** — every skeleton file added is additive; the only cianfhoghlaim proper change is the additive `VALID_STAGES` tuple extension. No existing code is touched.
 - **Reversibility**: full — every file added is deletable; removing `"law_enforcement"` from `VALID_STAGES` is a 1-line revert.
-- **Affected specs**: 1 NEW spec (`openspec/specs/cianchosaint-dlt-sources-carveout-v1/spec.md`); 1 NEW capability in cianfhoghlaim's openspec tree (`kings_college_galway/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/specs/cianchosaint-dlt-sources-carveout-mirror-v1/spec.md`).
+- **Affected specs**: 1 NEW spec (`openspec/specs/cianchosaint-dlt-sources-carveout-v1/spec.md`); 1 NEW capability in cianfhoghlaim's openspec tree (`cianfhoghlaim/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/specs/cianchosaint-dlt-sources-carveout-mirror-v1/spec.md`).
 - **Affected skills**: openspec (per-sister-repo openspec sync conventions per the openspec cascade contract #1 in the v2 plan §D.1); dlt (the multi-repo carve-out updates the dlt routing skill to recognise the new per-vertical subtree).
 - **Net LOC delta**: 2,716 NEW LOC across 49 NEW files (40 Python + 9 AGENTS.md) in cianchosaint + 4 NEW LOC in cianfhoghlaim proper (the `VALID_STAGES` extension).
 
@@ -95,7 +95,7 @@ Per the parent change §"What changes" + the new `openspec/specs/cianfhoghlaim-d
 - [`openspec/plans/2026-08-24-dlt-deep-analysis-v2.md`](../../../../../openspec/plans/2026-08-24-dlt-deep-analysis-v2.md) — the v2 plan §Phase 4.1 (the cianchosaint BI law-enforcement carve-out)
 - [`openspec/changes/2026-08-24-dlt-sources-to-multi-repo-scaffold-v1/proposal.md`](../../../../../openspec/changes/2026-08-24-dlt-sources-to-multi-repo-scaffold-v1/proposal.md) — the parent change §21.2 (the hand-off to this change)
 - [`openspec/changes/2026-08-24-cianchosaint-init-v1/proposal.md`](../2026-08-24-cianchosaint-init-v1/proposal.md) — the per-sister init change
-- [`kings_college_galway/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/proposal.md`](../../../../../../kings_college_galway/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/proposal.md) — the cianfhoghlaim-side mirror change
+- [`cianfhoghlaim/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/proposal.md`](../../../../../../cianfhoghlaim/openspec/changes/2026-09-XX-cianchosaint-initial-carveout-mirror/proposal.md) — the cianfhoghlaim-side mirror change
 - [`tuatha/CONSOLIDATION_PLAN.md`](../../../../../tuatha/CONSOLIDATION_PLAN.md) — the tuatha precedent (per the `2026-08-25-tuatha-british-isles-mmo-consolidation-v1` change)
 - [`openspec/specs/knowledge-sync-loop/spec.md`](../../../../../openspec/specs/knowledge-sync-loop/spec.md) — the 6-layer sync loop that the openspec cascade contract #1 extends
 - [`cianfhoghlaim/dlt_sources/british_isles/_cross/jurisdiction_pipeline_base.py`](../../../../../../cianfhoghlaim/dlt_sources/british_isles/_cross/jurisdiction_pipeline_base.py) — the canonical JurisdictionPipelineBase (the only cianfhoghlaim proper modification)

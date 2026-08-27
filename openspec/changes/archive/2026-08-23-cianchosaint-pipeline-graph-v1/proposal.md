@@ -91,5 +91,5 @@ populated by the sibling change's CocoIndex v1 App.
 
 See `cross-repo-sync.md` — this change touches ONLY the
 `cianchosaint` repo. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) remains
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) remains
 **completely unchanged**.

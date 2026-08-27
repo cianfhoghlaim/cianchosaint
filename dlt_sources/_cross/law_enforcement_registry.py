@@ -38,7 +38,7 @@ This module aggregates them into one cross-jurisdiction surface so a
 single DAGSTER asset can iterate all 8 jurisdictions in one
 materialisation.
 
-## KCG patterns used
+## Cianfhoghlaim patterns used
 
 - `JurisdictionPipelineBase` (per the
   `2026-08-24-dlt-sources-to-multi-repo-scaffold-v1` §11 / the

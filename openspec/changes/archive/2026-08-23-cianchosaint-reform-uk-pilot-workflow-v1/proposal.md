@@ -144,7 +144,7 @@ unchanged — the leabharlann PDFs are read-only context.)
 ## Cross-repo sync
 
 This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) and leabharlann
-(`/Users/cianmacandeisigh/dev/kings_college_galway/leabharlann/` — a
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) and leabharlann
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/leabharlann/` — a
 separate repo per the cianfhoghlaim AGENTS.md) remain **completely
 unchanged**.
