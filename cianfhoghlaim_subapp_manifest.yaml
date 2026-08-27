@@ -1,8 +1,8 @@
-# kcg_subapp_manifest.yaml — the 3-tier subapp declaration.
-# Read by kings_college_galway/scripts/kcg/sync-subapps.py.
+# cianfhoghlaim_subapp_manifest.yaml — the 3-tier subapp declaration.
+# Read by cianfhoghlaim/scripts/sync/sync_subapps.py.
 # See openspec/specs/web-frontend-3-tier/spec.md for the full spec.
 
-api_version: kcg/v1
+api_version: cianfhoghlaim/v1
 kind: subapp
 
 metadata:
@@ -10,7 +10,7 @@ metadata:
   display_name: OSINT defence / policing / intel oversight
   upstream_repo: github.com/cianmacandeisigh/cianchosaint
   upstream_branch: main
-  parent: kings_college_galway
+  parent: cianfhoghlaim
 
 spec:
   # TIER 3 is the only valid value for subapps.
