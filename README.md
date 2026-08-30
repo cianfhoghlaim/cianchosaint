@@ -38,6 +38,8 @@ Without this stack, public-sector teams fall behind well-funded
 organised crime groups that can afford proprietary AI; with this
 stack, they have parity.
 
+**Disclaimer** In future (2 years): I will create software available to cianchosaint users similar in scope and purpose to past projects outlined by His Majesty's Government Communication Centre https://co-creation.hmgcc.gov.uk/. There is no reason for those users to wait for me to build their internal versions.
+
 ## The 3 flagship verticals
 
 | Vertical | Sub-domains | Cohorts |
