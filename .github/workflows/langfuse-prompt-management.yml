@@ -1,0 +1,74 @@
+name: langfuse-prompt-management
+
+# Per the openspec/changes/cianchosaint-langfuse-prompt-management-v1
+# change. Wires the `mise run cianchosaint:langfuse:smoke` task
+# into cianchosaint's CI gate. The gate enforces the contract
+# documented in:
+# - openspec/specs/cianchosaint-langfuse-prompt-management/spec.md
+# - docs/cianchosaint/langfuse-prompt-management.md
+#
+# This gate runs on every PR that touches the Langfuse surface
+# (the resolver + the client + the sync script + the smoke tests).
+# It is the canonical CI signal for the 7 thematic cohorts'
+# Langfuse prompt-management coverage.
+
+on:
+  pull_request:
+    paths:
+      - "baml_src/_shared/langfuse_client.py"
+      - "baml_src/_shared/langfuse_prompt_resolver.py"
+      - "scripts/sync_langfuse_prompts.py"
+      - "tests/langfuse/**"
+      - "mise.toml"
+      - ".github/workflows/langfuse-prompt-management.yml"
+  push:
+    branches: [main]
+    paths:
+      - "baml_src/_shared/langfuse_client.py"
+      - "baml_src/_shared/langfuse_prompt_resolver.py"
+      - "scripts/sync_langfuse_prompts.py"
+      - "tests/langfuse/**"
+      - "mise.toml"
+      - ".github/workflows/langfuse-prompt-management.yml"
+  workflow_dispatch:
+
+jobs:
+  langfuse-smoke:
+    name: mise run cianchosaint:langfuse:smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Install mise + toolchain
+        run: |
+          curl -fsSL https://mise.jdx.dev/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Install Python + uv
+        run: mise install
+
+      - name: Run the Langfuse prompt-management smoke gate
+        run: mise run cianchosaint:langfuse:smoke
+
+      - name: Audit the 7 thematic cohorts
+        run: mise run cianchosaint:langfuse:audit
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## cianchosaint:langfuse:smoke summary"
+            echo
+            echo "- **Run ID**: ${{ github.run_id }}"
+            echo "- **Trigger**: ${{ github.event_name }}"
+            echo "- **Result**: ${{ job.status }}"
+            echo
+            echo "### Gate surface"
+            echo "- \`tests/langfuse/test_langfuse_client.py\`"
+            echo "- \`tests/langfuse/test_langfuse_prompt_resolver.py\`"
+            echo "- \`tests/langfuse/test_langfuse_prompt_management.py\`"
+            echo "- \`tests/langfuse/test_langfuse_agent_integration.py\`"
+          } >> $GITHUB_STEP_SUMMARY
