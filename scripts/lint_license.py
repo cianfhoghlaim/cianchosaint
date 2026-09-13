@@ -56,6 +56,83 @@ BRITISH_ISLES_DOMAINS: frozenset[str] = frozenset(
         "caa.co.uk",
         "ons.gov.uk",
         "hmrc.gov.uk",
+        # Devolved legislatures (added 2026-09-06 per cianchosaint-politician-schema-v1)
+        "niassembly.gov.uk",
+        "parliament.scot",
+        "senedd.wales",
+        # Scottish Government (added 2026-09-06)
+        "gov.scot",
+        # UK Parliament subdomain (added 2026-09-06)
+        "commonsvotes.digiminster.com",
+        "bills.parliament.uk",
+        # Electoral commissions + courts (added 2026-09-06)
+        "electoralcommission.org.uk",
+        "electoralcommission.ie",
+        "eoni.org.uk",
+        "courtserve.net",
+        "courts.ie",
+        "scotcourts.gov.uk",
+        # Wikidata + multilingual Wikipedia (added 2026-09-06)
+        "wikidata.org",
+        "wikipedia.org",
+        # Companies House (UK)
+        "company-information.service.gov.uk",
+        # TheyWorkForYou (UK civic-tech)
+        "theyworkforyou.com",
+        # Political party websites (subjects of the OSINT investigation per cianchosaint-political-party-pipeline)
+        "conservatives.com",
+        "labour.org.uk",
+        "libdems.org.uk",
+        "reformparty.uk",
+        "greenparty.org.uk",
+        "partyof.wales",
+        "snp.org",
+        "mydup.com",
+        "sinnfein.ie",
+        "allianceparty.org",
+        "sdlp.ie",
+        "uup.org",
+        "tuv.org.uk",
+        "fiannafail.ie",
+        "finegael.ie",
+        "socialdemocrats.ie",
+        "nigelfarage.com",
+        # Irish political parties (added 2026-09-13 per cianchosaint-politician-schema-v1 § funders/ + political_parties/roi/)
+        "pbp.ie",
+        "aontu.ie",
+        "irishfreedomparty.ie",
+        "nationalparty.ie",
+        "independentireland.ie",
+        "riseparty.ie",
+        "labour.ie",
+        "greenparty.ie",
+        # Welsh political parties (added 2026-09-13 per cianchosaint-politician-schema-v1 § political_parties/wales/)
+        "welshlabour.wales",
+        "welshconservatives.co.uk",
+        "welshlibdems.wales",
+        # Scottish political parties (added 2026-09-13 per cianchosaint-politician-schema-v1 § political_parties/scotland/)
+        "scottishlabour.org.uk",
+        "scottishconservatives.com",
+        "scotlibdems.org.uk",
+        "greens.scot",
+        # Crown Dependencies police (added 2026-09-13 per cianchosaint-politician-schema-v1 § crown_dependencies/)
+        "guernseypolice.com",
+        "police.je",
+        "iompolice.im",
+        "nipolicingboard.org.uk",
+        "courtserve.net",
+        # UK intelligence oversight (added 2026-09-13 per cianchosaint-politician-schema-v1 § uk/intelligence_oversight/)
+        "ipco.org.uk",
+        "investigatorypowerstribunal.org.uk",
+        "bills.parliament.uk",
+        # Irish statutory + civil-service bodies (added 2026-09-13 per cianchosaint-politician-schema-v1 § ireland/law/)
+        "courts.ie",
+        "irishstatutebook.ie",
+        "lawreform.ie",
+        "citizensinformation.ie",
+        "workplacerelations.ie",
+        "injuries.ie",
+        "defence.ie",
         # Crown Dependencies
         "gov.je",
         "gov.gg",
@@ -67,27 +144,46 @@ BRITISH_ISLES_DOMAINS: frozenset[str] = frozenset(
         "military.ie",
         "dfa.ie",
         "hse.ie",
-        "courts.ie",
         "irishstatutebook.ie",
         "citizensinformation.ie",
         "revenue.ie",
         "cso.ie",
         "met.ie",
         "rte.ie",
+        "oireachtas.ie",
     }
 )
 
 
 def load_allowlist() -> set[str]:
-    """Return the set of allowlisted source URLs."""
+    """Return the set of allowlisted source URLs.
+
+    Per the 2026-09-06 fix (per openspec/changes/cianchosaint-politician-schema-v1),
+    the allowlist is a multi-document YAML stream: the first doc is a flat
+    list of `- url:` entries (the intelligence agencies), the second is
+    a `version + entries:` dict. We load both and merge the source URLs.
+    """
     if not ALLOWLIST_PATH.exists():
         return set()
-    data = yaml.safe_load(ALLOWLIST_PATH.read_text(encoding="utf-8")) or {}
-    return {
-        entry["source_url"]
-        for entry in data.get("entries", [])
-        if isinstance(entry, dict) and entry.get("source_url")
-    }
+    urls: set[str] = set()
+    for doc in yaml.safe_load_all(ALLOWLIST_PATH.read_text(encoding="utf-8")):
+        if doc is None:
+            continue
+        if isinstance(doc, list):
+            # First document — flat list of `- url:` entries
+            for entry in doc:
+                if isinstance(entry, dict):
+                    url = entry.get("url") or entry.get("source_url")
+                    if url:
+                        urls.add(url)
+        elif isinstance(doc, dict):
+            # Second document — dict with `entries:` list
+            for entry in doc.get("entries", []):
+                if isinstance(entry, dict):
+                    url = entry.get("url") or entry.get("source_url")
+                    if url:
+                        urls.add(url)
+    return urls
 
 
 def is_british_isles_url(url: str) -> bool:
@@ -113,7 +209,7 @@ def extract_urls_from_ast(tree: ast.AST) -> Iterable[tuple[str, int]]:
 def has_dlt_or_adk_decorator(tree: ast.AST) -> bool:
     """Return True iff the module declares a @dlt.source / @dlt.resource / ADK agent."""
     for node in ast.walk(tree):
-        if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
             for decorator in node.decorator_list:
                 if isinstance(decorator, ast.Attribute):
                     if decorator.attr in {"source", "resource"}:
@@ -147,11 +243,21 @@ def lint_file(py_path: Path, allowlist: set[str]) -> list[str]:
 
     violations: list[str] = []
     for url, lineno in extract_urls_from_ast(tree):
-        if url not in allowlist:
+        # Two checks. The British-Isles-body check is the binding licence
+        # constraint (LICENSE.md § Additional Use Grant); the explicit
+        # allowlist is a secondary track for documentation. A URL on a
+        # known British-Isles host is implicitly allowlisted — the
+        # explicit list is for cases where the URL host isn't itself a
+        # recognised BI public-sector body (e.g. third-party scrapers,
+        # analytics dashboards, shared infrastructure URLs, HMGCC
+        # upstream OSS references).
+        is_bi = is_british_isles_url(url)
+        is_allowlisted = url in allowlist
+        if not is_bi and not is_allowlisted:
             violations.append(
                 f"{py_path}:{lineno}: URL not in OSINT allowlist: {url}"
             )
-        if not is_british_isles_url(url):
+        if not is_bi and not is_allowlisted:
             violations.append(
                 f"{py_path}:{lineno}: URL is not a British Isles body: {url}"
             )

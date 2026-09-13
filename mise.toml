@@ -378,3 +378,67 @@ run = "python3 scripts/trl_assess.py $argv"
 usage = '''
 arg "<change-id>" help="The openspec change id (e.g. cianchosaint-source-policy-v1)"
 '''
+
+
+# ---------------------------------------------------------------------------
+# 18. cianchosaint:politician — Per-politician schema pipeline (the 7 case studies)
+#     Per openspec/changes/cianchosaint-politician-schema-v1/specs/cianchosaint-dlt-sources-carveout/spec.md
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:politician:harvest-leabharlann"]
+description = "Bulk harvest every politician named in the 87 leabharlann politics PDFs + the 1 .md (uses the ExtractPoliticianFromPDF BAML function + a regex fallback)"
+run = "python3 scripts/harvest_politicians_from_leabharlann.py"
+
+[tasks."cianchosaint:politician:harvest-leabharlann-dry-run"]
+description = "Dry-run: list the PDFs that would be processed without running the extraction"
+run = "python3 scripts/harvest_politicians_from_leabharlann.py --dry-run"
+
+[tasks."cianchosaint:politician:resolve"]
+description = "Resolve one politician's social accounts via Firecrawl + persist to PoliticalGraphStore"
+run = "python3 -c \"from agents.cianchosaint.tools.politician_account_resolver import politician_account_resolver_tool; print(f'FunctionTool ready: {politician_account_resolver_tool.name}')\""
+usage = '''
+arg "<politician_id>" help="The politician_id (e.g. nigel_farage, zack_polanski, john_o_dowd, gordon_lyons, paul_givan, gavin_robinson, lara_bird)"
+'''
+
+[tasks."cianchosaint:politician:bulk-resolve"]
+description = "Resolve all 7 case-study politicians (Farage, Polanski, O'Dowd, Lyons, Givan, Robinson, Bird) + their social accounts"
+run = "python3 scripts/bulk_resolve_politicians.py"
+
+[tasks."cianchosaint:politician:lint"]
+description = "CI gate: validate every politician DLT source URL is in the OSINT allowlist + every BAML function declares a Langfuse resolver + every FunctionTool is wired to PoliticalGraphStore"
+run = "python3 scripts/lint_politician_schema.py"
+
+
+# ---------------------------------------------------------------------------
+# 19. cianchosaint:adjacent — Adjacent-context pipeline (advisors + funders + historical + wikipedia)
+#     Per openspec/changes/cianchosaint-politician-schema-v1/specs/cianchosaint-political-graph/spec.md
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:adjacent:harvest"]
+description = "Bulk harvest the 4 adjacent-context axes (Axis B: advisors + Axis C: funders + Axis D: historical associations + Axis E: wikipedia archives) from the leabharlann politics PDFs"
+run = "python3 scripts/harvest_politicians_from_leabharlann.py"
+
+[tasks."cianchosaint:adjacent:resolve"]
+description = "Resolve the 5-axis context for one politician via the adjacent_context_resolver umbrella FunctionTool"
+run = "python3 -c \"from agents.cianchosaint.tools.adjacent_context_resolver import adjacent_context_resolver_tool; print(f'FunctionTool ready: {adjacent_context_resolver_tool.name}')\""
+usage = '''
+arg "<politician_id>" help="The politician_id (e.g. nigel_farage, john_o_dowd)"
+'''
+
+[tasks."cianchosaint:adjacent:bulk-resolve"]
+description = "Resolve the 5-axis context for all 7 case-study politicians"
+run = "python3 scripts/bulk_resolve_adjacent_context.py"
+
+[tasks."cianchosaint:funder-network"]
+description = "Render the funder network graph for one politician or party (uses the funder_network_graph FunctionTool)"
+run = "python3 scripts/funder_network.py"
+usage = '''
+arg "<target_entity>" help="The politician's canonical name or party_id (e.g. 'Nigel Farage' or 'reform-uk')"
+'''
+
+[tasks."cianchosaint:wikipedia-bridge"]
+description = "Bridge a politician's canonical name to their Wikidata QID + multilingual Wikipedia article titles"
+run = "python3 -c \"from agents.cianchosaint.tools.wikipedia_bridge import wikipedia_bridge_tool; print(f'FunctionTool ready: {wikipedia_bridge_tool.name}')\""
+usage = '''
+arg "<canonical_name>" help="The politician's canonical name (e.g. 'Nigel Farage', 'Zack Polanski', 'John O''Dowd')"
+'''
