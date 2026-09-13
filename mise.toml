@@ -322,6 +322,48 @@ run = [
 
 
 # ---------------------------------------------------------------------------
+# 14a. cianchosaint:langfuse — Langfuse v3 prompt management
+#      Per openspec/changes/cianchosaint-langfuse-prompt-management-v1/
+#      specs/cianchosaint-langfuse-prompt-management/spec.md
+# ---------------------------------------------------------------------------
+
+[tasks."cianchosaint:langfuse:smoke"]
+description = "Langfuse prompt management smoke tests (4 tests: client + resolver + management + agent integration)"
+run = "python3 -m pytest tests/langfuse/ -v"
+
+[tasks."cianchosaint:langfuse:lint"]
+description = "Lint the Langfuse client + resolver + sync script with ruff + mypy"
+run = [
+  "ruff check baml_src/_shared/langfuse_client.py baml_src/_shared/langfuse_prompt_resolver.py scripts/sync_langfuse_prompts.py",
+  "mypy baml_src/_shared/langfuse_client.py baml_src/_shared/langfuse_prompt_resolver.py",
+]
+
+[tasks."cianchosaint:langfuse:audit"]
+description = "Audit every cianchosaint BAML extraction function for Langfuse prompt-management coverage (the 7 thematic cohorts)"
+run = "python3 -m pytest tests/langfuse/test_langfuse_agent_integration.py -v"
+
+[tasks."cianchosaint:langfuse:doc"]
+description = "Generate the canonical Langfuse prompt catalogue at docs/cianchosaint/prompt-catalogue.md"
+run = "python3 -m pytest tests/langfuse/ -v && echo 'regenerate docs/cianchosaint/prompt-catalogue.md via the openspec archive workflow'"
+
+[tasks."cianchosaint:langfuse:prompts:sync"]
+description = "Bulk-push every canonical prompt to Langfuse"
+run = "python3 scripts/sync_langfuse_prompts.py --push"
+
+[tasks."cianchosaint:langfuse:prompts:list"]
+description = "List every Langfuse prompt + its current version"
+run = "python3 scripts/sync_langfuse_prompts.py --list"
+
+[tasks."cianchosaint:langfuse:health-check"]
+description = "Ping Langfuse + return health table"
+run = "python3 -m baml_src._shared.langfuse_client"
+
+[tasks."cianchosaint:langfuse:prompts:dry-run"]
+description = "Show what would be pushed to Langfuse without actually pushing"
+run = "python3 scripts/sync_langfuse_prompts.py --dry-run"
+
+
+# ---------------------------------------------------------------------------
 # 14. cianchosaint:bailo — Bailo (GCHQ ML model registry) stack
 #     Per openspec/changes/cianchosaint-bailo-integration-v1/spec.md
 # ---------------------------------------------------------------------------
