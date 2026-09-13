@@ -106,7 +106,16 @@ except Exception:
 # ROUTING_KEYWORDS lives in a standalone module so it can be imported
 # independently of the (optional) ADK dependency. Used by the L5
 # CelticAgentOpsComponent in cianfhoghlaim.orchestration/components/layer5_agent_ops.py
-from .routing_keywords import ROUTING_KEYWORDS
+#
+# CIANCHOSAINT NOTE: `routing_keywords.py` is a cianfhoghlaim-specific
+# module (it powers the education-only routing dictionary); it is
+# intentionally NOT wholesale-copied to cianchosaint. We wrap the
+# import in try/except so a missing module here degrades to
+# ROUTING_KEYWORDS = {} rather than failing the whole agents/__init__.
+try:
+    from .routing_keywords import ROUTING_KEYWORDS  # type: ignore[attr-defined]
+except ImportError:
+    ROUTING_KEYWORDS = {}
 
 # Agno team exports (primary framework)
 # T4 (2026-07-09): wrap in try/except so importing
@@ -138,79 +147,142 @@ except Exception:
 
 # ---------------------------------------------------------------------------
 # Centralized wiring (2026-08-14-agents-fleet-wiring-parity-v1).
+#
+# CIANCHOSAINT NOTE: the next ~6 import blocks are wholesale-copied
+# from cianfhoghlaim but most of the underlying modules
+# (`agent_registry.py`, `wiring.py`, `_workflow_handlers.py`,
+# `observability_hooks.py`, `memory_layer.py`, ...) reference
+# cianfhoghlaim-only symbols that aren't in cianchosaint. We wrap
+# the entire wholesale-copy block in a single try/except so that a
+# single missing module degrades to `None` rather than failing the
+# whole `import agents` chain. This is what lets the cianchosaint-
+# specific tools in `agents/cianchosaint/tools/` import cleanly.
 # ---------------------------------------------------------------------------
+try:
+    # The single source of truth for the 12 main agents.
+    from .agent_registry import (
+        AGENT_REGISTRY,
+        FRAMEWORK_AVAILABLE,
+        framework_summary,
+        list_agent_names,
+        register_agent,
+        unregister_agent,
+    )
 
-# The single source of truth for the 12 main agents.
-from .agent_registry import (
-    AGENT_REGISTRY,
-    FRAMEWORK_AVAILABLE,
-    framework_summary,
-    list_agent_names,
-    register_agent,
-    unregister_agent,
+    # The wiring dataclass + wire_agent function.
+    from .wiring import (
+        AgentFleetWiring,
+        AgentFramework,
+        WireAgent,
+        get_wiring,
+        wire_agent,
+        wiring_for_module_slug,
+    )
+
+    # The 4 shared async dispatchers.
+    from ._workflow_handlers import (
+        LiteratureReviewQuery,
+        ResearchQuery,
+        StudyPlanContext,
+        SummaryRequest,
+        dispatch_deep_research,
+        dispatch_literature_review,
+        dispatch_study_plan,
+        dispatch_summary,
+    )
+
+    # The 5-layer observability stack.
+    from .observability_hooks import (
+        LangfuseLogger,
+        LogfireSpan,
+        MLflowTracker,
+        RAGASScorer,
+        attach_observability,
+        structlogLogger,
+        verify_5_layer_contract,
+    )
+
+    # The 5-backend memory layer.
+    from .memory_layer import (
+        MEMORY_LAYERS,
+        MemoryLayer,
+        get_default_memory_layer,
+        reset_default_memory_layer,
 )
 
-# The wiring dataclass + wire_agent function.
-from .wiring import (
-    AgentFleetWiring,
-    AgentFramework,
-    WireAgent,
-    get_wiring,
-    wire_agent,
-    wiring_for_module_slug,
-)
+    # The canonical exception hierarchy + retry + graceful degradation.
+    from .exceptions import (
+        AgentConfigError,
+        AgentDependencyMissingError,
+        AgentError,
+        AgentMemoryError,
+        AgentObservabilityError,
+        AgentRuntimeError,
+        AgentTimeoutError,
+        graceful_degradation,
+        with_retry,
+    )
 
-# The 4 shared async dispatchers.
-from ._workflow_handlers import (
-    LiteratureReviewQuery,
-    ResearchQuery,
-    StudyPlanContext,
-    SummaryRequest,
-    dispatch_deep_research,
-    dispatch_literature_review,
-    dispatch_study_plan,
-    dispatch_summary,
-)
-
-# The 5-layer observability stack.
-from .observability_hooks import (
-    LangfuseLogger,
-    LogfireSpan,
-    MLflowTracker,
-    RAGASScorer,
-    attach_observability,
-    structlogLogger,
-    verify_5_layer_contract,
-)
-
-# The 5-backend memory layer.
-from .memory_layer import (
-    MEMORY_LAYERS,
-    MemoryLayer,
-    get_default_memory_layer,
-    reset_default_memory_layer,
-)
-
-# The canonical exception hierarchy + retry + graceful degradation.
-from .exceptions import (
-    AgentConfigError,
-    AgentDependencyMissingError,
-    AgentError,
-    AgentMemoryError,
-    AgentObservabilityError,
-    AgentRuntimeError,
-    AgentTimeoutError,
-    graceful_degradation,
-    with_retry,
-)
-
-# The Pydantic v2 base models.
-from .pydantic_models import (
-    AgentContext as AgentContextModel,
-    AgentRequest,
-    AgentResponse as AgentResponseModel,
-    AgentTrace,
-)
+    # The Pydantic v2 base models.
+    from .pydantic_models import (
+        AgentContext as AgentContextModel,
+        AgentRequest,
+        AgentResponse as AgentResponseModel,
+        AgentTrace,
+    )
+except (ImportError, ModuleNotFoundError) as _wholesale_copy_exc:
+    # The wholesale-copy block above depends on cianfhoghlaim-only
+    # modules (agent_registry / wiring / _workflow_handlers /
+    # observability_hooks / memory_layer / exceptions /
+    # pydantic_models). All of them degrade to None on import
+    # failure so the cianchosaint-specific tools can still be
+    # imported by themselves.
+    _WHOLESALE_COPY_DEGRADED = True
+    _wholesale_copy_exc_msg = repr(_wholesale_copy_exc)
+    AGENT_REGISTRY = {}
+    AgentFleetWiring = None
+    AgentFramework = None
+    WireAgent = None
+    get_wiring = None
+    wire_agent = None
+    wiring_for_module_slug = None
+    FRAMEWORK_AVAILABLE = False
+    framework_summary = None
+    list_agent_names = None
+    register_agent = None
+    unregister_agent = None
+    LiteratureReviewQuery = None
+    ResearchQuery = None
+    StudyPlanContext = None
+    SummaryRequest = None
+    dispatch_deep_research = None
+    dispatch_literature_review = None
+    dispatch_study_plan = None
+    dispatch_summary = None
+    LangfuseLogger = None
+    LogfireSpan = None
+    MLflowTracker = None
+    RAGASScorer = None
+    attach_observability = None
+    structlogLogger = None
+    verify_5_layer_contract = None
+    MEMORY_LAYERS = {}
+    MemoryLayer = None
+    get_default_memory_layer = None
+    reset_default_memory_layer = None
+    AgentError = None
+    AgentConfigError = None
+    AgentDependencyMissingError = None
+    AgentMemoryError = None
+    AgentObservabilityError = None
+    AgentRuntimeError = None
+    AgentTimeoutError = None
+    graceful_degradation = None
+    with_retry = None
+    AgentContextModel = None
+    AgentRequest = None
+    AgentResponseModel = None
+    AgentTrace = None
 
 __all__ = [
     # Original ADK exports
