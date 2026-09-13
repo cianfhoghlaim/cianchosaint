@@ -132,7 +132,7 @@ openspec validate cianchosaint-pipeline --strict
 # Expected: Validation passes
 
 # On cianfhoghlaim
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: 1 new change (official-media-pipeline-migration-to-cianchosaint-v1)
 ```

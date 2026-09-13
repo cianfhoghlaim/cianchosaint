@@ -71,6 +71,15 @@ EntityType = Literal[
     "regulator",
     "publication",
     "source_pdf",
+    # === Extended per cianchosaint-politician-schema-v1 ===
+    # (per openspec/changes/cianchosaint-politician-schema-v1/specs/cianchosaint-political-graph/spec.md)
+    # The 4 new entity types support the 5-axis politician + adjacent-context pipeline
+    # (Axis A = politician, Axis B = advisor, Axis C = funder, Axis D = historical_association,
+    #  Axis E = wikipedia_archives).
+    "advisor",
+    "funder",
+    "historical_association",
+    "wikipedia_archives",
 ]
 
 
@@ -88,6 +97,16 @@ RelationshipType = Literal[
     "sp_legates_to",
     "employs",
     "linked_to",
+    # === Extended per cianchosaint-politician-schema-v1 ===
+    # (per openspec/changes/cianchosaint-politician-schema-v1/specs/cianchosaint-political-graph/spec.md)
+    # The 4 new relationship types connect the new entities:
+    # - advises + advised_by  (the bidirectional advisor ↔ politician edge)
+    # - was_member_of          (politician → historical_association)
+    # - holds_wikidata_qid     (politician → wikipedia_archives)
+    "advises",
+    "advised_by",
+    "was_member_of",
+    "holds_wikidata_qid",
 ]
 
 

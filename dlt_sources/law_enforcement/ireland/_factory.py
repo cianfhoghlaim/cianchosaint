@@ -39,7 +39,7 @@ law-enforcement purposes** goes to cianchosaint (this repo). Court-facing
 procedural rules go to ciandlíthe. The `_factory.py` is a STAGE
 sentinel, NOT a pipeline that runs today.
 
-## KCG patterns used
+## Cianfhoghlaim patterns used
 - `JurisdictionPipelineBase` (per `.agents/skills/dlt/SKILL.md`) — the
   shared base class at `dlt_sources/_cross/jurisdiction_pipeline_base.py`.
 - dlt 1.30 §6.3 (`.add_limit(1)`) + §6.4 (`retry_schema_update`) +

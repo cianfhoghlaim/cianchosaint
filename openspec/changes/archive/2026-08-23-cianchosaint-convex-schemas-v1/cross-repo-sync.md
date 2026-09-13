@@ -1,8 +1,8 @@
 # Cross-Repo Sync: cianchosaint-convex-schemas-v1
 
 This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) and leabharlann
-(`/Users/cianmacandeisigh/dev/kings_college_galway/leabharlann/` — a
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) and leabharlann
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/leabharlann/` — a
 separate repo per the cianfhoghlaim AGENTS.md) remain **completely
 unchanged**.
 
@@ -72,7 +72,7 @@ ls web/packages/db/src/schemas.ts
 # Expected: file exists
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: unchanged
 ```

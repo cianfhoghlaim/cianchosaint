@@ -35,7 +35,7 @@ procedural rules (the Special Criminal Court + the Commission of
 Investigation Act 2004 + District Court criminal procedure) →
 ciandlíthe.
 
-## 4. KCG patterns used
+## 4. Cianfhoghlaim patterns used
 
 - `JurisdictionPipelineBase` (per the parent change §21.2 / the
   `2026-08-24-dlt-sources-to-multi-repo-scaffold-v1` §11 merge) — the

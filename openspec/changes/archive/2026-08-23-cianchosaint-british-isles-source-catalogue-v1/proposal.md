@@ -130,6 +130,6 @@ whose sources the catalogue inventories).
 ## Cross-repo sync
 
 This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) remains completely
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) remains completely
 unchanged. The `cross-repo-sync.md` file in this change records this in
 the standard format but does NOT require any Cianfhoghlaim action.

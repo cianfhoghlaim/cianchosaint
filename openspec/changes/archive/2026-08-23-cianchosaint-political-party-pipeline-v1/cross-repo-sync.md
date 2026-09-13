@@ -1,6 +1,6 @@
 # Cross-Repo Sync: cianchosaint-political-party-pipeline-v1
 
-This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`/Users/cianmacandeisigh/dev/kings_college_galway/`) remains **completely unchanged**.
+This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim (`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) remains **completely unchanged**.
 
 ## Order of Operations
 
@@ -77,7 +77,7 @@ find dlt_sources/cianchosaint/political_parties -name "*.py" | wc -l
 # Expected: ~28 (24 party DLTs + _base + _registry + __init__)
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 openspec list
 # Expected: unchanged
 ```

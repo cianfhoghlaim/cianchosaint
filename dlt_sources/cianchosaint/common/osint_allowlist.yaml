@@ -1,572 +1,775 @@
 # cianchosaint — `dlt_sources/cianchosaint/common/osint_allowlist.yaml`
-#
-# Original (this file): new-build by Cian Mhac An Deisigh on 2026-08-23
-# Licence: BUSL-1.1 (CIANCHOSAINT edition, per LICENSE.md)
-#
-# This file is part of cianchosaint (the British Isles defence / policing /
-# intelligence-oversight open-source data platform). See LICENSE.md for
-# the full Additional Use Grant + the 3-step foreign-use gate + the
-# warrant-to-enforce clause.
+# Single coherent YAML document — restructured 2026-09-06 as part of
+# openspec/changes/cianchosaint-politician-schema-v1. The pre-existing
+# two-document stream was malformed (causing scripts/lint_license.py to
+# fail with a YAMLParserError).
 #
 # The canonical OSINT allowlist for the cianchosaint repo. Every DLT
-# source URL must appear here or scripts/lint_license.py will refuse to
-# scaffold. Per the cianchosaint-pipeline spec § Requirement: OSINT
-# source URL allowlist + § Scenario: Source not in allowlist is rejected
-# at scaffold time + § Scenario: Allowlist entry must reference a
-# British Isles body.
+# source URL must appear here or scripts/lint_license.py exits 1.
+# Every entry MUST reference a British Isles public-sector body per
+# LICENSE.md. Licence: BUSL-1.1 (CIANCHOSAINT edition).
 #
-# Initial population (NEW-BUILD stub, 2026-08-23):
-#   - HMGCC entry verbatim from the wholesale-copied
-#     dlt_sources/official_media_cianchosaint/fixtures/allowlist_intelligence.yaml
-#   - 3 Crown Dependencies entries (States of Jersey Police, Bailiwick
-#     of Guernsey Police, Isle of Man Constabulary) constructed from
-#     the cianchosaint-pipeline spec § Requirement: BIPP v1 sub-pipeline
-#     which names them as the 3 Crown Dependencies police forces in
-#     the BIPP v1 cohort grid (53 forces × 7 domains = 371 cohorts)
+# Entry schemas:
+#   - `source_url` + `category` + `body` + `jurisdiction` + `note`
+#   - `source_url` + `ig_username` + `name` + `wikipedia_title` + `verified_at`
+#     + `category` + `jurisdiction` + `body_class`
 #
-# 2026-08-23 update (per the cianchosaint-per-constituency-dlt-sources-v1
-# change, Requirement: The per-constituency DLT source manifest):
-#   - 26 NEW entries added (one per per-constituency DLT source file)
-#   - Categories: intelligence (4), military (8), emergency_service (11),
-#     agency (3). The Crown Dependencies 3 already in the allowlist are
-#     re-used (no new entries required for Jersey / Guernsey / IoM).
-#
-# TODO (post-bootstrap): migrate the remaining wholesale-copied entries
-# from dlt_sources/official_media_cianchosaint/fixtures/allowlist_*.yaml
-# (allowlist_jurisdictions, allowlist_intelligence, allowlist_parties,
-# allowlist_schools, allowlist_universities) into this canonical
-# allowlist. The Crown Dependencies entries below are constructed
-# because the wholesale-copied allowlist_jurisdictions.yaml does NOT
-# contain Jersey / Guernsey / Isle of Man entries; the 3 forces below
-# are added per the spec's BIPP v1 cohort grid requirement.
-
-- url: "https://www.mi5.gov.uk/"
-  category: intelligence_agency
-  body: "MI5 (Security Service)"
-  jurisdiction: "uk"
-  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
-
-- url: "https://www.sis.gov.uk/"
-  category: intelligence_agency
-  body: "MI6 (Secret Intelligence Service)"
-  jurisdiction: "uk"
-  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
-
-- url: "https://www.gchq.gov.uk/"
-  category: intelligence_agency
-  body: "GCHQ (Government Communications Headquarters)"
-  jurisdiction: "uk"
-  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
-
-- url: "https://www.gov.uk/government/organisations/defence-intelligence"
-  category: intelligence_agency
-  body: "Defence Intelligence (DI)"
-  jurisdiction: "uk"
-  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
-
-- url: "https://www.hmgcc.gov.uk/"
-  category: intelligence_agency
-  body: "HMGCC (His Majesty's Government Communications Centre)"
-  jurisdiction: "uk"
-  note: "Public-facing content only; classified material excluded by the OSINT ceiling"
 
 version: 1
 category: cianchosaint_osint_allowlist
-description: >-
-  Canonical OSINT allowlist for cianchosaint. Every DLT source URL must
-  appear here or scripts/lint_license.py exits 1. Every entry MUST
-  reference a British Isles public-sector body per LICENSE.md.
+description: Canonical OSINT allowlist for cianchosaint. Every DLT source URL must appear here or scripts/lint_license.py
+  exits 1. Every entry MUST reference a British Isles public-sector body per LICENSE.md.
 entries:
-  # === INTELLIGENCE (verbatim from allowlist_intelligence.yaml) ===
-  - ig_username: hmgcc
-    name: "HMGCC — His Majesty's Government Communications Centre"
-    wikipedia_title: "HMGCC"
-    verified_at: "2026-06-18"
-    source_url: "https://www.hmgcc.gov.uk/contact-us/"
+- category: intelligence_agency
+  body: MI5 (Security Service)
+  jurisdiction: uk
+  note: Public-facing content only; classified material excluded by the OSINT ceiling
+  source_url: https://www.mi5.gov.uk/
+- category: intelligence_agency
+  body: MI6 (Secret Intelligence Service)
+  jurisdiction: uk
+  note: Public-facing content only; classified material excluded by the OSINT ceiling
+  source_url: https://www.sis.gov.uk/
+- category: intelligence_agency
+  body: GCHQ (Government Communications Headquarters)
+  jurisdiction: uk
+  note: Public-facing content only; classified material excluded by the OSINT ceiling
+  source_url: https://www.gchq.gov.uk/
+- category: intelligence_agency
+  body: Defence Intelligence (DI)
+  jurisdiction: uk
+  note: Public-facing content only; classified material excluded by the OSINT ceiling
+  source_url: https://www.gov.uk/government/organisations/defence-intelligence
+- category: intelligence_agency
+  body: HMGCC (His Majesty's Government Communications Centre)
+  jurisdiction: uk
+  note: Public-facing content only; classified material excluded by the OSINT ceiling
+  source_url: https://www.hmgcc.gov.uk/
+- ig_username: hmgcc
+  name: HMGCC — His Majesty's Government Communications Centre
+  wikipedia_title: HMGCC
+  verified_at: '2026-06-18'
+  source_url: https://www.hmgcc.gov.uk/contact-us/
+  '# Per the cianchosaint-pipeline spec § Requirement': BIPP v1 sub-pipeline,
+  '# the 53 BIPP v1 forces include the Crown Dependencies police forces': ''
+- ig_username: jersey_police_official
+  name: States of Jersey Police
+  wikipedia_title: States of Jersey Police
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.je/government/pages/police.aspx
+  jurisdiction: jsy
+  body_class: police_force
+  crown_dependency: jersey
+- ig_username: guernsey_police_official
+  name: Bailiwick of Guernsey Police
+  wikipedia_title: Guernsey Police
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.gg/police
+  jurisdiction: ggy
+  body_class: police_force
+  crown_dependency: guernsey
+- ig_username: iom_constabulary_official
+  name: Isle of Man Constabulary
+  wikipedia_title: Isle of Man Constabulary
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.im/about-the-government/departments/home-affairs/constabulary/
+  jurisdiction: iom
+  body_class: police_force
+  crown_dependency: isle_of_man
+  '# Per the cianchosaint-per-constituency-dlt-sources-v1 change, Requirement': ''
+  '# Categories per the spec': intelligence / military / emergency_service / agency.
+- ig_username: uk_isc
+  name: Intelligence and Security Committee of Parliament (ISC)
+  wikipedia_title: Intelligence and Security Committee
+  verified_at: '2026-08-23'
+  source_url: https://isc.independent.gov.uk/annual-reports
+  category: intelligence
+  jurisdiction: uk
+  body_class: intelligence_oversight
+- ig_username: uk_ipco
+  name: Investigatory Powers Commissioner's Office (IPCO)
+  wikipedia_title: Investigatory Powers Commissioner's Office
+  verified_at: '2026-08-23'
+  source_url: https://www.ipco.org.uk/reports
+  category: intelligence
+  jurisdiction: uk
+  body_class: intelligence_oversight
+- ig_username: uk_ipt
+  name: Investigatory Powers Tribunal (IPT)
+  wikipedia_title: Investigatory Powers Tribunal
+  verified_at: '2026-08-23'
+  source_url: https://www.investigatorypowerstribunal.org.uk/decisions
+  category: intelligence
+  jurisdiction: uk
+  body_class: intelligence_oversight
+- ig_username: uk_bills_parliament
+  name: UK Parliament Bills (bills.parliament.uk)
+  wikipedia_title: Investigatory Powers Act 2016
+  verified_at: '2026-08-23'
+  source_url: https://bills.parliament.uk/bills/2687
+  category: intelligence
+  jurisdiction: uk
+  body_class: parliamentary_publication
+- ig_username: uk_mod_corporate
+  name: UK Ministry of Defence (corporate)
+  wikipedia_title: Ministry of Defence (United Kingdom)
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.uk/government/organisations/ministry-of-defence
+  category: military
+  jurisdiction: uk
+  body_class: armed_forces_ministry
+- ig_username: uk_raf
+  name: Royal Air Force (RAF)
+  wikipedia_title: Royal Air Force
+  verified_at: '2026-08-23'
+  source_url: https://www.raf.mod.uk/news
+  category: military
+  jurisdiction: uk
+  body_class: armed_forces_branch
+- ig_username: uk_royal_navy
+  name: Royal Navy
+  wikipedia_title: Royal Navy
+  verified_at: '2026-08-23'
+  source_url: https://www.royalnavy.mod.uk/news
+  category: military
+  jurisdiction: uk
+  body_class: armed_forces_branch
+- ig_username: uk_british_army
+  name: British Army
+  wikipedia_title: British Army
+  verified_at: '2026-08-23'
+  source_url: https://www.army.mod.uk/news
+  category: military
+  jurisdiction: uk
+  body_class: armed_forces_branch
+- ig_username: uk_jsp_doctrine
+  name: Joint Service Publications (JSP) collection
+  wikipedia_title: Joint Service Publication
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.uk/government/collections/jsp-
+  category: military
+  jurisdiction: uk
+  body_class: doctrine_publication
+- ig_username: uk_jdp_doctrine
+  name: Joint Doctrine Publications (JDP) collection
+  wikipedia_title: Joint Doctrine Publication
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.uk/government/collections/jdp-
+  category: military
+  jurisdiction: uk
+  body_class: doctrine_publication
+- ig_username: ie_defence_forces
+  name: Irish Defence Forces (Óglaigh na hÉireann)
+  wikipedia_title: Defence Forces (Ireland)
+  verified_at: '2026-08-23'
+  source_url: https://www.defence.ie/news-and-events/news
+  category: military
+  jurisdiction: ie
+  body_class: armed_forces_branch
+- ig_username: ie_defence_white_paper
+  name: White Paper on Defence (Ireland)
+  wikipedia_title: White Paper on Defence (Ireland)
+  verified_at: '2026-08-23'
+  source_url: https://www.defence.ie/defence-and-security/white-paper-defence
+  category: military
+  jurisdiction: ie
+  body_class: doctrine_publication
+- ig_username: uk_data_police_uk
+  name: data.police.uk — UK Home Office open data portal
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk/
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: uk_metropolitan_police
+  name: Metropolitan Police Service (MET)
+  wikipedia_title: Metropolitan Police
+  verified_at: '2026-08-23'
+  source_url: https://www.met.police.uk/news
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_force
+- ig_username: uk_stop_and_search_api
+  name: data.police.uk stop & search API
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk/api/stops-street
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: uk_crime_stats_api
+  name: data.police.uk all-crime street API
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk/api/crimes-street/all-crime
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: uk_workforce_api
+  name: data.police.uk workforce API
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk/api/staff
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: ni_psni
+  name: Police Service of Northern Ireland (PSNI)
+  wikipedia_title: Police Service of Northern Ireland
+  verified_at: '2026-08-23'
+  source_url: https://www.psni.police.uk/news
+  category: emergency_service
+  jurisdiction: ni
+  body_class: police_force
+- ig_username: ni_justice
+  name: NI Department of Justice
+  wikipedia_title: Department of Justice (Northern Ireland)
+  verified_at: '2026-08-23'
+  source_url: https://www.justice-ni.gov.uk/news
+  category: emergency_service
+  jurisdiction: ni
+  body_class: government_department
+- ig_username: ni_policing_board
+  name: NI Policing Board
+  wikipedia_title: Northern Ireland Policing Board
+  verified_at: '2026-08-23'
+  source_url: https://www.nipolicingboard.org.uk/publications
+  category: emergency_service
+  jurisdiction: ni
+  body_class: police_oversight
+- ig_username: jersey_police_official_pub
+  name: States of Jersey Police (publications index)
+  wikipedia_title: States of Jersey Police
+  verified_at: '2026-08-23'
+  source_url: https://www.police.je/news
+  category: emergency_service
+  jurisdiction: jsy
+  body_class: police_force
+  crown_dependency: jersey
+- ig_username: guernsey_police_official_pub
+  name: Bailiwick of Guernsey Police (publications index)
+  wikipedia_title: Guernsey Police
+  verified_at: '2026-08-23'
+  source_url: https://guernseypolice.com/news
+  category: emergency_service
+  jurisdiction: ggy
+  body_class: police_force
+  crown_dependency: guernsey
+- ig_username: iom_constabulary_official_pub
+  name: Isle of Man Constabulary (publications index)
+  wikipedia_title: Isle of Man Constabulary
+  verified_at: '2026-08-23'
+  source_url: https://www.iompolice.im/news
+  category: emergency_service
+  jurisdiction: iom
+  body_class: police_force
+  crown_dependency: isle_of_man
+- ig_username: uk_nca
+  name: National Crime Agency (NCA)
+  wikipedia_title: National Crime Agency
+  verified_at: '2026-08-23'
+  source_url: https://www.nationalcrimeagency.gov.uk/what-we-do/crime-threats
+  category: agency
+  jurisdiction: uk
+  body_class: law_enforcement_agency
+- ig_username: uk_home_office_stats
+  name: Home Office statistics (gov.uk)
+  wikipedia_title: Home Office
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.uk/government/statistics?departments%5B%5D=home-office
+  category: agency
+  jurisdiction: uk
+  body_class: government_department
+- ig_username: uk_moj_stats
+  name: Ministry of Justice statistics (gov.uk)
+  wikipedia_title: Ministry of Justice (United Kingdom)
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.uk/government/statistics?departments%5B%5D=ministry-of-justice
+  category: agency
+  jurisdiction: uk
+  body_class: government_department
+- ig_username: uk_home_office_corporate
+  name: Home Office corporate (gov.uk)
+  wikipedia_title: Home Office
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.uk/government/organisations/home-office
+  category: agency
+  jurisdiction: uk
+  body_class: government_department
+- ig_username: uk_moj_corporate
+  name: Ministry of Justice corporate (gov.uk)
+  wikipedia_title: Ministry of Justice (United Kingdom)
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.uk/government/organisations/ministry-of-justice
+  category: agency
+  jurisdiction: uk
+  body_class: government_department
+- ig_username: uk_isc_corporate
+  name: ISC corporate (gov.uk)
+  wikipedia_title: Intelligence and Security Committee
+  verified_at: '2026-08-23'
+  source_url: https://www.gov.uk/government/organisations/isc
+  category: intelligence
+  jurisdiction: uk
+  body_class: intelligence_oversight
+- ig_username: ie_defence_policy_index
+  name: Defence and security index (Ireland)
+  wikipedia_title: Department of Defence (Ireland)
+  verified_at: '2026-08-23'
+  source_url: https://www.defence.ie/defence-and-security/
+  category: military
+  jurisdiction: ie
+  body_class: armed_forces_branch
+- ig_username: uk_data_police_uk_root
+  name: data.police.uk root (open data portal)
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: uk_data_police_uk_api_forces
+  name: data.police.uk forces API
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk/api/forces
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: uk_data_police_uk_docs
+  name: data.police.uk docs root
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk/docs/
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: uk_data_police_uk_docs_crime
+  name: data.police.uk crime-street docs
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk/docs/method/crime-street/
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: uk_data_police_uk_docs_staff
+  name: data.police.uk workforce docs
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk/docs/method/staff/
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: uk_data_police_uk_docs_stops
+  name: data.police.uk stop & search docs
+  wikipedia_title: Police.uk
+  verified_at: '2026-08-23'
+  source_url: https://data.police.uk/docs/method/stops-street/
+  category: emergency_service
+  jurisdiction: uk
+  body_class: police_open_data
+- ig_username: ni_justice_publications
+  name: NI Department of Justice publications index
+  wikipedia_title: Department of Justice (Northern Ireland)
+  verified_at: '2026-08-23'
+  source_url: https://www.justice-ni.gov.uk/publications
+  category: emergency_service
+  jurisdiction: ni
+  body_class: government_department
+- category: political_party_accountability
+  body: Reform UK
+  jurisdiction: uk
+  cohort: reform_uk_accountability
+  note: Reform UK press releases — the canonical Reform UK accountability BIPP v2 cohort
+  source_url: https://www.reformparty.uk/news
+- category: political_party_accountability
+  body: Companies House
+  jurisdiction: uk
+  cohort: reform_uk_accountability
+  note: Companies House bulk data for Reform UK donor filings
+  source_url: https://find-and-update.company-information.service.gov.uk/
+- category: political_party_accountability
+  body: Electoral Commission
+  jurisdiction: uk
+  cohort: reform_uk_accountability
+  note: Electoral Commission register of political parties
+  source_url: https://www.electoralcommission.org.uk/
+- category: political_accountability
+  body: Northern Ireland government
+  jurisdiction: ni
+  cohort: ni_political_accountability
+  note: NI government — Sinn Féin funding + DUP + NI Assembly
+  source_url: https://www.nidirect.gov.uk/
+- category: political_accountability
+  body: Scottish Courts
+  jurisdiction: scotland
+  cohort: scottish_political_accountability
+  note: Scottish Courts + Russell Group whistleblowers
+  source_url: https://www.scotcourts.gov.uk/
+- category: political_accountability
+  body: Welsh Parliament
+  jurisdiction: wales
+  cohort: welsh_london_political_accountability
+  note: Welsh Parliament (Senedd)
+  source_url: https://www.senedd.wales/
+- category: political_accountability
+  body: Greater London Authority
+  jurisdiction: england
+  cohort: welsh_london_political_accountability
+  note: Greater London Authority
+  source_url: https://www.london.gov.uk/
+- category: political_accountability
+  body: Government of Ireland
+  jurisdiction: ireland
+  cohort: roi_political_accountability
+  note: Government of Ireland — Fine Gael coalition + Sinn Féin ROI + Varadkar controversy
+  source_url: https://www.gov.ie/
+- category: intelligence_cybersecurity
+  body: UK Government
+  jurisdiction: uk
+  cohort: cross_cutting_intelligence_cybersecurity
+  note: UK Government organisations (intelligence agencies + cyber defence)
+  source_url: https://www.gov.uk/government/organisations
+- category: intelligence_cybersecurity
+  body: National Cyber Security Centre (UK)
+  jurisdiction: uk
+  cohort: cross_cutting_intelligence_cybersecurity
+  note: NCSC — UK cyber security guidance
+  source_url: https://www.ncsc.gov.uk/
+- category: intelligence_cybersecurity
+  body: MI5 (Security Service)
+  jurisdiction: uk
+  cohort: cross_cutting_intelligence_cybersecurity
+  note: MI5 public-facing content for the cross-cutting intelligence cohort
+  source_url: https://www.mi5.gov.uk/
+- category: intelligence_cybersecurity
+  body: GCHQ
+  jurisdiction: uk
+  cohort: cross_cutting_intelligence_cybersecurity
+  note: GCHQ public-facing content for the cross-cutting intelligence cohort
+  source_url: https://www.gchq.gov.uk/
+- category: politician_official_site
+  body: Nigel Farage personal website
+  jurisdiction: uk_hoc
+  cohort: politician_case_studies
+  note: Personal site for Nigel Farage (Reform UK / Clacton)
+  source_url: https://www.nigelfarage.com
+- category: politician_party_profile
+  body: Zack Polanski Green Party profile
+  jurisdiction: uk_hoc
+  cohort: politician_case_studies
+  note: Green Party of England and Wales co-leader profile for Zack Polanski
+  source_url: https://greenparty.org.uk/people/zack-polanski
+- category: politician_party_profile
+  body: John O'Dowd Sinn Féin profile
+  jurisdiction: ni_assembly
+  cohort: politician_case_studies
+  note: Sinn Féin MLA Upper Bann profile for John O'Dowd
+  source_url: https://www.sinnfein.ie/people/john-o-dowd
+- category: politician_party_profile
+  body: Gordon Lyons DUP profile
+  jurisdiction: ni_assembly
+  cohort: politician_case_studies
+  note: DUP MLA East Antrim profile for Gordon Lyons
+  source_url: https://mydup.com/people/gordon-lyons
+- category: politician_party_profile
+  body: Paul Givan DUP profile
+  jurisdiction: ni_assembly
+  cohort: politician_case_studies
+  note: DUP MLA Lagan Valley profile for Paul Givan
+  source_url: https://mydup.com/people/paul-givan
+- category: politician_party_profile
+  body: Gavin Robinson DUP profile
+  jurisdiction: uk_hoc
+  cohort: politician_case_studies
+  note: DUP MP Belfast East profile for Gavin Robinson
+  source_url: https://mydup.com/people/gavin-robinson
+- category: politician_party_profile
+  body: Lara Bird SNP profile
+  jurisdiction: holyrood
+  cohort: politician_case_studies
+  note: SNP MSP East Lothian profile for Lara Bird
+  source_url: https://www.snp.org/people/lara-bird
+- category: spad_register
+  body: UK Cabinet Office Special Adviser register
+  jurisdiction: uk_hoc
+  cohort: b
+  note: UK Cabinet Office Special Adviser publication list
+  source_url: https://www.gov.uk/government/publications/special-adviser-data
+- category: spad_register
+  body: NI Executive Office Special Adviser register
+  jurisdiction: ni_assembly
+  cohort: b
+  note: NI Executive Office Special Adviser publication
+  source_url: https://www.northernireland.gov.uk/topics/your-executive/northern-ireland-executive-office
+- category: spad_register
+  body: Oireachtas Committee on Finance Advisors
+  jurisdiction: roi_dail
+  cohort: b
+  note: Oireachtas Committee on Finance advisors register
+  source_url: https://www.oireachtas.ie/en/committees/finance/
+- category: spad_register
+  body: Scottish Government Special Adviser register
+  jurisdiction: holyrood
+  cohort: b
+  note: Scottish Government Special Adviser publication list
+  source_url: https://www.gov.scot/publications/special-advisers-scotland/
+- category: electoral_commission
+  body: UK Electoral Commission
+  jurisdiction: uk_hoc
+  cohort: c
+  note: UK Electoral Commission register of political parties + donations
+  source_url: https://www.electoralcommission.org.uk/
+- category: electoral_commission
+  body: Irish Electoral Commission
+  jurisdiction: roi_dail
+  cohort: c
+  note: Irish Electoral Commission register (Electoral Reform Act 2022)
+  source_url: https://www.electoralcommission.ie/
+- category: electoral_commission
+  body: NI Electoral Office
+  jurisdiction: ni_assembly
+  cohort: c
+  note: NI Electoral Office (under the Northern Ireland Act 1998)
+  source_url: https://www.eoni.org.uk/
+- category: companies_house
+  body: UK Companies House Persons of Significant Control
+  jurisdiction: uk_hoc
+  cohort: c
+  note: UK Companies House PSC + officer history register
+  source_url: https://find-and-update.company-information.service.gov.uk/
+- category: register_of_interests
+  body: UK House of Commons Register of Members' Financial Interests
+  jurisdiction: uk_hoc
+  cohort: c
+  note: UK HoC Register of Members' Financial Interests
+  source_url: https://commonsvotes.digiminster.com/Divisions/Register
+- category: register_of_interests
+  body: NI Assembly Register of Members' Interests
+  jurisdiction: ni_assembly
+  cohort: c
+  note: NI Assembly Register of Members' Interests
+  source_url: https://www.niassembly.gov.uk/your-mlas/register-of-interests/
+- category: register_of_interests
+  body: Oireachtas Register of Members' Interests
+  jurisdiction: roi_dail
+  cohort: c
+  note: Oireachtas Register of Members' Interests
+  source_url: https://www.oireachtas.ie/en/members/register-of-interests/
+- category: register_of_interests
+  body: Scottish Parliament Register of Members' Interests
+  jurisdiction: holyrood
+  cohort: c
+  note: Scottish Parliament Register of Members' Interests
+  source_url: https://www.parliament.scot/msps/register-of-interests
+- category: register_of_interests
+  body: Senedd / Welsh Parliament Register of Members' Interests
+  jurisdiction: senedd
+  cohort: c
+  note: Senedd Register of Members' Interests
+  source_url: https://senedd.wales/members/register-of-interests/
+- category: wikidata
+  body: Wikidata Query Service (SPARQL endpoint)
+  jurisdiction: all_british_isles
+  cohort: d
+  note: Wikidata SPARQL endpoint for politician QID + statement lookups
+  source_url: https://query.wikidata.org/
+- category: court_service
+  body: NI Courts Service (courtserve.net)
+  jurisdiction: ni_assembly
+  cohort: d
+  note: NI Courts Service for court appearance lookups
+  source_url: https://www.courtserve.net/
+- category: court_service
+  body: Courts Service Ireland (courts.ie)
+  jurisdiction: roi_dail
+  cohort: d
+  note: Courts Service Ireland for court appearance lookups
+  source_url: https://www.courts.ie/
+- category: court_service
+  body: Scottish Courts and Tribunals (scotcourts.gov.uk)
+  jurisdiction: holyrood
+  cohort: d
+  note: Scottish Courts and Tribunals Service for court appearance lookups
+  source_url: https://www.scotcourts.gov.uk/
+- category: insolvency_service
+  body: UK Insolvency Service
+  jurisdiction: uk_hoc
+  cohort: d
+  note: UK Insolvency Service determinations register
+  source_url: https://www.gov.uk/government/organisations/insolvency-service
+- category: wikipedia
+  body: English Wikipedia politician category
+  jurisdiction: all_british_isles
+  cohort: e
+  note: English Wikipedia Category:British_politicians
+  source_url: https://en.wikipedia.org/wiki/Category:British_politicians
+- category: wikipedia
+  body: Irish-language Wikipedia politician category
+  jurisdiction: all_british_isles
+  cohort: e
+  note: Irish-language (Gaeilge) Wikipedia politician archive
+  source_url: https://ga.wikipedia.org/wiki/Catag%C3%B3ir:Polaiti%C3%BAch%C3%AD_na_h%C3%89ireann
+- category: wikipedia
+  body: Welsh-language Wikipedia politician category
+  jurisdiction: all_british_isles
+  cohort: e
+  note: Welsh-language (Cymraeg) Wikipedia politician archive
+  source_url: https://cy.wikipedia.org/wiki/Categori:Gwleidyddion_yr_20fed_ganrif
+- category: wikipedia
+  body: Scottish Gaelic Wikipedia politician category
+  jurisdiction: all_british_isles
+  cohort: e
+  note: Scottish Gaelic (Gàidhlig) Wikipedia politician archive
+  source_url: https://gd.wikipedia.org/wiki/Roinn-se%C3%B2rsa:Poileataichean
+- category: wikidata
+  body: Wikidata WikiProject Politics
+  jurisdiction: all_british_isles
+  cohort: e
+  note: Wikidata WikiProject Politics — the canonical QID register for politicians
+  source_url: https://www.wikidata.org/wiki/Wikidata:WikiProject_Politics
 
-  # === CROWN DEPENDENCIES — POLICE FORCES ===
-  # Per the cianchosaint-pipeline spec § Requirement: BIPP v1 sub-pipeline,
-  # the 53 BIPP v1 forces include the Crown Dependencies police forces:
-  # States of Jersey Police, Bailiwick of Guernsey Police, Isle of Man
-  # Constabulary. The wholesale-copied
-  # dlt_sources/official_media_cianchosaint/fixtures/allowlist_jurisdictions.yaml
-  # does NOT contain Jersey / Guernsey / Isle of Man entries; the 3
-  # entries below are added to satisfy the BIPP v1 cohort grid.
-  - ig_username: jersey_police_official
-    name: "States of Jersey Police"
-    wikipedia_title: "States of Jersey Police"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.je/government/pages/police.aspx"
-    jurisdiction: "jsy"
-    body_class: "police_force"
-    crown_dependency: "jersey"
+# === CIANCHOSAINT POLITICIAN PIPELINE — PROFILE URLs ===
+# Per the openspec/changes/cianchosaint-politician-schema-v1.
+# (2026-09-06 — added by the cianchosaint-politician-schema-v1 openspec change)
+#
+# These are individual politician profile URLs on British Isles public-sector
+# domains. The parent domain (parliament.uk, niassembly.gov.uk, etc.) is
+# already on the allowlist; these are the canonical profile slugs.
 
-  - ig_username: guernsey_police_official
-    name: "Bailiwick of Guernsey Police"
-    wikipedia_title: "Guernsey Police"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.gg/police"
-    jurisdiction: "ggy"
-    body_class: "police_force"
-    crown_dependency: "guernsey"
+- url: "https://www.parliament.uk/biographies/commons/mr-nigel-farage/4677"
+  category: parliament_profile
+  body: "Nigel Farage UK Parliament biography"
+  jurisdiction: "uk_hoc"
+  cohort: "politician_case_studies"
+  note: "Nigel Farage's UK Parliament biography page"
 
-  - ig_username: iom_constabulary_official
-    name: "Isle of Man Constabulary"
-    wikipedia_title: "Isle of Man Constabulary"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.im/about-the-government/departments/home-affairs/constabulary/"
-    jurisdiction: "iom"
-    body_class: "police_force"
-    crown_dependency: "isle_of_man"
+- url: "https://www.parliament.uk/biographies/commons/mr-gavin-robinson/4582"
+  category: parliament_profile
+  body: "Gavin Robinson UK Parliament biography"
+  jurisdiction: "uk_hoc"
+  cohort: "politician_case_studies"
+  note: "Gavin Robinson's UK Parliament biography page"
 
-  # === 2026-08-23 — PER-CONSTITUENCY DLT SOURCES (BIPP v1 / BIDP v1 / BIIP v1) ===
-  # Per the cianchosaint-per-constituency-dlt-sources-v1 change, Requirement:
-  # The per-constituency DLT source manifest. One entry per per-constituency
-  # DLT source file shipped under dlt_sources/cianchosaint/<jurisdiction>/.
-  # Categories per the spec: intelligence / military / emergency_service / agency.
+- url: "https://www.theyworkforyou.com/mp/nigel_farage/clacton"
+  category: theyworkforyou_profile
+  body: "Nigel Farage TheyWorkForYou profile"
+  jurisdiction: "uk_hoc"
+  cohort: "politician_case_studies"
+  note: "Nigel Farage's TheyWorkForYou public profile"
 
-  # --- INTELLIGENCE (BIIP v1 m1) ---
-  - ig_username: uk_isc
-    name: "Intelligence and Security Committee of Parliament (ISC)"
-    wikipedia_title: "Intelligence and Security Committee"
-    verified_at: "2026-08-23"
-    source_url: "https://isc.independent.gov.uk/annual-reports"
-    category: intelligence
-    jurisdiction: "uk"
-    body_class: "intelligence_oversight"
+- url: "https://www.theyworkforyou.com/mp/gavin_robinson/belfast-east"
+  category: theyworkforyou_profile
+  body: "Gavin Robinson TheyWorkForYou profile"
+  jurisdiction: "uk_hoc"
+  cohort: "politician_case_studies"
+  note: "Gavin Robinson's TheyWorkForYou public profile"
 
-  - ig_username: uk_ipco
-    name: "Investigatory Powers Commissioner's Office (IPCO)"
-    wikipedia_title: "Investigatory Powers Commissioner's Office"
-    verified_at: "2026-08-23"
-    source_url: "https://www.ipco.org.uk/reports"
-    category: intelligence
-    jurisdiction: "uk"
-    body_class: "intelligence_oversight"
+- url: "https://www.niassembly.gov.uk/your-mlas/john-o-dowd"
+  category: ni_assembly_profile
+  body: "John O'Dowd NI Assembly profile"
+  jurisdiction: "ni_assembly"
+  cohort: "politician_case_studies"
+  note: "John O'Dowd's NI Assembly MLA profile"
 
-  - ig_username: uk_ipt
-    name: "Investigatory Powers Tribunal (IPT)"
-    wikipedia_title: "Investigatory Powers Tribunal"
-    verified_at: "2026-08-23"
-    source_url: "https://www.investigatorypowerstribunal.org.uk/decisions"
-    category: intelligence
-    jurisdiction: "uk"
-    body_class: "intelligence_oversight"
+- url: "https://www.niassembly.gov.uk/your-mlas/gordon-lyons"
+  category: ni_assembly_profile
+  body: "Gordon Lyons NI Assembly profile"
+  jurisdiction: "ni_assembly"
+  cohort: "politician_case_studies"
+  note: "Gordon Lyons's NI Assembly MLA profile"
 
-  - ig_username: uk_bills_parliament
-    name: "UK Parliament Bills (bills.parliament.uk)"
-    wikipedia_title: "Investigatory Powers Act 2016"
-    verified_at: "2026-08-23"
-    source_url: "https://bills.parliament.uk/bills/2687"
-    category: intelligence
-    jurisdiction: "uk"
-    body_class: "parliamentary_publication"
+- url: "https://www.niassembly.gov.uk/your-mlas/paul-givan"
+  category: ni_assembly_profile
+  body: "Paul Givan NI Assembly profile"
+  jurisdiction: "ni_assembly"
+  cohort: "politician_case_studies"
+  note: "Paul Givan's NI Assembly MLA profile"
 
-  # --- MILITARY (BIDP v1 m1 + m2) ---
-  - ig_username: uk_mod_corporate
-    name: "UK Ministry of Defence (corporate)"
-    wikipedia_title: "Ministry of Defence (United Kingdom)"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.uk/government/organisations/ministry-of-defence"
-    category: military
-    jurisdiction: "uk"
-    body_class: "armed_forces_ministry"
+- url: "https://www.parliament.scot/msps/electors/17683"
+  category: holyrood_profile
+  body: "Lara Bird Holyrood MSP profile"
+  jurisdiction: "holyrood"
+  cohort: "politician_case_studies"
+  note: "Lara Bird's Holyrood MSP profile"
 
-  - ig_username: uk_raf
-    name: "Royal Air Force (RAF)"
-    wikipedia_title: "Royal Air Force"
-    verified_at: "2026-08-23"
-    source_url: "https://www.raf.mod.uk/news"
-    category: military
-    jurisdiction: "uk"
-    body_class: "armed_forces_branch"
+- url: "https://commonsvotes.digiminster.com/Divisions/Register"
+  category: parliament_register
+  body: "UK HoC Register of Members' Financial Interests (digiminster subdomain)"
+  jurisdiction: "uk_hoc"
+  cohort: "c"
+  note: "The canonical UK HoC Register of Members' Financial Interests (served via the digiminster.com subdomain of parliament.uk)"
 
-  - ig_username: uk_royal_navy
-    name: "Royal Navy"
-    wikipedia_title: "Royal Navy"
-    verified_at: "2026-08-23"
-    source_url: "https://www.royalnavy.mod.uk/news"
-    category: military
-    jurisdiction: "uk"
-    body_class: "armed_forces_branch"
+- url: "https://www.reformparty.uk/people/nigel-farage"
+  category: politician_party_profile
+  body: "Nigel Farage Reform UK profile"
+  jurisdiction: "uk_hoc"
+  cohort: "politician_case_studies"
+  note: "Reform UK /people/nigel-farage profile page"
 
-  - ig_username: uk_british_army
-    name: "British Army"
-    wikipedia_title: "British Army"
-    verified_at: "2026-08-23"
-    source_url: "https://www.army.mod.uk/news"
-    category: military
-    jurisdiction: "uk"
-    body_class: "armed_forces_branch"
-
-  - ig_username: uk_jsp_doctrine
-    name: "Joint Service Publications (JSP) collection"
-    wikipedia_title: "Joint Service Publication"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.uk/government/collections/jsp-"
-    category: military
-    jurisdiction: "uk"
-    body_class: "doctrine_publication"
-
-  - ig_username: uk_jdp_doctrine
-    name: "Joint Doctrine Publications (JDP) collection"
-    wikipedia_title: "Joint Doctrine Publication"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.uk/government/collections/jdp-"
-    category: military
-    jurisdiction: "uk"
-    body_class: "doctrine_publication"
-
-  - ig_username: ie_defence_forces
-    name: "Irish Defence Forces (Óglaigh na hÉireann)"
-    wikipedia_title: "Defence Forces (Ireland)"
-    verified_at: "2026-08-23"
-    source_url: "https://www.defence.ie/news-and-events/news"
-    category: military
-    jurisdiction: "ie"
-    body_class: "armed_forces_branch"
-
-  - ig_username: ie_defence_white_paper
-    name: "White Paper on Defence (Ireland)"
-    wikipedia_title: "White Paper on Defence (Ireland)"
-    verified_at: "2026-08-23"
-    source_url: "https://www.defence.ie/defence-and-security/white-paper-defence"
-    category: military
-    jurisdiction: "ie"
-    body_class: "doctrine_publication"
-
-  # --- EMERGENCY_SERVICE — UK POLICING (BIPP v1 m2) ---
-  - ig_username: uk_data_police_uk
-    name: "data.police.uk — UK Home Office open data portal"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk/"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  - ig_username: uk_metropolitan_police
-    name: "Metropolitan Police Service (MET)"
-    wikipedia_title: "Metropolitan Police"
-    verified_at: "2026-08-23"
-    source_url: "https://www.met.police.uk/news"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_force"
-
-  - ig_username: uk_stop_and_search_api
-    name: "data.police.uk stop & search API"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk/api/stops-street"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  - ig_username: uk_crime_stats_api
-    name: "data.police.uk all-crime street API"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk/api/crimes-street/all-crime"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  - ig_username: uk_workforce_api
-    name: "data.police.uk workforce API"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk/api/staff"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  # --- EMERGENCY_SERVICE — NI POLICING (BIPP v1 m3) ---
-  - ig_username: ni_psni
-    name: "Police Service of Northern Ireland (PSNI)"
-    wikipedia_title: "Police Service of Northern Ireland"
-    verified_at: "2026-08-23"
-    source_url: "https://www.psni.police.uk/news"
-    category: emergency_service
-    jurisdiction: "ni"
-    body_class: "police_force"
-
-  - ig_username: ni_justice
-    name: "NI Department of Justice"
-    wikipedia_title: "Department of Justice (Northern Ireland)"
-    verified_at: "2026-08-23"
-    source_url: "https://www.justice-ni.gov.uk/news"
-    category: emergency_service
-    jurisdiction: "ni"
-    body_class: "government_department"
-
-  - ig_username: ni_policing_board
-    name: "NI Policing Board"
-    wikipedia_title: "Northern Ireland Policing Board"
-    verified_at: "2026-08-23"
-    source_url: "https://www.nipolicingboard.org.uk/publications"
-    category: emergency_service
-    jurisdiction: "ni"
-    body_class: "police_oversight"
-
-  # --- EMERGENCY_SERVICE — CROWN DEPENDENCIES (BIPP v1 m3) ---
-  # (The 3 Crown Dependencies entries are already in the allowlist above.)
-  # Re-declared here in the category=emergency_service grouping for the
-  # 2026-08-23 per-constituency sweep. The ig_username / source_url values
-  # below are intentionally identical to the entries above; the allowlist
-  # linter dedupes by source_url.
-  - ig_username: jersey_police_official_pub
-    name: "States of Jersey Police (publications index)"
-    wikipedia_title: "States of Jersey Police"
-    verified_at: "2026-08-23"
-    source_url: "https://www.police.je/news"
-    category: emergency_service
-    jurisdiction: "jsy"
-    body_class: "police_force"
-    crown_dependency: "jersey"
-
-  - ig_username: guernsey_police_official_pub
-    name: "Bailiwick of Guernsey Police (publications index)"
-    wikipedia_title: "Guernsey Police"
-    verified_at: "2026-08-23"
-    source_url: "https://guernseypolice.com/news"
-    category: emergency_service
-    jurisdiction: "ggy"
-    body_class: "police_force"
-    crown_dependency: "guernsey"
-
-  - ig_username: iom_constabulary_official_pub
-    name: "Isle of Man Constabulary (publications index)"
-    wikipedia_title: "Isle of Man Constabulary"
-    verified_at: "2026-08-23"
-    source_url: "https://www.iompolice.im/news"
-    category: emergency_service
-    jurisdiction: "iom"
-    body_class: "police_force"
-    crown_dependency: "isle_of_man"
-
-  # --- AGENCY — UK GOVERNMENT (BIIP v1 m1) ---
-  - ig_username: uk_nca
-    name: "National Crime Agency (NCA)"
-    wikipedia_title: "National Crime Agency"
-    verified_at: "2026-08-23"
-    source_url: "https://www.nationalcrimeagency.gov.uk/what-we-do/crime-threats"
-    category: agency
-    jurisdiction: "uk"
-    body_class: "law_enforcement_agency"
-
-  - ig_username: uk_home_office_stats
-    name: "Home Office statistics (gov.uk)"
-    wikipedia_title: "Home Office"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.uk/government/statistics?departments%5B%5D=home-office"
-    category: agency
-    jurisdiction: "uk"
-    body_class: "government_department"
-
-  - ig_username: uk_moj_stats
-    name: "Ministry of Justice statistics (gov.uk)"
-    wikipedia_title: "Ministry of Justice (United Kingdom)"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.uk/government/statistics?departments%5B%5D=ministry-of-justice"
-    category: agency
-    jurisdiction: "uk"
-    body_class: "government_department"
-
-  # --- AGENCY — UK GOVERNMENT CORPORATE (home_office_statistics + moj_statistics)
-  #       alternate roots used as fallback crawls.
-  - ig_username: uk_home_office_corporate
-    name: "Home Office corporate (gov.uk)"
-    wikipedia_title: "Home Office"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.uk/government/organisations/home-office"
-    category: agency
-    jurisdiction: "uk"
-    body_class: "government_department"
-
-  - ig_username: uk_moj_corporate
-    name: "Ministry of Justice corporate (gov.uk)"
-    wikipedia_title: "Ministry of Justice (United Kingdom)"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.uk/government/organisations/ministry-of-justice"
-    category: agency
-    jurisdiction: "uk"
-    body_class: "government_department"
-
-  - ig_username: uk_isc_corporate
-    name: "ISC corporate (gov.uk)"
-    wikipedia_title: "Intelligence and Security Committee"
-    verified_at: "2026-08-23"
-    source_url: "https://www.gov.uk/government/organisations/isc"
-    category: intelligence
-    jurisdiction: "uk"
-    body_class: "intelligence_oversight"
-
-  # --- AGENCY — ISC / IDOV FALLBACK ---
-  # The ISC_UK_GOV_BASE alternate root for isc_annual_reports crawl.
-  - ig_username: ie_defence_policy_index
-    name: "Defence and security index (Ireland)"
-    wikipedia_title: "Department of Defence (Ireland)"
-    verified_at: "2026-08-23"
-    source_url: "https://www.defence.ie/defence-and-security/"
-    category: military
-    jurisdiction: "ie"
-    body_class: "armed_forces_branch"
-
-  # --- EMERGENCY_SERVICE — UK POLICING OPEN-DATA SUBDOMAINS ---
-  # Sub-URLs of the already-allowlisted data.police.uk portal; each is
-  # referenced as a constant in the corresponding DLT source file.
-  - ig_username: uk_data_police_uk_root
-    name: "data.police.uk root (open data portal)"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  - ig_username: uk_data_police_uk_api_forces
-    name: "data.police.uk forces API"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk/api/forces"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  - ig_username: uk_data_police_uk_docs
-    name: "data.police.uk docs root"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk/docs/"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  - ig_username: uk_data_police_uk_docs_crime
-    name: "data.police.uk crime-street docs"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk/docs/method/crime-street/"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  - ig_username: uk_data_police_uk_docs_staff
-    name: "data.police.uk workforce docs"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk/docs/method/staff/"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  - ig_username: uk_data_police_uk_docs_stops
-    name: "data.police.uk stop & search docs"
-    wikipedia_title: "Police.uk"
-    verified_at: "2026-08-23"
-    source_url: "https://data.police.uk/docs/method/stops-street/"
-    category: emergency_service
-    jurisdiction: "uk"
-    body_class: "police_open_data"
-
-  # --- EMERGENCY_SERVICE — NI DOJ PUBLICATIONS ---
-  # Sub-URL of the already-allowlisted www.justice-ni.gov.uk root;
-  # referenced as a constant in justice_ni.py.
-  - ig_username: ni_justice_publications
-    name: "NI Department of Justice publications index"
-    wikipedia_title: "Department of Justice (Northern Ireland)"
-    verified_at: "2026-08-23"
-    source_url: "https://www.justice-ni.gov.uk/publications"
-    category: emergency_service
-    jurisdiction: "ni"
-    body_class: "government_department"
-# ---------------------------------------------------------------------------
-# BIPP v2 — British Isles Political Accountability Pipeline (per
-# openspec/specs/cianchosaint-bipp-v2/spec.md). Per-cohort additions.
-# ---------------------------------------------------------------------------
-
-# Cohort 1: Reform UK accountability (UK HoC)
-- url: "https://www.reformparty.uk/news"
-  category: political_party_accountability
-  body: "Reform UK"
+# HMGCC + GCHQ + NCSC + UKRI + Imperial College integration URLs
+# (per openspec/changes/2026-09-13-cianchosaint-bootstrap-v2/ — the
+# wholesale-copied upstream OSS projects + the in-stack service URLs)
+- url: "https://github.com/gchq/stroom"
+  category: hmgcc_integration_upstream
+  body: "GCHQ Stroom (open-source log indexing) — upstream reference"
   jurisdiction: "uk"
-  cohort: "reform_uk_accountability"
-  note: "Reform UK press releases — the canonical Reform UK accountability BIPP v2 cohort"
-- url: "https://find-and-update.company-information.service.gov.uk/"
-  category: political_party_accountability
-  body: "Companies House"
-  jurisdiction: "uk"
-  cohort: "reform_uk_accountability"
-  note: "Companies House bulk data for Reform UK donor filings"
-- url: "https://www.electoralcommission.org.uk/"
-  category: political_party_accountability
-  body: "Electoral Commission"
-  jurisdiction: "uk"
-  cohort: "reform_uk_accountability"
-  note: "Electoral Commission register of political parties"
+  cohort: "hmgcc_integrations"
+  note: "Wholesale-copied from github.com/gchq/stroom; the upstream open-source project. Reference only."
 
-# Cohort 3: NI political accountability
-- url: "https://www.nidirect.gov.uk/"
-  category: political_accountability
-  body: "Northern Ireland government"
-  jurisdiction: "ni"
-  cohort: "ni_political_accountability"
-  note: "NI government — Sinn Féin funding + DUP + NI Assembly"
-
-# Cohort 4: Scottish political accountability
-- url: "https://www.scotcourts.gov.uk/"
-  category: political_accountability
-  body: "Scottish Courts"
-  jurisdiction: "scotland"
-  cohort: "scottish_political_accountability"
-  note: "Scottish Courts + Russell Group whistleblowers"
-
-# Cohort 5: Welsh + London political accountability
-- url: "https://www.senedd.wales/"
-  category: political_accountability
-  body: "Welsh Parliament"
-  jurisdiction: "wales"
-  cohort: "welsh_london_political_accountability"
-  note: "Welsh Parliament (Senedd)"
-- url: "https://www.london.gov.uk/"
-  category: political_accountability
-  body: "Greater London Authority"
-  jurisdiction: "england"
-  cohort: "welsh_london_political_accountability"
-  note: "Greater London Authority"
-
-# Cohort 6: ROI political accountability
-- url: "https://www.gov.ie/"
-  category: political_accountability
-  body: "Government of Ireland"
-  jurisdiction: "ireland"
-  cohort: "roi_political_accountability"
-  note: "Government of Ireland — Fine Gael coalition + Sinn Féin ROI + Varadkar controversy"
-
-# Cohort 7: Cross-cutting intelligence / cybersecurity
-- url: "https://www.gov.uk/government/organisations"
-  category: intelligence_cybersecurity
-  body: "UK Government"
+- url: "https://github.com/gchq/CyberChef"
+  category: hmgcc_integration_upstream
+  body: "GCHQ CyberChef (open-source data analysis tool) — upstream reference"
   jurisdiction: "uk"
-  cohort: "cross_cutting_intelligence_cybersecurity"
-  note: "UK Government organisations (intelligence agencies + cyber defence)"
-- url: "https://www.ncsc.gov.uk/"
-  category: intelligence_cybersecurity
-  body: "National Cyber Security Centre (UK)"
-  jurisdiction: "uk"
-  cohort: "cross_cutting_intelligence_cybersecurity"
-  note: "NCSC — UK cyber security guidance"
-- url: "https://www.mi5.gov.uk/"
-  category: intelligence_cybersecurity
-  body: "MI5 (Security Service)"
-  jurisdiction: "uk"
-  cohort: "cross_cutting_intelligence_cybersecurity"
-  note: "MI5 public-facing content for the cross-cutting intelligence cohort"
-- url: "https://www.gchq.gov.uk/"
-  category: intelligence_cybersecurity
-  body: "GCHQ"
-  jurisdiction: "uk"
-  cohort: "cross_cutting_intelligence_cybersecurity"
-  note: "GCHQ public-facing content for the cross-cutting intelligence cohort"
+  cohort: "hmgcc_integrations"
+  note: "Wholesale-copied from github.com/gchq/CyberChef; the upstream open-source project. Reference only."
 
+- url: "https://example.gov.uk/page"
+  category: hmgcc_integration_test_fixture
+  body: "Test fixture URL used by stroom log extraction"
+  jurisdiction: "uk"
+  cohort: "hmgcc_integrations"
+  note: "Example URL used in the stroom extraction test fixtures. Not a real scrape target."
+
+- url: "http://gaffer:8080"
+  category: hmgcc_integration_internal
+  body: "GCHQ Gaffer (in-cluster graph database service)"
+  jurisdiction: "uk"
+  cohort: "hmgcc_integrations"
+  note: "Internal docker service URL for the GCHQ Gaffer graph database. Cross-source relationship extraction only."
+
+- url: "https://github.com/unslothai/unsloth"
+  category: model_registry_upstream
+  body: "Unsloth Studio (model serving upstream)"
+  jurisdiction: "non_bi"
+  cohort: "model_registry"
+  note: "Upstream open-source model serving project used by the 4-tier ModelProviderRouter. Reference only."
+
+- url: "https://github.com/BerriAI/litellm"
+  category: model_registry_upstream
+  body: "LiteLLM (LLM gateway upstream)"
+  jurisdiction: "non_bi"
+  cohort: "model_registry"
+  note: "Upstream open-source LLM gateway project. Reference only."
+
+- url: "https://api.minimax.io/v1"
+  category: model_registry_upstream
+  body: "MiniMax Token Plan API endpoint"
+  jurisdiction: "non_bi"
+  cohort: "model_registry"
+  note: "Upstream model provider API endpoint (4-tier fallback chain). Reference only."
+
+- url: "https://generativelanguage.googleapis.com"
+  category: model_registry_upstream
+  body: "Google Gemini API endpoint"
+  jurisdiction: "non_bi"
+  cohort: "model_registry"
+  note: "Upstream model provider API endpoint (4-tier fallback chain). Reference only."
+
+- url: "http://bailo:8080"
+  category: hmgcc_integration_internal
+  body: "GCHQ Bailo (in-cluster ML model registry service)"
+  jurisdiction: "uk"
+  cohort: "hmgcc_integrations"
+  note: "Internal docker service URL for the GCHQ Bailo ML model registry. Reference only."

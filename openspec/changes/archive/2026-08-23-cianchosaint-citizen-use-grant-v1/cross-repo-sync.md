@@ -1,8 +1,8 @@
 # Cross-Repo Sync: cianchosaint-citizen-use-grant-v1
 
 This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) and leabharlann
-(`/Users/cianmacandeisigh/dev/kings_college_galway/leabharlann/` — a
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) and leabharlann
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/leabharlann/` — a
 separate repo per the cianfhoghlaim AGENTS.md) remain **completely
 unchanged**.
 
@@ -75,7 +75,7 @@ python3 -c "with open('LICENSE.md') as f: content = f.read(); assert 'NATURAL PE
 # Expected: OK
 
 # On cianfhoghlaim (unchanged)
-cd /Users/cianmacandeisigh/dev/kings_college_galway
+cd /Users/cianmacandeisigh/dev/cianfhoghlaim
 git diff -- LICENSE.md
 # Expected: empty diff (the Cianfhoghlaim LICENSE.md is unchanged)
 

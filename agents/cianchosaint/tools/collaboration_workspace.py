@@ -303,7 +303,70 @@ __all__ = [
     "WorkspaceInvitation",
     "WorkspaceMember",
     "WorkspaceRole",
+    "collaboration_workspace_tool",
 ]
+
+
+# ---------------------------------------------------------------------------
+# ADK FunctionTool wrapper
+# ---------------------------------------------------------------------------
+
+def collaboration_workspace_tool(
+    action: str,
+    workspace_id: str | None = None,
+    name: str | None = None,
+    created_by: str | None = None,
+    email: str | None = None,
+    role: str = "analyst",
+    organisation: str | None = None,
+    added_by: str | None = None,
+    dossier_id: str | None = None,
+    cohort: str | None = None,
+    source: str | None = None,
+) -> dict[str, Any]:
+    """ADK FunctionTool — manage a multi-tenant collaboration workspace.
+
+    Per openspec/changes/cianchosaint-collaboration-workspace-v1/.
+
+    Supported actions:
+      - create_workspace(workspace_id, name, created_by)
+      - add_member(workspace_id, email, role, organisation, added_by)
+      - add_dossier(workspace_id, dossier_id, cohort, source, added_by)
+      - list_dossiers(workspace_id, email)
+      - get_audit_log(workspace_id)
+    """
+    import json as _json
+
+    from google.adk.tools import FunctionTool as _FunctionTool
+
+    mgr = CollaborationWorkspaceManager()
+    if action == "create_workspace":
+        ws = mgr.create_workspace(
+            workspace_id=workspace_id,
+            name=name,
+            created_by=created_by,
+        )
+        return {"workspace_id": ws.workspace_id, "name": ws.name, "members": len(ws.members)}
+    if action == "add_member":
+        return {"ok": mgr.add_member(workspace_id, email, role=role, organisation=organisation, added_by=added_by)}
+    if action == "add_dossier":
+        return {"ok": mgr.add_dossier(workspace_id, dossier_id, cohort=cohort, source=source, added_by=added_by)}
+    if action == "list_dossiers":
+        dossiers = mgr.list_dossiers(workspace_id, email)
+        return {"workspace_id": workspace_id, "dossiers": [d.dossier_id for d in dossiers]}
+    if action == "get_audit_log":
+        log = mgr.get_audit_log(workspace_id) if hasattr(mgr, "get_audit_log") else []
+        return {"workspace_id": workspace_id, "audit_log": log}
+    raise ValueError(f"Unknown action: {action}")
+
+
+# Wrap as an ADK FunctionTool
+try:
+    collaboration_workspace_tool = FunctionTool(func=collaboration_workspace_tool)
+except Exception:
+    # If the wrapper fails (e.g. ADK not installed at runtime), keep
+    # the raw callable as a fallback so the module still imports.
+    pass
 
 
 if __name__ == "__main__":

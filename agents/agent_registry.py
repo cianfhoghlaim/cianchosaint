@@ -69,7 +69,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="Root",
         langfuse_trace_name="agent.root.route",
         cognee_dataset="oideachais_root",
-        letta_agent_id="kcg-root-agent",
+        letta_agent_id="cianfhoghlaim-root-agent",
         litellm_routing_key="router",
     ),
     "curriculum_agent": AgentFleetWiring(
@@ -81,7 +81,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="Curr",
         langfuse_trace_name="agent.curriculum.search",
         cognee_dataset="oideachais_curriculum",
-        letta_agent_id="kcg-curriculum-agent",
+        letta_agent_id="cianfhoghlaim-curriculum-agent",
         litellm_routing_key="curriculum",
     ),
     "translation_agent": AgentFleetWiring(
@@ -93,7 +93,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="Trans",
         langfuse_trace_name="agent.translation.translate",
         cognee_dataset="oideachais_translation",
-        letta_agent_id="kcg-translation-agent",
+        letta_agent_id="cianfhoghlaim-translation-agent",
         litellm_routing_key="translation",
     ),
     "corpus_agent": AgentFleetWiring(
@@ -105,7 +105,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="Corp",
         langfuse_trace_name="agent.corpus.search",
         cognee_dataset="oideachais_corpus",
-        letta_agent_id="kcg-corpus-agent",
+        letta_agent_id="cianfhoghlaim-corpus-agent",
         litellm_routing_key="corpus",
     ),
     "research_agent": AgentFleetWiring(
@@ -117,7 +117,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="Res",
         langfuse_trace_name="agent.research.deep",
         cognee_dataset="oideachais_research",
-        letta_agent_id="kcg-research-agent",
+        letta_agent_id="cianfhoghlaim-research-agent",
         litellm_routing_key="research",
     ),
     "education_research_agent": AgentFleetWiring(
@@ -129,7 +129,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="EduRes",
         langfuse_trace_name="agent.education_research.policy",
         cognee_dataset="oideachais_education_research",
-        letta_agent_id="kcg-education-research-agent",
+        letta_agent_id="cianfhoghlaim-education-research-agent",
         litellm_routing_key="education_research",
     ),
     "bunchloch_research_agent": AgentFleetWiring(
@@ -141,7 +141,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="BunchRes",
         langfuse_trace_name="agent.bunchloch_research.local",
         cognee_dataset="oideachais_bunchloch_research",
-        letta_agent_id="kcg-bunchloch-research-agent",
+        letta_agent_id="cianfhoghlaim-bunchloch-research-agent",
         litellm_routing_key="bunchloch_research",
     ),
     "geospatial_agent": AgentFleetWiring(
@@ -153,7 +153,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="Geo",
         langfuse_trace_name="agent.geospatial.spatial",
         cognee_dataset="oideachais_geospatial",
-        letta_agent_id="kcg-geospatial-agent",
+        letta_agent_id="cianfhoghlaim-geospatial-agent",
         litellm_routing_key="geospatial",
     ),
     "statistics_agent": AgentFleetWiring(
@@ -165,7 +165,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="Stat",
         langfuse_trace_name="agent.statistics.benchmark",
         cognee_dataset="oideachais_statistics",
-        letta_agent_id="kcg-statistics-agent",
+        letta_agent_id="cianfhoghlaim-statistics-agent",
         litellm_routing_key="statistics",
     ),
     "curriculum_comparison_agent": AgentFleetWiring(
@@ -177,7 +177,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="CurrComp",
         langfuse_trace_name="agent.curriculum_comparison.map",
         cognee_dataset="oideachais_curriculum_comparison",
-        letta_agent_id="kcg-curriculum-comparison-agent",
+        letta_agent_id="cianfhoghlaim-curriculum-comparison-agent",
         litellm_routing_key="curriculum_comparison",
     ),
     "agui_curriculum_agent": AgentFleetWiring(
@@ -189,7 +189,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="AGUICurr",
         langfuse_trace_name="agent.agui_curriculum.stream",
         cognee_dataset="oideachais_agui_curriculum",
-        letta_agent_id="kcg-agui-curriculum-agent",
+        letta_agent_id="cianfhoghlaim-agui-curriculum-agent",
         litellm_routing_key="agui_curriculum",
     ),
     "mcp_curriculum_agent": AgentFleetWiring(
@@ -201,7 +201,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="MCPCurr",
         langfuse_trace_name="agent.mcp_curriculum.bridge",
         cognee_dataset="oideachais_mcp_curriculum",
-        letta_agent_id="kcg-mcp-curriculum-agent",
+        letta_agent_id="cianfhoghlaim-mcp-curriculum-agent",
         litellm_routing_key="mcp_curriculum",
     ),
     # ---------------------------------------------------------------------
@@ -217,7 +217,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="ImageGen",
         langfuse_trace_name="agent.image_generation.generate",
         cognee_dataset="oideachais_image_generation",
-        letta_agent_id="kcg-image-generation-agent",
+        letta_agent_id="cianfhoghlaim-image-generation-agent",
         litellm_routing_key="image_generation",
     ),
     # ---------------------------------------------------------------------
@@ -237,7 +237,7 @@ AGENT_REGISTRY: dict[str, AgentFleetWiring] = {
         baml_prefix="MediaDesc",
         langfuse_trace_name="agent.media_descriptor.extract",
         cognee_dataset="oideachais_media_descriptors",
-        letta_agent_id="kcg-media-descriptor-agent",
+        letta_agent_id="cianfhoghlaim-media-descriptor-agent",
         litellm_routing_key="media_descriptor",
     ),
 }

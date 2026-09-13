@@ -168,7 +168,7 @@ completely unchanged.)
 ## Cross-repo sync
 
 This change touches **ONLY the `cianchosaint` repo**. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) and leabharlann
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) and leabharlann
 (the separate repo at `github.com/cianfhoghlaim/leabharlann`)
 remain **completely unchanged**. No `cross-repo-sync.md` file is
 required.

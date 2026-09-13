@@ -115,7 +115,7 @@ submissions are skipped, not hallucinated into the dossier.
 
 **Layer 3 — The 4 leabharlann source PDFs (read-only context).**
 The pilot cross-references four source PDFs from the leabharlann
-corpus at `/Users/cianmacandeisigh/dev/kings_college_galway/leabharlann/
+corpus at `${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/leabharlann/
 gemini_deep_research/politics/`. These PDFs are stored in a SEPARATE
 git repo (leabharlann, per the cianfhoghlaim AGENTS.md hard rule)
 and are read-only context for the pilot — the pilot does NOT

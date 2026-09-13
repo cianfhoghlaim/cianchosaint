@@ -83,5 +83,5 @@ side has a populated `vlmPipelineDashboard` table at deploy time).
 
 See `cross-repo-sync.md` — this change touches ONLY the
 `cianchosaint` repo. Cianfhoghlaim
-(`/Users/cianmacandeisigh/dev/kings_college_galway/`) remains
+(`${CIANFHOGHLAIM_ROOT:-~/dev/cianfhoghlaim}/`) remains
 **completely unchanged**.

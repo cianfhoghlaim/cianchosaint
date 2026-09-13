@@ -68,7 +68,7 @@ The full schema is at <https://ag-ui.com/spec>.
 
 ## Stack integration
 
-The KCG stack uses AG-UI as the bridge between the UI (CopilotKit)
+The Cianfhoghlaim stack uses AG-UI as the bridge between the UI (CopilotKit)
 and the agent backends (Pydantic AI, Agno, Google ADK, BAML):
 
 ```
@@ -189,7 +189,7 @@ Use custom events for: RAG chunk streaming, progress
 indicators, intermediate tool results, multimodal artifacts
 (images, audio), etc.
 
-## KCG integration
+## Cianfhoghlaim integration
 
 - **web/apps/cianfhoghlaim-web** — `web/apps/cianfhoghlaim-web/src/lib/ag-ui/` (the
   canonical AG-UI client wrappers)
@@ -276,7 +276,7 @@ agent.sendMessage("What quests do I have?").collect { state ->
 ```
 
 **Authentication** is per-client: `bearerToken(...)`,
-`apiKey(...)`, or `basicAuth(...)`. For the KCG stack, the
+`apiKey(...)`, or `basicAuth(...)`. For the Cianfhoghlaim stack, the
 token is the SIWE session JWT from BetterAuth
 (`agents/tuatha/auth/siwe.py`).
 
@@ -326,5 +326,5 @@ for the 191-line official Kotlin SDK reference.
 - A2UI: <https://a2ui.org/>
 - CopilotKit: <https://docs.copilotkit.ai/>
 - Pydantic AI AG-UI adapter: <https://ai.pydantic.dev/ui/ag-ui>
-- KCG AG-UI client: `web/apps/cianfhoghlaim-web/src/lib/ag-ui/`
+- Cianfhoghlaim AG-UI client: `web/apps/cianfhoghlaim-web/src/lib/ag-ui/`
 - AG-UI Kotlin SDK: <https://github.com/ag-ui-protocol/ag-ui/tree/main/sdks/community/kotlin>
