@@ -10,11 +10,12 @@ extraction, CocoIndex v1 embedding, LanceDB + DuckLake + MotherDuck
 storage, to TanStack Start + Convex + AG-UI + CopilotKit per-persona
 dashboards.
 
-The umbrella subsumes three flagship sub-pipelines:
+The umbrella subsumes four flagship sub-pipelines:
 
 - **BIPP v1** — British Isles Policing Pipeline (~371 cohorts across 53 forces × 7 domains)
 - **BIDP v1** — British Isles Defence Pipeline (64 cohorts across 4 UK services + Irish DF + doctrine series)
 - **BIIP v1** — British Isles Intelligence Oversight Pipeline (48 cohorts across 6 oversight bodies)
+- **BIPP v2** — British Isles Political Accountability Pipeline (~50 cohorts across 7 thematic cohorts × 6-8 jurisdictions, ingesting from the 87 leabharlann politics PDFs + the OSINT-allowlisted British-Isles official sources)
 
 The full platform is OSINT-only by source-enforced construction
 (allowlist of source URLs in `dlt_sources/cianchosaint/common/osint_allowlist.yaml`).
@@ -284,6 +285,29 @@ Authority, and Garda Inspectorate.
 - **AND** the `uk_oversight_lance_chunks_check` SHALL pass (chunk
   count >= 24_000)
 
+### Requirement: BIPP v2 sub-pipeline (British Isles Political Accountability Pipeline)
+
+The system SHALL provide the BIPP v2 sub-pipeline ingesting the 87
+leabharlann politics PDFs (read-only context) + the OSINT-allowlisted
+British-Isles official sources + the 24 political-party press
+releases = 7 thematic cohorts × 6-8 jurisdictions = ~50 cohorts. The
+7 thematic cohorts are Reform UK accountability, Reform UK devolved
+branches, NI political accountability, Scottish political
+accountability, Welsh + London political accountability, ROI political
+accountability, and cross-cutting intelligence / cybersecurity.
+
+#### Scenario: BIPP v2 milestone gate m1 (Republic of Ireland)
+
+- **WHEN** the operator runs `mise run cianchosaint:bipp:v2:m1`
+- **THEN** the ROI sources SHALL be ingested (7 cohorts × 1
+  jurisdiction = 7 cohorts minimum)
+- **AND** the `ireland_political_accountability_documents_ingested_check`
+  Dagster asset check SHALL pass (cohort count >= 7)
+- **AND** the `ireland_political_accountability_extractions_ragas_check`
+  SHALL pass (RAGAS faithfulness score >= 0.70)
+- **AND** the `ireland_political_accountability_lance_chunks_check`
+  SHALL pass (chunk count >= 7_000)
+
 ## Cross-references
 
 - [`../../LICENSE.md`](../../LICENSE.md) — the load-bearing legal document
@@ -291,3 +315,7 @@ Authority, and Garda Inspectorate.
 - [`../../openspec/AGENTS.md`](../../AGENTS.md) — the openspec workflow
 - [`./AGENTS.md`](./AGENTS.md) — the per-spec agent routing
 - [Sibling spec: official-media-pipeline in cianfhoghlaim](https://github.com/cianfhoghlaim/cianfhoghlaim/blob/main/openspec/specs/official-media-pipeline/spec.md) — the partial pipeline that cianchosaint extends
+- [Sibling spec: BIPP v1 (British Isles Policing Pipeline)](./cianchosaint-bipp-v1) — the 1st flagship sub-pipeline (~371 cohorts across 53 forces × 7 domains)
+- [Sibling spec: BIDP v1 (British Isles Defence Pipeline)](./cianchosaint-bidp-v1) — the 2nd flagship sub-pipeline (64 cohorts across 4 UK services + Irish DF + doctrine series)
+- [Sibling spec: BIIP v1 (British Isles Intelligence Oversight Pipeline)](./cianchosaint-biip-v1) — the 3rd flagship sub-pipeline (48 cohorts across 6 oversight bodies)
+- [Sibling spec: BIPP v2 (British Isles Political Accountability Pipeline)](./cianchosaint-bipp-v2) — the 4th flagship sub-pipeline (~50 cohorts across 7 thematic cohorts × 6-8 jurisdictions)
