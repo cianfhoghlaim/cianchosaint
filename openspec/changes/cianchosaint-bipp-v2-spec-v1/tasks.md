@@ -14,16 +14,16 @@
 
 - [x] Write `openspec/changes/cianchosaint-bipp-v2-spec-v1/proposal.md` (DONE)
 - [x] Write `openspec/changes/cianchosaint-bipp-v2-spec-v1/tasks.md` (this file)
-- [ ] Write `openspec/changes/cianchosaint-bipp-v2-spec-v1/cross-repo-sync.md`
-- [ ] Write `openspec/changes/cianchosaint-bipp-v2-spec-v1/specs/cianchosaint-bipp-v2/spec.md` (the spec delta)
-- [ ] Run `openspec validate cianchosaint-bipp-v2-spec-v1 --strict`
-- [ ] Run `openspec validate cianchosaint-bipp-v2 --strict`
-- [ ] Run `openspec validate --all --strict`
+- [x] Write `openspec/changes/cianchosaint-bipp-v2-spec-v1/cross-repo-sync.md`
+- [x] Write `openspec/changes/cianchosaint-bipp-v2-spec-v1/specs/cianchosaint-bipp-v2/spec.md` (the spec delta)
+- [x] Run `openspec validate cianchosaint-bipp-v2-spec-v1 --strict`
+- [x] Run `openspec validate cianchosaint-bipp-v2 --strict`
+- [x] Run `openspec validate --all --strict`
 
 ## 3. Update the umbrella cianchosaint-pipeline spec
 
-- [ ] Modify `openspec/specs/cianchosaint-pipeline/spec.md` to add the BIPP v2 sub-pipeline to the umbrella list
-- [ ] Add the cross-references to the 9 sub-pipelines (BIPP v1 + BIDP v1 + BIIP v1 + BIPP v2)
+- [x] Modify `openspec/specs/cianchosaint-pipeline/spec.md` to add the BIPP v2 sub-pipeline to the umbrella list
+- [x] Add the cross-references to the 4 sub-pipelines (BIPP v1 + BIDP v1 + BIIP v1 + BIPP v2)
 
 ## 4. Follow-up openspec changes (NOT in this change's scope)
 
