@@ -1,60 +1,26 @@
 # CIANCHOSAINT — PSNI crime statistics specialist.
 #
-# NEW-BUILD code. Per `cianchosaint-per-constituency-agents-v1`.
+# Per `cianchosaint-per-constituency-agents-v1` + the
+# `cianchosaint-agent-factory-v1` refactor.
 #
 # Licence: BUSL-1.1 (per LICENSE.md)
 
-"""
-PSNI Crime Statistics Specialist.
+"""PSNI Crime Statistics Specialist.
 
-Searches the Police Service of Northern Ireland's published
-crime statistics — annual trends recorded by the PSNI under
-the Police (Northern Ireland) Act 2000.
+Searches PSNI crime statistics (the PSNI publishes quarterly).
 """
 
-from google.adk.agents import LlmAgent
-
-from .._base import CianchosaintAgentBase, DEFAULT_MODEL
+from .._factory import AGENT_FACTORY_REGISTRY, make_cianchosaint_agent
 from ..tools.cross_jurisdiction_query import cross_jurisdiction_query
 
+_wiring = AGENT_FACTORY_REGISTRY["psni_crime_statistics_agent"]
 
-class PSNICrimeStatisticsAgent(CianchosaintAgentBase):
-    """PSNI crime statistics specialist."""
-
-    def __init__(self, provider_router=None) -> None:
-        super().__init__(provider_router=provider_router)
-
-        self.agent = LlmAgent(
-            name="psni_crime_statistics_agent",
-            model=self.get_active_model() or DEFAULT_MODEL,
-            description=(
-                "Searches PSNI crime statistics for Northern Ireland. "
-                "Use for: 'Crime trends in Belfast', 'Recent PSNI "
-                "annual crime report'."
-            ),
-            instruction="""
-            You are the PSNI Crime Statistics Specialist. You
-            consult the Police Service of Northern Ireland's
-            published crime statistics.
-
-            **YOUR ROLE:**
-            1. Find the requested PSNI statistical release
-            2. Quote the headline figures with year + quarter
-            3. Distinguish recorded crime (PSNI figures) from
-               the broader NI Justice statistics (DoJ)
-            4. Always cite the psni.police.uk URL
-
-            For cross-border comparisons (NI vs ROI), use the
-            cross_jurisdiction_query tool.
-
-            **JURISDICTION:** Northern Ireland only.
-            """,
-            tools=[cross_jurisdiction_query],
-            output_key="psni_crime_stats",
-        )
+psni_crime_statistics_agent = make_cianchosaint_agent(
+    name=_wiring.name,
+    description=_wiring.description,
+    instruction=_wiring.instruction,
+    tools=[cross_jurisdiction_query],
+)
 
 
-psni_crime_statistics_agent = PSNICrimeStatisticsAgent().agent
-
-
-__all__ = ["PSNICrimeStatisticsAgent", "psni_crime_statistics_agent"]
+__all__ = ["psni_crime_statistics_agent"]

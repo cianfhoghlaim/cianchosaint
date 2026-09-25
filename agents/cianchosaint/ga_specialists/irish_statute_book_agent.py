@@ -1,60 +1,26 @@
-# CIANCHOSAINT — Irish Statute Book specialist (irishstatutebook.ie).
+# CIANCHOSAINT — Irish statute book specialist (irishstatutebook.ie).
 #
-# NEW-BUILD code. Per `cianchosaint-per-constituency-agents-v1`.
+# Per `cianchosaint-per-constituency-agents-v1` + the
+# `cianchosaint-agent-factory-v1` refactor.
 #
 # Licence: BUSL-1.1 (per LICENSE.md)
 
-"""
-Irish Statute Book Specialist.
+"""Irish Statute Book Specialist.
 
-Searches irishstatutebook.ie — the official publisher of ROI
-statutes, statutory instruments, and Acts of the Oireachtas.
+Searches irishstatutebook.ie for Acts + statutory instruments.
 """
 
-from google.adk.agents import LlmAgent
-
-from .._base import CianchosaintAgentBase, DEFAULT_MODEL
+from .._factory import AGENT_FACTORY_REGISTRY, make_cianchosaint_agent
 from ..tools.statute_lookup import statute_lookup
 
+_wiring = AGENT_FACTORY_REGISTRY["irish_statute_book_agent"]
 
-class IrishStatuteBookAgent(CianchosaintAgentBase):
-    """irishstatutebook.ie search specialist."""
-
-    def __init__(self, provider_router=None) -> None:
-        super().__init__(provider_router=provider_router)
-
-        self.agent = LlmAgent(
-            name="irish_statute_book_agent",
-            model=self.get_active_model() or DEFAULT_MODEL,
-            description=(
-                "Searches irishstatutebook.ie for ROI statutes + "
-                "statutory instruments. Use for: 'Find the Criminal "
-                "Justice (Theft and Fraud Offences) Act 2001', "
-                "'Latest Road Traffic Act amendments'."
-            ),
-            instruction="""
-            You are the Irish Statute Book Specialist. You search
-            irishstatutebook.ie — the canonical publisher of ROI
-            legislation.
-
-            **YOUR ROLE:**
-            1. Find the requested statute or SI
-            2. Quote the exact section + subsection
-            3. Cite the Act/SI number + year + commencement date
-            4. Link to the canonical irishstatutebook.ie URL
-
-            For cross-border statute comparisons (ROI vs UK), use
-            the cross_jurisdiction_query tool.
-
-            **JURISDICTION NOTE:** ROI only. For NI legislation,
-            defer to the psni_root_agent's ni_justice_agent.
-            """,
-            tools=[statute_lookup],
-            output_key="irish_statute",
-        )
+irish_statute_book_agent = make_cianchosaint_agent(
+    name=_wiring.name,
+    description=_wiring.description,
+    instruction=_wiring.instruction,
+    tools=[statute_lookup],
+)
 
 
-irish_statute_book_agent = IrishStatuteBookAgent().agent
-
-
-__all__ = ["IrishStatuteBookAgent", "irish_statute_book_agent"]
+__all__ = ["irish_statute_book_agent"]
