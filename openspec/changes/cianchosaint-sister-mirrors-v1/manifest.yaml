@@ -1,0 +1,88 @@
+# CIANCHOSAINT — canonical sister-mirror consolidation manifest for the 8 web apps.
+#
+# Per `openspec/changes/cianchosaint-sister-mirrors-v1/specs/cianchosaint-sister-mirrors/spec.md`.
+#
+# Wholesale-adapted from cianfhoghlaim's
+# `openspec/changes/2026-09-01-bonneagar-sister-umbrella-mirror-v1/`.
+#
+# Each entry declares:
+# - target_consolidated_path: where the app ends up after the ciafagent-nua consolidation
+# - convergence_facet: which CIANCHOSAINT facet owns it (politician / police / intel / form)
+# - mirror_sources: the asset files to mirror from cianfhoghlaim or upstream cianchosaint
+#
+# Licence: BUSL-1.1 (per LICENSE.md)
+
+version: 1
+canonical_target: "web/apps/ciafagent-nua/"
+convergence_facets:
+  politician: "cianchosaint-politician-schema-v1"
+  police: "cianchosaint-per-constituency-agents-v1"
+  intel: "cianchosaint-intelligence-agency-pipeline-v1"
+  form: "cianchosaint-form-fillers-v1"
+apps:
+  - name: ciafagent-api
+    target_consolidated_path: "web/apps/ciafagent-nua/apps/api/"
+    convergence_facet: politician
+    description: "FastAPI backend for the unified ciafagent-nua app"
+    mirror_sources:
+      - "web/apps/ciafagent-api/src/main.py"
+      - "web/apps/ciafagent-api/src/ag_ui_protocol.py"
+
+  - name: ciafagent-cyberchef
+    target_consolidated_path: "web/apps/ciafagent-nua/apps/cyberchef/"
+    convergence_facet: intel
+    description: "GCHQ CyberChef integration (per cianchosaint-intelligence-agency-pipeline-v1)"
+    mirror_sources:
+      - "agents/cianchosaint/tools/cyberchef_execute.py"
+
+  - name: ciafagent-ga-internal
+    target_consolidated_path: "web/apps/ciafagent-nua/apps/ga-internal/"
+    convergence_facet: police
+    description: "Internal Garda Síochána analyst surface"
+    mirror_sources:
+      - "agents/cianchosaint/ga_root_agent.py"
+      - "agents/cianchosaint/tools/garda_form_fill.py"
+
+  - name: ciafagent-ga-public
+    target_consolidated_path: "web/apps/ciafagent-nua/apps/ga-public/"
+    convergence_facet: police
+    description: "Public Garda Síochána citizen surface"
+    mirror_sources:
+      - "web/apps/ciafagent-ga-public/src/App.tsx"
+
+  - name: ciafagent-met-internal
+    target_consolidated_path: "web/apps/ciafagent-nua/apps/met-internal/"
+    convergence_facet: police
+    description: "Internal MET analyst surface"
+    mirror_sources:
+      - "agents/cianchosaint/met_root_agent.py"
+      - "agents/cianchosaint/tools/met_form_fill.py"
+
+  - name: ciafagent-met-public
+    target_consolidated_path: "web/apps/ciafagent-nua/apps/met-public/"
+    convergence_facet: police
+    description: "Public MET citizen surface"
+    mirror_sources:
+      - "web/apps/ciafagent-met-public/src/App.tsx"
+
+  - name: ciafagent-psni-internal
+    target_consolidated_path: "web/apps/ciafagent-nua/apps/psni-internal/"
+    convergence_facet: police
+    description: "Internal PSNI analyst surface"
+    mirror_sources:
+      - "agents/cianchosaint/psni_root_agent.py"
+      - "agents/cianchosaint/tools/psni_form_fill.py"
+
+  - name: ciafagent-psni-public
+    target_consolidated_path: "web/apps/ciafagent-nua/apps/psni-public/"
+    convergence_facet: police
+    description: "Public PSNI citizen surface"
+    mirror_sources:
+      - "web/apps/ciafagent-psni-public/src/App.tsx"
+
+  - name: ciafagent-self-host
+    target_consolidated_path: "web/apps/ciafagent-nua/apps/self-host/"
+    convergence_facet: politician
+    description: "Self-host citizen surface (per cianchosaint-self-hosted-citizen-v1)"
+    mirror_sources:
+      - "web/apps/ciafagent-self-host/src/main.py"
