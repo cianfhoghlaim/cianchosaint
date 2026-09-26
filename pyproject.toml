@@ -42,17 +42,24 @@ classifiers = [
 ]
 
 dependencies = [
-    "dlt[duckdb]>=1.4.0",
-    "dagster>=1.13.0",
-    "baml-py>=0.223.0",
-    "cocoindex>=1.0.14",
-    "lancedb>=0.20.0",
-    "duckdb>=1.4.0",
-    "motherduck>=0.10.0",
+    # BIEP data platform deps (per openspec/changes/2026-09-26-biep-data-platform-deps-bump-v1/
+    # Stage 3 of the package-version-drift saga). All caret ranges so bugfixes auto-flow.
+    "dlt[duckdb]>=1.30,<2.0",
+    "dagster>=1.13,<2.0",
+    "dagster-dlt>=0.29,<1.0",
+    "dagster-dbt>=0.29,<1.0",
+    "baml-py>=0.223,<1.0",
+    "cocoindex>=1.0.20,<2.0",
+    "lancedb>=0.39,<1.0",
+    "duckdb>=1.5.5,<1.6.0",
+    "motherduck>=0.10,<1.0",
+    "litellm>=1.102,<2.0",
     "pydantic>=2.10.0",
     "structlog>=25.0.0",
     "pyyaml>=6.0.0",
     "langfuse>=4.7.0,<5.0",
+    # google-adk unpinned in cianchosaint (per the BIEP deps bump
+    # openspec — Stage 3). When needed, bump to >=2.9.0,<3.0 in Stage 6.
 ]
 
 [project.optional-dependencies]

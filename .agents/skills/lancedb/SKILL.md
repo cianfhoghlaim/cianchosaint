@@ -14,7 +14,7 @@ description: Expert assistance for vector database development with LanceDB. Use
 
 # LanceDB - Embedded Vector Database
 
-**Version:** >=0.33.0 (pylance >= 0.33) | **Last Updated:** 2026-06-29
+**Version:** >=0.39.0 (pylance >= 0.39) | **Last Updated:** 2026-09-26
 
 ## Overview
 

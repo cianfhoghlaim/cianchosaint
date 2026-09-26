@@ -14,7 +14,7 @@ description: Expert assistance for building AI agents with Google's Agent Develo
 
 # Google ADK - Agent Development Kit
 
-**Version:** >=2.1.0 | **Last Updated:** 2026-06
+**Version:** >=2.9.0,<3 | **Last Updated:** 2026-09-26
 
 ## Overview
 

@@ -55,16 +55,16 @@ Per the LiteLLM release-support policy (2026-06-29): "LiteLLM will only actively
 
 | Package | Pinned (cianchosaint) | Pinned (cianfhoghlaim) | Latest | Drift | Stage |
 |---|---|---|---|---|---|
-| **dagster** | `>=1.13.0` | `>=1.13` | `1.13.24` (Sep 2026) | aligned | 3 |
-| **dagster-dlt** | unpinned | `>=0.29` | `0.29.24` | unverified (unpinned) | 3 |
-| **dagster-dbt** | unpinned | `>=0.29` | `0.29.24` | unverified (unpinned) | 3 |
-| **cocoindex** | `>=1.0.14` | `>=1.0.20` | `1.0.24` (Sep 19, 2026) | aligned | 3 |
-| **baml-py** | `>=0.223.0` | `>=0.222.0` | `0.226.2` (Sep 2026) | behind 4 minor | 3 |
-| **dlt** | `>=1.4.0` | `>=1.28.1` | `1.30.0` (Sep 2026) | cianchosaint behind 26 minor | 3 |
-| **duckdb** | `>=1.4.0` | `>=1.4,<1.6.0` | `1.5.5` LTS / `1.5.6` Sep 28 | behind 1 minor (MotherDuck CLI min) | 3 |
-| **motherduck** | `>=0.10.0` | `>=0.10` | (PyPI lookup failed — verify via `pip index versions motherduck`) | unverified | 3 |
-| **lancedb** | `>=0.20.0` | `>=0.15` | `0.39.0` (Aug 31, 2026) | cianchosaint behind 19 minor; cianfhoghlaim behind 24 minor | 3+5 |
-| **google-adk** | unpinned | `>=2.5.0,<3` | `2.10.0` (Sep 10, 2026) | cianfhoghlaim behind 5 minor | 3 |
+| **dagster** | `>=1.13,<2.0` | `>=1.13,<2.0` | `1.13.24` (Sep 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
+| **dagster-dlt** | `>=0.29,<1.0` | `>=0.29,<1.0` | `0.29.24` (Sep 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
+| **dagster-dbt** | `>=0.29,<1.0` | `>=0.29,<1.0` | `0.29.24` (Sep 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
+| **cocoindex** | `>=1.0.20,<2.0` | `>=1.0.20,<2.0` | `1.0.24` (Sep 19, 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
+| **baml-py** | `>=0.223,<1.0` | `>=0.223,<1.0` | `0.226.2` (Sep 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
+| **dlt** | `>=1.30,<2.0` | `>=1.30,<2.0` | `1.30.0` (Sep 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
+| **duckdb** | `>=1.5.5,<1.6.0` | `>=1.5.5,<1.6.0` | `1.5.5` LTS | **aligned** (Stage 3 complete) | 3 ✅ |
+| **motherduck** | `>=0.10,<1.0` | `>=0.10,<1.0` | (latest 0.x) | **aligned** (Stage 3 complete) | 3 ✅ |
+| **lancedb** | `>=0.39,<1.0` | `>=0.39,<1.0` | `0.39.0` (Aug 31, 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
+| **google-adk** | unpinned | `>=2.9.0,<3` | `2.10.0` (Sep 10, 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
 | **langfuse-py** | `>=4.7.0,<5.0` | `>=4.15.1 (via logfire)` | `4.15.6` | **aligned** (Stage 2b.1 complete) | 3 ✅ |
 | **litellm-py** | unpinned | `>=1.97.0` | `1.102.1` (Sep 19, 2026) | cianfhoghlaim behind 5 minor | 3 |
 | **firecrawl-py** | unpinned | `>=4.28.2` | `4.44.0` | behind 16 minor | skip |

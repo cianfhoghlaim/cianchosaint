@@ -20,7 +20,7 @@ You are operating within the `cianfhoghlaim` stack which uses `dlt`
 
 ## 1.1 Live version (verified 2026-06-29)
 
-- **Latest**: `dlt 1.28.1` (released **Jun 19, 2026**) on PyPI.
+- **Latest**: `dlt 1.30.0` (released **Sep 2026**) on PyPI.
 - **Python**: `requires-python = ">=3.10, <3.15"` — Python 3.9 dropped in
   1.28.1; Python 3.14 supported (experimental).
 - **Source count**: **8,000+ sources** (was 5,000+ in Wave 1).
