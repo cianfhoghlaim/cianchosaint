@@ -1,0 +1,68 @@
+<!-- CIANCHOSAINT — canonical control panel HTML.
+     Per openspec/changes/cianchosaint-plugin-v1/specs/cianchosaint-plugin/spec.md.
+     Wholesale-adapted from cianfhoghlaim's monstertix/venue/control_panel.html.
+     The control panel is the projector surface that shows the agent's activity
+     feed (every tool call narrated by PanelPlugin).
+     Mirrors the canonical cianfhoghlaim pattern (3 sections + 1 status bar):
+     - 1. Recent tool calls (the "agent called X" feed)
+     - 2. Active tasks (the "you called Y" feed)
+     - 3. Errors (the "X failed" feed)
+     - 4. Status bar (the "attended" + "wake endpoint" + "scheduler" status)
+     Licence: BUSL-1.1 (per LICENSE.md) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CIANCHOSAINT control panel</title>
+<style>
+  body { font-family: ui-monospace, "SF Mono", Menlo, monospace; background: #f7ece8; color: #2a2530; margin: 0; padding: 24px; }
+  h1 { font-weight: 500; margin: 0 0 16px; }
+  .panel { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .feed { background: #fffdf8; border: 1px solid #e6dff5; border-radius: 12px; padding: 16px; }
+  .feed h2 { font-weight: 500; margin: 0 0 12px; font-size: 16px; color: #6b5e8e; }
+  .feed-item { font-size: 13px; line-height: 1.5; padding: 6px 0; border-bottom: 1px dotted #e6dff5; }
+  .feed-item:last-child { border-bottom: none; }
+  .status-bar { margin-top: 24px; padding: 16px; background: #fffaf3; border: 1px solid #e6dff5; border-radius: 12px; }
+  .status-bar span { display: inline-block; margin-right: 18px; }
+  .status-bar .attended { color: #2f8f73; font-weight: 600; }
+  .status-bar .unattended { color: #b03e64; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>CIANCHOSAINT control panel</h1>
+<div class="panel">
+  <section class="feed">
+    <h2>Recent tool calls</h2>
+    <div id="agent-feed"><div class="feed-item">(none yet — the agent is at the desk)</div></div>
+  </section>
+  <section class="feed">
+    <h2>Errors</h2>
+    <div id="error-feed"><div class="feed-item">(none)</div></div>
+  </section>
+</div>
+<div class="status-bar">
+  <span id="status-attended" class="unattended">unattended</span>
+  <span id="status-wake">wake: /wake</span>
+  <span id="status-scheduler">scheduler: cianchosaint-3am-wake</span>
+  <span id="status-clock">clock: 03:00 UTC</span>
+</div>
+<script>
+  // Per cianfhoghlaim monstertix control_panel.html: poll /wake/status
+  // every 2 seconds and update the status bar. The "agent" + "error"
+  // feeds are updated by the SSE stream from POST /wake.
+  async function poll() {
+    try {
+      const r = await fetch('/wake/status');
+      if (r.ok) {
+        const data = await r.json();
+        const a = document.getElementById('status-attended');
+        a.textContent = data.scheduler ? 'attended' : 'unattended';
+        a.className = data.scheduler ? 'attended' : 'unattended';
+      }
+    } catch (e) {}
+  }
+  setInterval(poll, 2000);
+  poll();
+</script>
+</body>
+</html>
