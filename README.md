@@ -1327,30 +1327,15 @@ The Pangolin private-resource pattern (from `bonneagar/stacks/pangolin/README.md
 # 5. The analyst reaches the private resources via the Pangolin mesh
 ```
 
-### §11.9 — Mapping the 11 user types to the 5-axis landscape
 
-| User type | M4 Max 48 GB | M5 Air 16 GB | M1 Air 8 GB | Oracle ARM 24 GB | GCP $300 trial | Gemini API | MiniMax API |
-|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| 1. Garda detective | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
-| 2. PSNI officer | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
-| 3. Welsh/Eng/Scot police analyst | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
-| 4. Irish Defence Forces | ✓ all 7 | ✓ 3 flagship | ✓ 3 flagship (basic) | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
-| 5. UK MoD policy analyst | ✓ all 7 | ✓ 3 flagship | ✓ 3 flagship (basic) | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
-| 6. MI5/SIS/GCHQ engineer | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
-| 7. NI Justice practitioner | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
-| 8. Parliamentary researcher | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
-| 9. Journalist OSINT | ✓ 3 flagship | ✓ 3 flagship | ✗ | ✓ 3 flagship | ✓ 3 flagship | ✓ | ✓ |
-| 10. Academic researcher | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
-| 11. Citizen (self-host) | ✓ all 7 | ✓ all 7 (offline cache) | ✓ 3 flagship (basic) | ✓ all 7 | ✓ all 7 | n/a | n/a |
+### §11.10 — The "pick your subset" cheat-sheet (compressed)
 
-### §11.10 — The "pick your subset" cheat-sheet
-
-| Scenario | Recommendation | Why |
-|---|---|---|
-| **Public-sector analyst on a budget** | M5 Air 16 GB + Oracle ARM 24 GB + MiniMax Token Plan | $1,100 one-off + $0 cloud + $20/month API covers all 7 pipelines with sovereignty |
-| **Self-hosted citizen, no cloud** | M1 Air 8 GB (used market) | The 3 flagship pipelines + offline SQLite cache; full sovereignty; no API cost |
-| **Power analyst (the canonical case)** | M4 Max 48 GB + Oracle ARM 24 GB + MiniMax Token Plan (last resort) | $3,500 one-off + $0 cloud + occasional API for the political-accountability pipeline |
-| **Audit-grade sovereign deployment** | M4 Max 48 GB + Oracle ARM 24 GB (no API) | 100% local + cloud; no third-party API = strongest BUSL-1.1 licence compliance |
+| Scenario | Recommendation |
+|---|---|
+| Public-sector analyst on a budget | M5 Air 16 GB + Oracle ARM 24 GB + MiniMax Token Plan |
+| Self-hosted citizen, no cloud | M1 Air 8 GB (used market) |
+| Power analyst (the canonical case) | M4 Max 48 GB + Oracle ARM 24 GB + MiniMax Token Plan (last resort) |
+| Audit-grade sovereign deployment | M4 Max 48 GB + Oracle ARM 24 GB (no API) |
 
 ---
 
@@ -1445,75 +1430,21 @@ Cross-references:
 - The openspec change that added the bunchloch external-runtime mode: `2026-07-28-openchamber-bunchloch-dev-parity-v1`
 - The infrastructure-stacks spec delta is in `openspec/specs/infrastructure-stacks/spec.md`
 
-### §12.4 — mise (the 32-task namespaced workflow)
+### §12.4 — mise
 
-The 6 namespaces: `core:`, `lint:`, `sync:`, `openspec:`, `devops:`, `cianchosaint:`.
+The 3 day-1 tasks: `mise run sync:all && mise run openspec:validate && mise run test:smoke`, then `mise run lint:license`, then `mise run cianchosaint:provider:health-check`. For the canonical 32-task namespaced workflow + the 5 most useful `cianchosaint:` tasks, see [`AGENTS.md`](./AGENTS.md) § "Priority mise tasks" + [`mise.toml`](./mise.toml) directly.
 
-The 3 tasks a new user runs on day 1:
+### §12.5 — `opencode.json` + the `.cocoindex_code/guides.yml`
 
-```bash
-# 1. The full bootstrap (sync + lint + test)
-mise run sync:all && mise run openspec:validate && mise run test:smoke
-
-# 2. The OSINT allowlist audit
-mise run lint:license
-
-# 3. The provider health check
-mise run cianchosaint:provider:health-check
-```
-
-The 5 most useful `cianchosaint:` tasks:
-
-```bash
-mise run cianchosaint:bipp:v1:m1         # An Garda Síochána — 14 cohorts
-mise run cianchosaint:bipp:v1:m2         # UK 43 forces (data.police.uk) — 392 cohorts
-mise run cianchosaint:bidp:v1:m1        # UK MoD + RAF + RN + Army — 32 cohorts
-mise run cianchosaint:biip:v1:m1        # UK ISC + IPCO + IPT — 24 cohorts
-mise run cianchosaint:provider:health-check   # 4-tier provider health
-```
-
-The `deployment-choice.yaml` enablement file (the single toggle point) lives at the repo root.
-
-### §12.5 — `opencode.json` + the `.cocoindex_code/guides.yml` (the dual-search)
-
-**The 12-MCP runtime** (`opencode.json`): ccc + firecrawl + crawl4ai + chrome + dlt-workspace + motherduck + cognee + graphiti + design-system + langfuse + infisical + huggingface.
-
-**The `.cocoindex_code/guides.yml`** — 12 concept guides that ship with cianchosaint. Each maps a high-level concept (e.g. "openspec-change-search", "dlt-source-search", "BAML extraction search") to the canonical files. When a search query matches a guide's description, `ccc:search` returns a `[guide]` hit pointing the user at the canonical set, even if no individual file scored high on its own.
-
-**Why dual-search matters for police/Garda/intel:** every Firecrawl call MUST be paired with a `ccc:search` so both tool names appear in the Langfuse trace (the audit trail is the licence's load-bearing requirement).
+For the 12-MCP runtime (ccc + firecrawl + crawl4ai + chrome + dlt-workspace + motherduck + cognee + graphiti + design-system + langfuse + infisical + huggingface) + the 12 concept guides in `.cocoindex_code/guides.yml` + the dual-search audit-trail requirement, see [`AGENTS.md`](./AGENTS.md) § "Search: ccc + cognee + firecrawl_mcp".
 
 ### §12.6 — The 5 dispatchable opencode subagents
 
-| Subagent | When to dispatch |
-|---|---|
-| `data-platform` | Adding a new DLT source + a BAML extraction + a CocoIndex flow |
-| `infrastructure` | Adding a new Docker Compose stack to `bonneagar/stacks/` |
-| `agent-platform` | Adding a new agent or specialist |
-| `frontend-apps` | Adding a new per-persona web surface |
-| `research` | OSINT discovery + new source catalogue entries |
+`data-platform` + `infrastructure` + `agent-platform` + `frontend-apps` + `research` (+ the cianchosaint-specific `cianchosaint-per-persona`). For the per-subagent dispatch table, see [`AGENTS.md`](./AGENTS.md) § "The 5 opencode subagents".
 
-### §12.7 — The 16 domain packages — features/benefits/usage
+### §12.7 — The 16 domain packages
 
-Per the 2026-09-26 Firecrawl MCP research (with HuggingFace + Unsloth Studio info/stats/blog/docs prioritised):
-
-| Package | Canonical features (from docs) | Cianchosaint usage | Best practice |
-|---|---|---|---|
-| **BAML** | Schema-first LLM extraction; type-safe; Python/TS/Ruby; `baml_py.ClientRegistry` for runtime model overrides | The BAML functions across `baml_src/cianchosaint/` | Resolve model choice via `MODEL_REGISTRY` (NOT hardcoded strings); use `ClientRegistry` for runtime swaps |
-| **CocoIndex v1** | Real-time embedding; incremental updates (only re-embeds changed chunks); declarative Python; `@coco.fn(memo=True)` cached by hash | The CocoIndex flows in `cocoindex_flows/cianchosaint/` | Use `shared_lifespan` for LANCE_DB + EMBEDDER ContextKeys |
-| **DLT** | Schema evolution with `freeze` / `discard_row` / `discard_value` policies; 100+ sources; @dlt.resource + @dlt.source; incremental cursors persisted between runs | The 928 DLT sources in `dlt_sources/cianchosaint/` | Use `@dlt.resource(write_disposition="append")` + `JurisdictionPipelineBase` |
-| **LanceDB** | Columnar vector store; multimodal; time-travel; PyArrow-native | The 24 companion tables in `md:cianchosaint.lc.*` | Use `BAAI/bge-m3` (1024 dim, 8192 tokens, multilingual dense+sparse+colbert) |
-| **DuckLake** | ACID on object storage; time-travel; open table format; Garage S3 backend | The 24 BIEP tables + `gov.ie` circulars | Use MotherDuck managed DuckLake |
-| **MotherDuck** | Cloud DuckDB; serverless; Postgres endpoint; Hyper-tenancy | `md:cianchosaint` database | Use the pg_duckdb proxy for low-latency reads |
-| **Dagster** | Asset-centric orchestration; sensor-based; R1-R4 conformance check | The 833 assets in `orchestration/defs/` | Use `JurisdictionAssetsBase` + the GA subclass |
-| **Google ADK** | Agent framework; function calling; multi-agent; `make_cianchosaint_agent()` factory | The 24 per-persona agents in `agents/cianchosaint/` | Use the factory + `AGENT_FACTORY_REGISTRY` |
-| **AG-UI** | Agent-UI streaming; SSE-based; CopilotKit-compatible | The chat window in `web/apps/ciafagent-*` | Use the `register_adk_agent()` helper |
-| **CopilotKit** | React chat components; tool rendering; `useAgent` + `useFrontendTool` | The 8 per-persona web apps | Use `useAgent` + `useFrontendTool` |
-| **TanStack Start** | SSR + file-based routing; TanStack Query; oRPC | The 8 web apps + `web/apps/ciafagent-self-host` | Use the TanStack Query + the embedded Hono API |
-| **LiteLLM** | Unified LLM gateway; 76-entry MODEL_REGISTRY; `litellm_settings.fallbacks` chains | The `litellm` stack in `bonneagar/stacks/litellm/` | Use the `default` chokepoint alias (routes to MODEL_REGISTRY["text_llm"]["default"]) |
-| **Unsloth Studio** | Local GGUF inference; OpenAI-compatible API; 70% VRAM reduction; Q4_K_M / Q5_K_M / Q8_0 quants | The `unsloth-serve` stack in `bonneagar/stacks/unsloth-serve/` | Run on the host (bunchloch) not in Docker; pair with `llama-swap` for dynamic model swapping |
-| **Pangolin** | WireGuard tunnels; Pocket ID OIDC; CrowdSec IDS; Traefik reverse proxy | The 13 stacks' private-resource target | Use Pocket ID passkeys for SSO; Newt client for the analyst's laptop |
-| **Langfuse** | LLM tracing; prompt mgmt; cost tracking; `@observe` decorator | The observability layer for all 4 tiers | Use `@observe` + cost tracking; pair with Firecrawl for dual-search audit trail |
-| **Infisical** | Secrets management; SDK + UI; `infisical://` refs in `secrets.env` | The `dev-baile` vault + the Locket sidecar | Use `infisical://dev-baile/...` refs in `secrets.env` |
+For the canonical 16-package features/benefits/usage table (BAML + CocoIndex + DLT + LanceDB + DuckLake + MotherDuck + Dagster + Google ADK + AG-UI + CopilotKit + TanStack Start + LiteLLM + Unsloth Studio + Pangolin + Langfuse + Infisical), see [`docs/HOW-BRITISH-ISLES-INTELLIGENCE-DEFENCE-POLICING-ENTITIES-USE-CIANCHOSAINT.md`](./docs/HOW-BRITISH-ISLES-INTELLIGENCE-DEFENCE-POLICING-ENTITIES-USE-CIANCHOSAINT.md).
 
 ---
 
