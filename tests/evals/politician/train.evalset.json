@@ -5,7 +5,11 @@
       {
         "invocation_id": "inv_farage_001",
         "user_content": {
-          "parts": [{"text": "Collect Nigel Farage's politician profile"}],
+          "parts": [
+            {
+              "text": "Collect Nigel Farage's politician profile"
+            }
+          ],
           "role": "user"
         },
         "final_response": null
@@ -15,8 +19,12 @@
       "canonical_name": "Nigel Farage",
       "party_id": "reform-uk",
       "jurisdiction": "uk_hoc",
-      "social_handles": ["@Nigel_Farage"],
-      "public_metrics": {"followers": 1500000}
+      "social_handles": [
+        "@Nigel_Farage"
+      ],
+      "public_metrics": {
+        "followers": 1500000
+      }
     }
   },
   {
@@ -25,7 +33,11 @@
       {
         "invocation_id": "inv_polanski_001",
         "user_content": {
-          "parts": [{"text": "Collect Zack Polanski's politician profile"}],
+          "parts": [
+            {
+              "text": "Collect Zack Polanski's politician profile"
+            }
+          ],
           "role": "user"
         },
         "final_response": null
@@ -35,8 +47,12 @@
       "canonical_name": "Zack Polanski",
       "party_id": "green-party-ew",
       "jurisdiction": "uk_hoc",
-      "social_handles": ["@ZackPolanski"],
-      "public_metrics": {"followers": 25000}
+      "social_handles": [
+        "@ZackPolanski"
+      ],
+      "public_metrics": {
+        "followers": 25000
+      }
     }
   },
   {
@@ -45,7 +61,11 @@
       {
         "invocation_id": "inv_odowd_001",
         "user_content": {
-          "parts": [{"text": "Collect John O'Dowd's politician profile"}],
+          "parts": [
+            {
+              "text": "Collect John O'Dowd's politician profile"
+            }
+          ],
           "role": "user"
         },
         "final_response": null
@@ -55,8 +75,12 @@
       "canonical_name": "John O'Dowd",
       "party_id": "sinn-fein",
       "jurisdiction": "ni_assembly",
-      "social_handles": ["@JohnODowdSF"],
-      "public_metrics": {"followers": 40000}
+      "social_handles": [
+        "@JohnODowdSF"
+      ],
+      "public_metrics": {
+        "followers": 40000
+      }
     }
   },
   {
@@ -65,7 +89,11 @@
       {
         "invocation_id": "inv_lyons_001",
         "user_content": {
-          "parts": [{"text": "Collect Gordon Lyons's politician profile"}],
+          "parts": [
+            {
+              "text": "Collect Gordon Lyons's politician profile"
+            }
+          ],
           "role": "user"
         },
         "final_response": null
@@ -75,8 +103,12 @@
       "canonical_name": "Gordon Lyons",
       "party_id": "dup",
       "jurisdiction": "ni_assembly",
-      "social_handles": ["@GordonLyonsMLA"],
-      "public_metrics": {"followers": 8000}
+      "social_handles": [
+        "@GordonLyonsMLA"
+      ],
+      "public_metrics": {
+        "followers": 8000
+      }
     }
   },
   {
@@ -85,7 +117,11 @@
       {
         "invocation_id": "inv_givan_001",
         "user_content": {
-          "parts": [{"text": "Collect Paul Givan's politician profile"}],
+          "parts": [
+            {
+              "text": "Collect Paul Givan's politician profile"
+            }
+          ],
           "role": "user"
         },
         "final_response": null
@@ -95,8 +131,12 @@
       "canonical_name": "Paul Givan",
       "party_id": "dup",
       "jurisdiction": "ni_assembly",
-      "social_handles": ["@PaulGivanMLA"],
-      "public_metrics": {"followers": 7000}
+      "social_handles": [
+        "@PaulGivanMLA"
+      ],
+      "public_metrics": {
+        "followers": 7000
+      }
     }
   },
   {
@@ -105,7 +145,11 @@
       {
         "invocation_id": "inv_robinson_001",
         "user_content": {
-          "parts": [{"text": "Collect Gavin Robinson's politician profile"}],
+          "parts": [
+            {
+              "text": "Collect Gavin Robinson's politician profile"
+            }
+          ],
           "role": "user"
         },
         "final_response": null
@@ -115,8 +159,12 @@
       "canonical_name": "Gavin Robinson",
       "party_id": "dup",
       "jurisdiction": "uk_hoc",
-      "social_handles": ["@GavinRobinsonMP"],
-      "public_metrics": {"followers": 12000}
+      "social_handles": [
+        "@GavinRobinsonMP"
+      ],
+      "public_metrics": {
+        "followers": 12000
+      }
     }
   },
   {
@@ -125,7 +173,11 @@
       {
         "invocation_id": "inv_bird_001",
         "user_content": {
-          "parts": [{"text": "Collect Lara Bird's politician profile"}],
+          "parts": [
+            {
+              "text": "Collect Lara Bird's politician profile"
+            }
+          ],
           "role": "user"
         },
         "final_response": null
@@ -135,8 +187,12 @@
       "canonical_name": "Lara Bird",
       "party_id": "snp",
       "jurisdiction": "hollyrood",
-      "social_handles": ["@LaraBirdMSP"],
-      "public_metrics": {"followers": 3000}
+      "social_handles": [
+        "@LaraBirdMSP"
+      ],
+      "public_metrics": {
+        "followers": 3000
+      }
     }
   }
 ]
