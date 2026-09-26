@@ -44,6 +44,15 @@ from .psni_specialists.policing_board_agent import policing_board_agent
 from .psni_specialists.psni_press_releases_agent import psni_press_releases_agent
 from .psni_specialists.psni_public_contact_agent import psni_public_contact_agent
 
+# === 4 memory_bank modules (canonical Memory Bank pattern per T2.3) ===
+from .memory_bank import (
+    APP_SCOPE_KEY as _MEMORY_APP_SCOPE_KEY,
+    CianchosaintMemoryService,
+    candidates_from_session,
+)
+from .memory_bank import state as memory_bank_state
+from .memory_bank import topics as memory_bank_topics
+
 # === 7 tools (the FunctionTool-wrapped helpers) ===
 from .tools.cross_jurisdiction_query import (
     cross_jurisdiction_query,
