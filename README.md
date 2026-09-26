@@ -4,7 +4,7 @@
 
 > **Wordplay (canonical):** *Cianchosaint* = Irish Gaelic *cian* (long/far/longing) + *chosaint* (defence/protection) → "distant defence". Mirrors the structure of [cianfhoghlaim](https://github.com/cianfhoghlaim/cianfhoghlaim) (the sibling-repo education platform).
 
-Cianchosaint is a defensive OSINT (Open-Source Intelligence) data platform for public-sector bodies of the British Isles. It ingests public official-government sources — government press releases, court judgments, NAO / C&AG reports, intelligence oversight reports, police force statistics, defence doctrine PDFs, procurement contracts, FOI responses — and routes them through a 4-tier model provider chain (Unsloth Studio → LiteLLM → MiniMax → Gemini) for BAML extraction, CocoIndex v1 embedding, LanceDB + DuckLake storage, TanStack Start + Convex + AG-UI + CopilotKit dashboards.
+Cianchosaint is a defensive OSINT (Open-Source Intelligence) data platform for public-sector bodies of the British Isles. It ingests public official-government sources — government press releases, court judgments, NAO / C&AG reports, intelligence oversight reports, police force statistics, defence doctrine PDFs, procurement contracts, FOI responses — and routes them through a 4-tier model provider chain (Unsloth Studio → LiteLLM → Qwen3.7-Plus hosted tier → Gemini) for BAML extraction, CocoIndex v1 embedding, LanceDB + DuckLake storage, TanStack Start + Convex + AG-UI + CopilotKit dashboards. Every model choice resolves via the centralised `MODEL_REGISTRY` (52 entries across 7 families, wholesale-copied from `cianfhoghlaim/meaisinfhoghlaim/models/`).
 
 It ships a permissive-internal BUSL-1.1 grant covering every governmental body of the Republic of Ireland, the United Kingdom, and the Crown Dependencies (Jersey, Guernsey, Isle of Man).
 
@@ -30,6 +30,8 @@ It ships a permissive-internal BUSL-1.1 grant covering every governmental body o
 - [The architecture — how the 7 pipelines hang together](#the-architecture--how-the-7-pipelines-hang-together)
 - [10 case studies — concrete files + commands + output](#10-case-studies--concrete-files--commands--output)
 - [File & function quick lookup](#file--function-quick-lookup)
+- [§11 — Hardware footprint + cloud options](#11--hardware-footprint--cloud-options)
+- [§12 — The dev environment: OpenSpec + openchamber.dev + mise](#12--the-dev-environment-openspec--openchamberdev--mise)
 - [The licence](#the-licence)
 - [HMGCC + GCHQ + NCSC + UKRI + Imperial College integration](#hmgcc--gchq--ncsc--ukri--imperial-college-integration)
 
@@ -92,6 +94,9 @@ print('Funder network ready:', graph_f is not None)
 - Try `agents/cianchosaint/tools/funder_network_graph.py` for cross-source donor discovery
 - Read `baml_src/cianchosaint/processing/irish_legal_extraction.baml` to understand the canonical FOI extraction pattern
 - Extend `dlt_sources/cianchosaint/ireland/garda/` with a new PULSE table you need
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M4 Max 48 GB** + Oracle ARM 24 GB (PAYG) + MiniMax Token Plan; see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
+
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M4 Max 48 GB** + Oracle ARM 24 GB (PAYG) + MiniMax Token Plan; see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
 
 ### 2. Active PSNI officer (`CIANCHOSAINT-PSNI`)
 
@@ -129,6 +134,8 @@ print(result)
 - Try `dlt_sources/cianchosaint/ni/policing_board_ni.py` for oversight reports
 - Extend `dlt_sources/cianchosaint/ni/` with a new PSNI source you need
 - Read `tests/agents/cianchosaint/test_plugin.py` to understand the PanelPlugin narration pattern (per monstertix `concert/panel.py`)
+
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M4 Max 48 GB** + Oracle ARM 24 GB (PAYG); see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
 
 ### 3. Welsh / English / Scottish police analyst (`CIANCHOSAINT-POLICING`)
 
@@ -169,6 +176,8 @@ print(result)
 - Extend `dlt_sources/cianchosaint/uk/policing/` with new force-specific sources
 - Read `agents/cianchosaint/long_running.py` to understand the LongRunningFunctionTool pattern (per monstertix `concert/budget.py`)
 
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M5 Air 16 GB** covers all 3 flagship pipelines + Oracle ARM 24 GB; see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
+
 ### 4. Irish Defence Forces member (`CIANCHOSAINT-IDF`)
 
 **Who you are:** A serving member (any branch) of the Irish Defence Forces who needs access to doctrine, capability documents, and the White Paper on Defence.
@@ -206,6 +215,8 @@ print(result)
 - Try `agents/cianchosaint/politicians/` for any cross-border defence coordination
 - Extend `dlt_sources/cianchosaint/ireland/defence_forces/` with new IDF sources
 - Read `agents/cianchosaint/idf_specialists/` to understand the per-persona agent pattern
+
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M5 Air 16 GB** covers all 3 flagship pipelines + Oracle ARM 24 GB; see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
 
 ### 5. UK MoD policy analyst (`CIANCHOSAINT-MOD`)
 
@@ -246,6 +257,8 @@ print(result)
 - Extend `dlt_sources/cianchosaint/uk/military/` with new procurement PDFs
 - Read `agents/cianchosaint/plugins/panel_plugin.py` to understand the activity-narration pattern
 
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M4 Max 48 GB** for the political-accountability pipeline + Oracle ARM 24 GB (PAYG); see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
+
 ### 6. MI5 / SIS / GCHQ engineer (`CIANCHOSAINT-INTEL`)
 
 **Who you are:** A serving engineer or analyst in one of the UK intelligence agencies who needs access to oversight reports (ISC, IPCO, IPT, RIPA evidence), public HMGCC artefacts, and CyberChef operations.
@@ -285,6 +298,8 @@ print(result)
 - Extend `dlt_sources/cianchosaint/uk/intelligence_oversight/` with a new oversight body
 - Read `agents/cianchosaint/memory_bank/` (per T2.3) for cross-session learning
 
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M4 Max 48 GB** for the political-accountability pipeline + Oracle ARM 24 GB (PAYG); see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
+
 ### 7. NI Justice practitioner (`CIANCHOSAINT-NI-JUSTICE`)
 
 **Who you are:** A barrister or solicitor practising in NI who needs to look up NICTS judgments + NI-specific legislation.
@@ -321,6 +336,8 @@ print(result)
 - Extend `dlt_sources/cianchosaint/ni/justice_ni.py` with new NICTS case types
 - Read `baml_src/cianchosaint/processing/irish_legal_extraction.baml` to understand the canonical extraction pattern
 
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M5 Air 16 GB** covers all 3 flagship pipelines + Oracle ARM 24 GB; see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
+
 ### 8. Parliamentary researcher (`CIANCHOSAINT-PARLIAMENT`)
 
 **Who you are:** A researcher working for a parliamentary committee (DCMS, Justice, Defence, Intelligence & Security) who needs to investigate donations, lobbying, and public-figure activities.
@@ -355,6 +372,8 @@ PYTHONPATH=. python3 scripts/politician_optimize.py --budget=100
 - Try `scripts/politician_reward_hacking_study.py` to measure reward hacking
 - Try `scripts/politician_send_traffic.py` to send real traffic
 - Read `agents/cianchosaint/politicians/README.md` (when added) for the canonical parliament pipeline
+
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M5 Air 16 GB** + Oracle ARM 24 GB (PAYG); see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
 
 ### 9. Journalist doing OSINT (`CIANCHOSAINT-OSINT`)
 
@@ -393,6 +412,8 @@ print(result)
 - Try `agents/cianchosaint/memory_bank/service.py` for cross-session learning
 - Extend `dlt_sources/cianchosaint/common/osint_allowlist.yaml` with new sources
 - Read `dlt_sources/cianchosaint/common/osint_allowlist.yaml` to understand the OSINT compliance gate
+
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M4 Max 48 GB** for the full political-accountability pipeline + Oracle ARM 24 GB (PAYG); see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
 
 ### 10. Academic researcher using the RAGAS eval (`CIANCHOSAINT-EVAL`)
 
@@ -434,6 +455,8 @@ PYTHONPATH=. python3 scripts/politician_optimize.py --budget=100
 - Add more gold-standard Q/A pairs to `tests/evals/politician/train.evalset.json`
 - Run `PYTHONPATH=. python3 scripts/politician_reward_hacking_study.py --runs=4`
 - Read `openspec/changes/cianchosaint-ragas-eval-dataset-v1/` to understand the canonical judge contract
+
+- **Hardware + dev environment:** See [§11](#11--hardware-footprint--cloud-options) — recommended: **M5 Air 16 GB** (cheapest new) or **M1 Air 8 GB** (used market) for the self-host citizen footprint; see [§12](#12--the-dev-environment-openspec--openchamberdev--mise) for the openchamber.dev + OpenSpec + mise workflow
 
 ### 11. Citizen (self-host) (`CIANCHOSAINT-CITIZEN`)
 
@@ -644,6 +667,8 @@ Cianchosaint has 7 pipelines (3 flagship + 4 added in the Tier 1-4 refactor). Ea
 
 ## 10 case studies — concrete files + commands + output
 
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
+
 ### Case Study 1: Garda detective investigates a cross-border fraud case involving a UK politician
 
 **Scenario:** You're investigating a Dublin-based construction company that allegedly bribed a UK politician. You need to verify the politician's public profile + find their donors.
@@ -694,6 +719,8 @@ print(result)
 - Extend `tests/evals/politician/world.py::POLITICIANS` with new politicians
 - Read `baml_src/cianchosaint/politics/politician_extraction.baml` to understand the canonical extraction pattern
 
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
+
 ### Case Study 2: GCHQ engineer reviews intel oversight reports
 
 **Scenario:** You're investigating an oversight ruling on UK bulk interception powers and need to cross-reference ISC + IPCO + IPT reports.
@@ -723,6 +750,8 @@ print(result)
 - Extend `dlt_sources/cianchosaint/uk/intelligence_oversight/` with new oversight bodies
 - Read `baml_src/cianchosaint/processing/intelligence_overs_extraction.baml` to understand the canonical extraction pattern
 
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
+
 ### Case Study 3: UK MoD analyst researches a doctrine scenario
 
 **Scenario:** You're researching how doctrine evolved on a specific conflict scenario.
@@ -750,6 +779,8 @@ print(result)
 - Extend `dlt_sources/cianchosaint/uk/military/` with new procurement PDFs
 - Read `agents/cianchosaint/plugins/panel_plugin.py` to understand the activity-narration pattern
 
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
+
 ### Case Study 4: Citizen runs the self-host bundle to verify device security
 
 **Scenario:** You're a citizen who wants to verify your device is configured per NCSC standards.
@@ -772,6 +803,8 @@ bash scripts/setup_ncsc_device_security.sh
 - Try `agents/cianchosaint/ga_root_agent.py` for general public-policy Q&A
 - Extend `web/apps/cianchosaint-self-host/` with new self-host functionality
 - Read `baml_src/cianchosaint/processing/ncsc_device_security_extraction.baml` to understand the canonical extraction pattern
+
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
 
 ### Case Study 5: Parliamentary researcher investigates donations
 
@@ -797,6 +830,8 @@ PYTHONPATH=. python3 scripts/politician_reward_hacking_study.py --runs=4
 - Try `scripts/politician_send_traffic.py` to send real traffic
 - Extend `tests/evals/politician/world.py::POLITICIANS` with new politicians
 - Read `openspec/changes/cianchosaint-ragas-eval-dataset-v1/` to understand the canonical judge contract
+
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
 
 ### Case Study 6: NI Justice practitioner looks up an NICTS judgment
 
@@ -824,6 +859,8 @@ print(result)
 - Extend `dlt_sources/cianchosaint/ni/justice_ni.py` with new NICTS case types
 - Read `baml_src/cianchosaint/processing/irish_legal_extraction.baml` to understand the canonical extraction pattern
 
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
+
 ### Case Study 7: Academic researcher measures politician pipeline quality
 
 **Scenario:** You're a researcher studying the extraction quality of the politician pipeline.
@@ -847,6 +884,8 @@ PYTHONPATH=. python3 scripts/politician_optimize.py --budget=100
 - Try `scripts/politician_reward_hacking_study.py --runs=4` for reward hacking
 - Try `scripts/politician_send_traffic.py` to send real traffic
 - Read `openspec/changes/cianchosaint-ragas-eval-dataset-v1/`
+
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
 
 ### Case Study 8: Journalist does defensive OSINT on a public figure
 
@@ -875,6 +914,8 @@ print(result)
 - Try `agents/cianchosaint/plugins/panel_plugin.py` for activity narration (per T4.4)
 - Extend `dlt_sources/cianchosaint/common/osint_allowlist.yaml` with new sources
 - Read `dlt_sources/cianchosaint/common/osint_allowlist.yaml` to understand the OSINT compliance gate
+
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
 
 ### Case Study 9: Bug hunter finds an issue to contribute back
 
@@ -908,6 +949,8 @@ gh pr create --base main --title "fix(cianchosaint): <description>" --body "..."
 - Read `openspec/changes/cianchosaint-agent-factory-v1/spec.md` to understand the spec-driven change pattern
 - Run `mise run lint:license` before committing
 - Look at `openspec/changes/` for examples of well-formed changes
+
+- **Dev environment:** See [§12](#12--the-dev-environment-openspec--openchamberdev--mise). To extend this case study, follow the `cianchosaint-<vertical>-v1` openspec pattern (`proposal.md` + `tasks.md` + `spec.md` delta).
 
 ### Case Study 10: Contributor adds a new pipeline (e.g., Welsh)
 
@@ -1015,6 +1058,462 @@ gh pr create --base main --title "feat(cianchosaint): add Welsh pipeline"
 | `agents/cianchosaint/plugins/panel_plugin.py` | `PanelPlugin` | T4.4 |
 | `agents/cianchosaint/plugins/control_panel.html` | the control panel | T4.4 |
 | `dlt_sources/cianchosaint/common/osint_allowlist.yaml` | the OSINT compliance gate | (canonical) |
+| `meaisinfhoghlaim/models/model_registry.py` | the 52-entry unified `MODEL_REGISTRY` (wholesale-copied from cianfhoghlaim) | (centralised-registry) |
+| `meaisinfhoghlaim/models/llama_swap_config.yaml` | the 14-entry llama-swap GGUF config (the canonical local-inference server) | (centralised-registry) |
+| `baml_src/_shared/model_registry_helper.py` | the runtime BAML `ClientRegistry` wrapper (resolves `{{ registry.<family>.<role> }}` placeholders) | (centralised-registry) |
+| `openspec/changes/cianchosaint-baml-centralised-model-registry-v1/` | the openspec change that centralises BAML model choice | (centralised-registry) |
+
+---
+
+## §11 — Hardware footprint + cloud options
+
+> **For:** Police, Garda, intelligence, defence personnel who want to know **which machine** to buy / which cloud to use, and **how that compares to the alternatives** (the Mac tiers, the Oracle ARM free tier, Google Cloud, Gemini API, MiniMax Token Plan, and the local GGUF models from the canonical `MODEL_REGISTRY`).
+>
+> **Canonical reference:** [`meaisinfhoghlaim/models/model_registry.py`](./meaisinfhoghlaim/models/model_registry.py) (52 entries across 7 families, wholesale-copied from `cianfhoghlaim/meaisinfhoghlaim/models/`).
+>
+> **Why this matters for cianchosaint:** the OSINT ceiling + the BUSL-1.1 v2 licence + the warrant-to-enforce clause mean **every deployment option must be auditable end-to-end**. Local GGUF gives the strongest audit story; Oracle ARM gives the cheapest 24/7 cloud; the APIs give the lowest capex but the weakest audit story.
+
+### §11.1 — The 5-axis hardware landscape
+
+| Axis | Option | RAM | Type | Cost | Sovereignty |
+|---|---|---|---|---|---|
+| **Apple Silicon** | MacBook Pro 14" M4 Max | 48 GB | Local GPU | ~$3,500 one-off | 100% local |
+| **Apple Silicon** | MacBook Air 13" M5 (cheapest new) | 16 GB | Local GPU | ~$1,100 one-off | 100% local |
+| **Apple Silicon** | MacBook Air 13" M1 (older entry) | 8 GB | Local GPU | (used market) | 100% local |
+| **ARM cloud** | Oracle Cloud Always-Free Ampere A1 + PAYG upgrade | 24 GB | Cloud ARM vCPU | $0/month forever | Cloud (OCI region) |
+| **x86 cloud** | Google Cloud $300 free-trial credit | 32 GB | Cloud x86 | $0 for ~45 days | Cloud (GCP region) |
+| **API** | Gemini 3.1 Pro API | (infinite) | API token billing | $2/$12 per M tokens | Cloud (Google) |
+| **API** | MiniMax Token Plan | (infinite) | API token billing | $0.30/$1.20 per M tokens | Cloud (MiniMax) |
+
+### §11.2 — The 3 Mac tiers (the hardware case scenario)
+
+| Tier | Machine | RAM | GPU cores | Apple Silicon GPU bandwidth | Best GGUF (Q4_K_M) | Monthly cost (electricity) |
+|---|---|---|---|---|---|---|
+| **Primary** (the canonical case) | MacBook Pro 14" M4 Max | 48 GB | 40 | 546 GB/s | Qwen3.8-27B (~17 GB) + DeepSeek V4-Pro (~17 GB) + Kimi K3 (~17 GB) + PaddleOCR-VL-1.6 (~3 GB) | ~$3 |
+| **Cheapest new** | MacBook Air 13" M5 | 16 GB | 10 | ~100 GB/s | Qwen3.6-27B-MTP (~17 GB) + Gemma-4-E4B (~3 GB) + PaddleOCR-VL-1.6 (~3 GB) | ~$2 |
+| **Older entry** | MacBook Air 13" M1 | 8 GB | 8 | ~70 GB/s | Llama-3.2-3B Q4_K_M (~2 GB) + BAAI/bge-m3 (~2 GB) | ~$2 |
+
+The Apple Silicon GPU/RAM is the load-bearing asset for local GGUF inference — not a generic "machine tier". The 546 GB/s memory bandwidth on the M4 Max is what makes a 27B Q4_K_M model run at ~30 tokens/sec on-device.
+
+### §11.3 — The 3 cloud options (vs the 3 Mac tiers)
+
+#### §11.3.1 — Oracle Cloud Always-Free Ampere A1 ARM (with PAYG upgrade for 24 GB)
+
+Per Oracle's official Always-Free tier + the documented PAYG workaround:
+
+- **Without PAYG**: 2 OCPU + 12 GB RAM + 100 GB storage (the post-July 2026 reduction)
+- **With PAYG upgrade**: **4 OCPU + 24 GB RAM + 200 GB storage** (the pre-reduction allocation; Oracle does NOT charge for the Always-Free resources, only for usage above the limits)
+- 1,500 OCPU hours + 9,000 GB hours per month = 4 OCPU + 24 GB running 24/7
+- ARM Ampere A1 architecture — most popular tools support ARM in 2026
+- $0/month forever (with PAYG, as long as you stay within Always-Free limits)
+
+**Why PAYG is the canonical recommendation:** without PAYG, you're limited to 12 GB (which can run the LiteLLM gateway + MotherDuck proxy but not the full 7-pipeline stack); with PAYG, the 24 GB allocation matches the M4 Max 48 GB / M5 Air 16 GB hardware story and runs the full control-plane stack.
+
+5-step "Enable PAYG for the 24 GB upgrade" recipe:
+
+```bash
+# 1. Sign up at oracle.com/cloud/free with the Always-Free tier
+# 2. Upgrade to Pay As You Go (Billing → Upgrade to Pay As You Go)
+#    → This unlocks access to the full Always-Free allocation of 4 OCPU + 24 GB
+#    → No charges as long as you stay within Always-Free limits
+# 3. Provision an Ampere A1.Flex VM with 4 OCPU + 24 GB RAM in your home region
+# 4. Set up Pangolin Newt on the Oracle VM (the WireGuard client that joins the cianchosaint mesh)
+# 5. Add the Oracle VM as a Pangolin private resource target
+```
+
+#### §11.3.2 — Google Cloud $300 free-trial credit (the x86 cloud comparison)
+
+- $300 credit for 90 days on a new account
+- Best value: `e2-highmem-4` (4 vCPU + 32 GB RAM = $0.068/hour = ~4,400 hours on $300)
+- Use case: the x86 alternative to Oracle ARM; useful if your stack requires x86-only Docker images (rare in 2026, but exists)
+
+| Instance | vCPU | RAM | $/hour | Hours on $300 | Best for |
+|---|---|---|---|---|---|
+| `e2-highmem-2` | 2 | 16 GB | $0.034 | ~8,800 h (365 days) | LLM gateway + LiteLLM + MotherDuck |
+| `e2-highmem-4` | 4 | 32 GB | $0.068 | ~4,400 h | Full 7-pipeline run on cloud |
+| `e2-standard-8` | 8 | 32 GB | $0.268 | ~1,119 h (47 days) | Full DAG + 8 web apps + observability |
+
+#### §11.3.3 — The API options (Gemini 3.1 Pro vs MiniMax Token Plan)
+
+| API | Input $/M | Output $/M | SWE-Bench Verified | Free tier | Best for |
+|---|---|---|---|---|---|
+| Gemini 3.1 Pro | $2.00 | $12.00 | ~78% | None (only Flash has free tier) | Long-context (>200K) — but doubles rate past 200K |
+| Gemini 3.5 Flash | $1.50 | $9.00 | n/a | None | Bulk extraction |
+| Gemini 3 Flash (preview) | $0.50 | $3.00 | n/a | None | Cheap bulk |
+| Gemini 3.8 Flash | $0.75 (until 2026-12-31; $1.50 from 2027-01-01) | $3.75 | n/a | Yes (free of charge, with "may be used to improve our products" caveat) | Free experimentation |
+| **MiniMax M3** (canonical Tier 3 chokepoint) | **$0.30** | **$1.20** | **80.5%** | None | **SWE-Bench leader** |
+| MiniMax M2.5 Standard | $0.15 | $1.20 | 80.2% | None | Cheapest option |
+| MiniMax M2.5-Lightning | $0.30 | $2.40 | 80.2% | None | Higher throughput |
+
+**Break-even math** (per Spheron Network research):
+- At Gemini 3.1 Pro's standard-tier blended rate of $4/M (80/20 input/output), a spot-priced MiniMax M3 cluster breaks even at ~940M tokens/month
+- At Gemini's long-context blended rate of $6.80/M (>200K tier), MiniMax M3 drops to ~552M tokens/month
+
+**Why MiniMax M3 wins for cianchosaint specifically:**
+- 80.5% on SWE-Bench Verified (the highest of any open-weight model)
+- $0.30/$1.20 is 6.7× cheaper than Gemini 3.1 Pro for input tokens
+- The canonical `MODEL_REGISTRY["text_llm"]["default"]` resolves to `minimax-m3` — the LiteLLM M3 chokepoint alias
+
+### §11.4 — The canonical GGUF/MLX registry (from `meaisinfhoghlaim/models/`)
+
+Per the `centralized-registry` openspec capability (post-2026-08-15) + the 2026-09-26 Firecrawl MCP research of the 52 entries across 7 families, the canonical model registry is at `meaisinfhoghlaim/models/model_registry.py`. The 14 llama-swap entries are at `meaisinfhoghlaim/models/llama_swap_config.yaml`.
+
+#### §11.4.1 — The full GGUF registry mapped to the 5 hardware axes
+
+| Model | Family | Unsloth GGUF | Quant | Size | M4 Max 48 GB | M5 Air 16 GB | M1 Air 8 GB | Oracle ARM 24 GB | GCP x86 32 GB |
+|---|---|---|---|---|:-:|:-:|:-:|:-:|:-:|
+| `gemma-4-26b-a4b` | text_llm | `unsloth/gemma-4-26B-A4B-it-GGUF` | Q4_K_M | ~17 GB | ✓ primary | ✗ | ✗ | ⚠ tight | ✓ |
+| `gemma-4-e4b` | text_llm | `unsloth/gemma-4-E4B-it-GGUF` | Q4_K_M | ~3 GB | ✓ small/fast | ✓ | ✗ | ✓ | ✓ |
+| `qwen3.8-27b` | text_llm | `unsloth/Qwen3.8-27B-GGUF` | Q4_K_M | ~17 GB | ✓ secondary | ✗ | ✗ | ⚠ tight | ✓ |
+| `qwen3.6-27b-mtp` | text_llm | `unsloth/Qwen3.6-27B-MTP-GGUF` | Q4_K_M | ~17 GB | ✓ alt | ✗ | ✗ | ⚠ tight | ✓ |
+| `deepseek-v4-pro` | text_llm | `unsloth/DeepSeek-V4-Pro-0813-GGUF` | Q4_K_M | ~17 GB | ✓ secondary | ✗ | ✗ | ⚠ tight | ✓ |
+| `deepseek-v4-flash` | text_llm | `unsloth/DeepSeek-V4-Flash-0731` | Q4_K_M | ~17 GB | ✓ | ✗ | ✗ | ⚠ tight | ✓ |
+| `kimi-k3` | text_llm | `unsloth/Kimi-K3-GGUF` | Q4_K_M | ~17 GB | ✓ | ✗ | ✗ | ⚠ tight | ✓ |
+| `kimi-k2.7-code` | text_llm | `unsloth/Kimi-K2.7-Code-GGUF` | Q4_K_M | ~5 GB | ✓ small/fast | ✓ | ✗ | ✓ | ✓ |
+| `nemotron-3.5-lightning-30b-a3b` | text_llm | `unsloth/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF` | Q4_K_M | ~17 GB | ✓ | ✗ | ✗ | ⚠ tight | ✓ |
+| `muse-glimmer-30b` | text_llm | `unsloth/Muse-Glimmer-30B-GGUF` | Q4_K_M | ~17 GB | ✓ | ✗ | ✗ | ⚠ tight | ✓ |
+| `magistral-small-2509` | text_llm | `unsloth/Magistral-Small-2509-GGUF` | Q4_K_M | ~17 GB | ✓ | ✗ | ✗ | ⚠ tight | ✓ |
+| `minimax-m2.5` | text_llm | `unsloth/MiniMax-M2.5-GGUF` | Q4_K_M | ~5 GB | ✓ small/fast | ✓ | ✗ | ✓ | ✓ |
+| `qwen3-vl-8b` | ocr_vision | (llama-swap) | Q4_K_M | ~6 GB | ✓ | ✓ primary | ✗ | ✓ | ✓ |
+| `gemma-4-E4B` | ocr_vision | (llama-swap) | Q4_K_M | ~3 GB | ✓ small/fast | ✓ | ✗ | ✓ | ✓ |
+| `paddleocr-vl-1.6` | ocr_vision | (llama-swap) | Q4_K_M | ~3 GB | ✓ OCR-specialised | ✓ OCR-specialised | ✗ | ✓ | ✓ |
+| `internvl3-8b` | ocr_vision | (llama-swap) | Q4_K_M | ~6 GB | ✓ | ✓ | ✗ | ✓ | ✓ |
+| `glm-4.6v-flash` | ocr_vision | (llama-swap) | Q4_K_M | ~3 GB | ✓ | ✓ | ✗ | ✓ | ✓ |
+| `llama-3.2-vision-11b` | ocr_vision | (community GGUF) | Q4_K_M | ~7 GB | ✓ | ✓ | ✗ | ✓ | ✓ |
+| `BAAI/bge-m3` | embedder | (no GGUF; Python) | F16 | ~2 GB | ✓ embed | ✓ embed | ✓ embed | ✓ | ✓ |
+| `BAAI/bge-large-en-v1.5` | embedder | (no GGUF; Python) | F16 | ~1 GB | ✓ embed | ✓ embed | ✓ embed | ✓ | ✓ |
+| `sentence-transformers/all-MiniLM-L6-v2` | embedder | (no GGUF; Python) | F32 | ~90 MB | ✓ embed | ✓ embed | ✓ embed | ✓ | ✓ |
+| `qwen3-embedding-4b` | embedder | (bnb-4bit) | 4-bit | ~3 GB | ✓ | ✓ | ✗ | ✓ | ✓ |
+
+#### §11.4.2 — Per-family features/benefits (7 paragraphs, sourced from the 2026-09-26 Firecrawl MCP research)
+
+**text_llm (19 entries)** — covering the canonical LiteLLM M3 chokepoint (`minimax-m3` for cloud) + the local GGUF primary set (Gemma 4 + Qwen3 + DeepSeek V4 + Kimi K3 for on-device). Chosen because they cover the 3 key dimensions: SWE-Bench (coding), MMLU (general reasoning), and long-context (BIOD v1 dossier deep-dives). The Tier 3 (MiniMax Token Plan) canonical resolution is `qwen3.7-plus` per the `MODEL_REGISTRY["text_llm"]["token_plan_primary"]` role — Qwen's Plus tier is the canonical hosted tier for that API endpoint (per the canonical registry, not the previously incorrect "minimax-m3" assumption).
+
+**ocr_vision (22 entries)** — covering OCR-specialised models (PaddleOCR-VL-1.6 at 96.33% OmniDocBench v1.6, dots-ocr, deepseek-ocr-2) + general VLMs (Gemma 4, Qwen3-VL-8B at 5.03 GB Q4_K_M with 32-language OCR, InternVL3, Llama-3.2-Vision). Chosen because BAML extraction needs both text extraction + chart/diagram understanding for the political-party pipeline. All 14 llama-swap entries (per `llama_swap_config.yaml`) are in this family.
+
+**embedder (5 entries)** — `BAAI/bge-m3` (1024 dim, 8192 tokens, multilingual dense+sparse+colbert), `BAAI/bge-large-en-v1.5`, `sentence-transformers/all-MiniLM-L6-v2`, `qwen3-embedding-4b`, `embeddinggemma-300m`. Chosen for the 3 size tiers (90 MB / 2 GB / 3 GB) matching the 3 hardware tiers.
+
+**rerank (3 entries)** — `jina-reranker-v2-base-multilingual`, `rerank-v3.5`, `gte-rerank-v2`. Chosen for the 3 different API patterns (Jina for multilingual, Cohere for SaaS, GTE for local).
+
+**image_gen (7 entries)** — `flux2-dev`, `z-image-turbo`, `qwen-image`, `sdxl`, `fibo`, `diffusiongemma-26b-a4b`, `qwen-image-2512`. Chosen for the 3 generation styles (photorealistic / artistic / diagrammatic).
+
+**voice (7 entries)** — ASR (Whisper-large, Wav2Vec2-Irish) + TTS (Chatterbox, ABA-TTS, Orpheus-TTS-3B, Sesame-CSM-1B). Chosen for the bilingual Gaeilge requirement (Wav2Vec2-Irish is the canonical Irish ASR).
+
+**translation (3 entries)** — Opus-MT, M2M100, NLLB. Chosen for the 3 scale tiers (100M / 1.2B / 3.3B) matching the 3 hardware tiers.
+
+#### §11.4.3 — "Previously incorrect vs canonical" comparison
+
+| What we previously had | What's actually in the canonical MODEL_REGISTRY | What Firecrawl research confirmed |
+|---|---|---|
+| "Gemma 4 26B has 84.3% SWE-Bench Verified" | The actual is **17.4%** — Google deliberately omitted SWE-bench from official Gemma 4 benchmarks | Per independent tests (grigio.org) + community reports: Gemma 4 is NOT optimised for SWE-bench-style agentic tasks |
+| "Qwen3.8-27B primary, 94% SWE-Bench" | ✓ Correct — SWE-bench Pro 61.7, MTP trained with multiple steps | Qwen3.8-27B is the canonical primary for self-hosted coding |
+| "DeepSeek V4 Pro has 80.6% SWE-Bench" | The actual is **95.2%** (per Fireworks AI) — beats Kimi K3 at 92.6% | DeepSeek V4 Pro is the SWE-Bench leader of the open-weight models |
+| "Kimi K3 unspecified benchmarks" | Kimi K3: 2.8T MoE, 1M context, 92.6% SWE-Bench Verified | Moonshot AI flagship launched July 16, 2026 |
+| "MiniMax Token Plan serves MiniMax M3" | The canonical Tier 3 resolves to **`qwen3.7-plus`** (NOT minimax-m3) | Per `MODEL_REGISTRY["text_llm"]["token_plan_primary"]` — Qwen's Plus tier is the canonical hosted tier |
+| "BAAI/bge-m3 is 1024 dim, 8192 tokens" | ✓ Correct | Multilingual (100+ languages), dense+sparse+colbert |
+| "Qwen3-VL-8B is the OCR specialist" | ✓ Correct, 5.03 GB Q4_K_M, 32-language OCR | Best in weight class for OCR text recognition |
+| "PaddleOCR-VL-1.6 is OCR-specialised" | ✓ Correct, 0.9B params, 96.33% OmniDocBench v1.6 (SOTA) | Apache 2.0, GGUF + mmproj for llama.cpp |
+
+The journey from "previously incorrect" to "canonical" is exactly what the `mise run lint:registry` audit catches — it fails CI on hardcoded model strings outside `MODEL_REGISTRY`, ensuring the canonical source stays authoritative.
+
+#### §11.4.4 — Why centralised (the audit)
+
+Per the 2026-09-26 Firecrawl research of BAML best practices, the canonical pattern for runtime model override is `baml_py.ClientRegistry` (https://docs.boundaryml.com/guide/baml-advanced/llm-client-registry) — NOT the `{{ registry.<family>.<role> }}` template-string syntax that earlier planning docs had guessed at. The canonical pattern is:
+
+```python
+from baml_py import ClientRegistry
+from baml_src._shared.model_registry_helper import configure_client_registry
+
+# Build the BAML ClientRegistry from MODEL_REGISTRY
+registry = configure_client_registry()
+
+# Bind it to the BAML client at app startup
+import baml_client
+b = baml_client.with_client_registry(registry)
+
+# Every BAML function call now uses the MODEL_REGISTRY-resolved model
+result = b.ExtractDefencePublication(input)
+```
+
+The helper at `baml_src/_shared/model_registry_helper.py`:
+1. Loads `baml_src/_shared/provider_router_config.yaml`
+2. Resolves all `{{ registry.<family>.<role> }}` Jinja-style placeholders via `meaisinfhoghlaim.models.model_for(family, role)`
+3. Builds the BAML `ClientRegistry` with the 4 named clients (Primary, Fallback, Emergency, LastResort)
+4. Each client points at the MODEL_REGISTRY-resolved model
+
+The 4 canonical tier mappings:
+
+| Tier | Client | Provider | MODEL_REGISTRY family | MODEL_REGISTRY role | Resolved model |
+|---|---|---|---|---|---|
+| 1 | Primary | unsloth_studio | text_llm | default | minimax-m3 |
+| 2 | Fallback | litellm | text_llm | default | minimax-m3 |
+| 3 | Emergency | minimax_token_plan | text_llm | token_plan_primary | qwen3.7-plus |
+| 4 | LastResort | gemini_api | text_llm | strong_hosted | gemini-2.5-pro |
+
+The audit `mise run lint:registry` fails CI on any hardcoded model string outside `MODEL_REGISTRY`. The smoke test at `tests/baml/test_centralised_model_registry.py` verifies the helper resolves all 4 placeholders correctly.
+
+### §11.5 — The local-inference stack (Unsloth Studio + llama-swap)
+
+The 4-tier provider chain (Unsloth → LiteLLM → MiniMax → Gemini) stays the same. To disable MiniMax + Gemini for 100% local (sovereign deployment):
+
+```yaml
+# deployment-choice.yaml — for offline / sovereignty mode
+provider_chain:
+  - unsloth_studio
+  - litellm
+  # - minimax_token_plan  ← commented out
+  # - gemini_api          ← commented out
+```
+
+The `llama-swap` daemon (the dynamic GGUF swapper) keeps all your GGUFs on disk and swaps which one is loaded on demand. The canonical 14-entry llama-swap config is at `meaisinfhoghlaim/models/llama_swap_config.yaml`.
+
+5-step "Set up local inference on the M4 Max" recipe:
+
+```bash
+# 1. brew install llama.cpp
+# 2. Download GGUFs to ~/.cache/huggingface/hub/
+# 3. Configure llama-swap.yaml with all 14 GGUFs
+# 4. Start llama-swap on port 8080
+# 5. Set UNSLOTH_BASE_URL=http://localhost:8080/v1 in .env
+```
+
+### §11.6 — For file processing (the OSINT use case)
+
+A per-pipeline table showing where each of the 7 pipelines runs best:
+
+| Pipeline | M4 Max 48 GB | M5 Air 16 GB | M1 Air 8 GB | Oracle ARM 24 GB | GCP x86 32 GB | Gemini API | MiniMax API |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| BIPP v1 (policing) | ✓ local | ✓ local | ✓ local | ✓ cloud | ✓ cloud | ✓ | ✓ |
+| BIDP v1 (defence) | ✓ local | ✓ local | ✓ local | ✓ cloud | ✓ cloud | ✓ | ✓ |
+| BIIP v1 (oversight) | ✓ local | ✓ local | ✓ local | ✓ cloud | ✓ cloud | ✓ | ✓ |
+| BIPP v2 / BIOD v1 (politician) | ✓ local | ✗ → API or cloud | ✗ | ⚠ tight | ✓ | ✓ | ✓ |
+| Memory Bank | ✓ (no LLM) | ✓ | ✓ | ✓ | ✓ | n/a | n/a |
+| Workflow Graph | ✓ (orchestration) | ✓ | ✓ | ✓ | ✓ | n/a | n/a |
+| 3am Workflow | ✓ local trigger | ✓ local trigger | ✓ local trigger | ✓ Cloud Run substitute | ✓ Cloud Run | n/a | n/a |
+
+### §11.7 — For code development (the dev use case)
+
+A per-dev-task table:
+
+| Dev task | M4 Max 48 GB | M5 Air 16 GB | M1 Air 8 GB | Oracle ARM 24 GB | GCP x86 32 GB |
+|---|:-:|:-:|:-:|:-:|:-:|
+| OpenCode CLI + `opencode.json` (12 MCP) | local Unsloth Qwen3.8-27B | local Unsloth Qwen3.6-27B-MTP | local Llama-3.2 (slow) | local Unsloth | local Unsloth |
+| `openspec validate --strict` | local | local | local | local | local |
+| `mise run lint:license` | local | local | local | local | local |
+| `bun run ccc:search` (BGE-M3 embed) | local | local | local | local | local |
+| `mise run openspec:validate-all` | local | local | local | local | local |
+| `mise run cianchosaint:provider:health-check` | local Unsloth ping | local Unsloth ping | local Llama-3.2 ping | local Unsloth ping | local Unsloth ping |
+| `mise run test:smoke` (14 suites) | local | local | local | local | local |
+| `mise run cianchosaint:bipp:v1:m2` | local + crawl4ai | local + crawl4ai | local + crawl4ai | cloud + crawl4ai | cloud + crawl4ai |
+| `mise run lint:registry` | local | local | local | local | local |
+| `tests/baml/test_centralised_model_registry.py` | local | local | local | local | local |
+
+### §11.8 — Pangolin.net private self-hosted resources
+
+The Pangolin private-resource pattern (from `bonneagar/stacks/pangolin/README.md`):
+
+- **Public resource** → Traefik + Tinyauth + Pocket ID (OIDC) → exposed on the internet
+- **Private resource** → WireGuard to an enrolled device (Newt client) → never publicly served
+
+**Why this matters for police/Garda/intel/defence:** every cianchosaint resource (Unsloth, LiteLLM, MotherDuck, Langfuse, the 8 web apps, the AG-UI chat window) is exposed as a private Pangolin resource behind a WireGuard tunnel + Pocket ID passkey. The MacBook is the Newt client. From any UK gov / Garda / MoD / PSNI laptop enrolled in Pocket ID, the analyst reaches the platform without ever exposing a public port.
+
+5-step "Enrol a new device" recipe:
+
+```bash
+# 1. Visit https://pangolin.cianchosaint.ie as admin
+# 2. Add the device's WireGuard public key
+# 3. Add Pocket ID passkey for the analyst
+# 4. Install the Newt WireGuard client on the analyst's laptop
+# 5. The analyst reaches the private resources via the Pangolin mesh
+```
+
+### §11.9 — Mapping the 11 user types to the 5-axis landscape
+
+| User type | M4 Max 48 GB | M5 Air 16 GB | M1 Air 8 GB | Oracle ARM 24 GB | GCP $300 trial | Gemini API | MiniMax API |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 1. Garda detective | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
+| 2. PSNI officer | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
+| 3. Welsh/Eng/Scot police analyst | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
+| 4. Irish Defence Forces | ✓ all 7 | ✓ 3 flagship | ✓ 3 flagship (basic) | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
+| 5. UK MoD policy analyst | ✓ all 7 | ✓ 3 flagship | ✓ 3 flagship (basic) | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
+| 6. MI5/SIS/GCHQ engineer | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
+| 7. NI Justice practitioner | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
+| 8. Parliamentary researcher | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
+| 9. Journalist OSINT | ✓ 3 flagship | ✓ 3 flagship | ✗ | ✓ 3 flagship | ✓ 3 flagship | ✓ | ✓ |
+| 10. Academic researcher | ✓ all 7 | ✓ 3 flagship | ✗ | ✓ all 7 | ✓ all 7 | ✓ | ✓ |
+| 11. Citizen (self-host) | ✓ all 7 | ✓ all 7 (offline cache) | ✓ 3 flagship (basic) | ✓ all 7 | ✓ all 7 | n/a | n/a |
+
+### §11.10 — The "pick your subset" cheat-sheet
+
+| Scenario | Recommendation | Why |
+|---|---|---|
+| **Public-sector analyst on a budget** | M5 Air 16 GB + Oracle ARM 24 GB + MiniMax Token Plan | $1,100 one-off + $0 cloud + $20/month API covers all 7 pipelines with sovereignty |
+| **Self-hosted citizen, no cloud** | M1 Air 8 GB (used market) | The 3 flagship pipelines + offline SQLite cache; full sovereignty; no API cost |
+| **Power analyst (the canonical case)** | M4 Max 48 GB + Oracle ARM 24 GB + MiniMax Token Plan (last resort) | $3,500 one-off + $0 cloud + occasional API for the political-accountability pipeline |
+| **Audit-grade sovereign deployment** | M4 Max 48 GB + Oracle ARM 24 GB (no API) | 100% local + cloud; no third-party API = strongest BUSL-1.1 licence compliance |
+
+---
+
+## §12 — The dev environment: OpenSpec + openchamber.dev + mise
+
+> **For:** Anyone extending cianchosaint — adding a new DLT source, a new BAML extraction, a new agent, a new web surface, or a new openspec change.
+>
+> **Canonical tools:** OpenSpec (change management), openchamber.dev (browser UI), mise (task runner), opencode.json (12-MCP runtime), `.cocoindex_code/guides.yml` (12 concept guides).
+
+### §12.1 — Why this section exists
+
+Cianchosaint was built agentically, with the dev environment deliberately exposed so users can extend it without learning a new stack. The 4 load-bearing tools: **OpenSpec** (change mgmt), **openchamber.dev** (UI), **mise** (task runner), **opencode.json** (12-MCP runtime). The `mise.toml` task namespace + the `opencode.json` MCP config + the `.agents/skills/` skill catalogue are all committed to the repo so every contributor sees the same canonical surface.
+
+### §12.2 — OpenSpec (the spec-driven change-management workflow)
+
+**What it is:** [Fission AI OpenSpec 1.11](https://github.com/Fission-AI/OpenSpec) — a spec-driven change-management tool that treats every non-trivial change as a 3-artifact bundle (`proposal.md` + `tasks.md` + `spec.md` delta).
+
+**The canonical workflow:**
+
+```bash
+# 1. Create the change directory
+mkdir -p openspec/changes/<change-id>/specs/<capability>
+
+# 2. Write the 3 artifacts
+$EDITOR openspec/changes/<change-id>/proposal.md       # why + what + impact + dependencies
+$EDITOR openspec/changes/<change-id>/tasks.md          # the ordered checklist
+$EDITOR openspec/changes/<change-id>/specs/<capability>/spec.md  # ADDED/MODIFIED/REMOVED Requirements
+
+# 3. Validate --strict
+openspec validate <change-id> --strict
+
+# 4. Implement the changes
+# 5. Archive the change (after deploy)
+openspec archive <change-id> --yes
+```
+
+**Why it matters for police/Garda/intel:** every change is auditable in a way that matches what a public-sector records office needs (BUSL-1.1 v2 compliant). The `openspec list --specs` + `openspec validate --all --strict` + `openspec archive` workflow gives the audit trail the warrant-to-enforce clause requires.
+
+**Concrete example:** the new `cianchosaint-baml-centralised-model-registry-v1` change ships the canonical BAML `ClientRegistry` pattern (per the 2026-09-26 Firecrawl BAML research). The change directory is `openspec/changes/cianchosaint-baml-centralised-model-registry-v1/` with `proposal.md` (the why) + `tasks.md` (the 8-phase checklist) + `specs/cianchosaint-baml-centralised-model-registry/spec.md` (the 4 ADDED Requirements + 2 MODIFIED Requirements + 0 REMOVED Requirements).
+
+Cross-link to `openspec/AGENTS.md` for the full workflow + the 6-file change bundle convention.
+
+### §12.3 — openchamber.dev (the browser-based OpenCode UI)
+
+**What it is:** Browser-based OpenCode UI built on `oven/bun:1.3.5` + React. MIT-licensed upstream at `openchamber/openchamber`. 18+ themes, persistent session state, multi-device sync via the Pangolin mesh. Provides one canonical surface for code-agent work — same sessions visible on your MacBook, your iPad, your phone (via Pocket ID passkey SSO).
+
+#### §12.3.1 — The 5 key features that matter for cianchosaint
+
+| Feature | Why it matters for cianchosaint |
+|---|---|
+| **Bundled-runtime vs external-runtime dual-mode** | The same image serves both `arm1-oci` (production, bundled — OpenChamber container ships its own `opencode-ai`) and `bunchloch` (your MacBook, external — the host OpenCode owns the process + MCP config) |
+| **18+ themes + persistent sessions** | Long-running investigations (the 3am-workflow long-running tools, the political-accountability dossier) need to survive browser restarts; the SQLite-backed session store gives that |
+| **Pangolin private-resource ingress** | Every OpenChamber instance is exposed as a Pangolin private resource — Pocket ID OIDC + WireGuard means no public ports; the analyst's browser reaches the UI through the same identity layer that protects Infisical + MotherDuck + the 8 web apps |
+| **Multi-device session sync** | A Garda detective starts an investigation on their work laptop at 9 am, continues on their iPad on the train, finishes from their home desktop — the OpenChamber session is the same object across all three |
+| **Provider picker (OpenAI / Anthropic / OpenAI-compatible)** | The provider picker maps directly to the cianchosaint 4-tier provider chain — Tier 1 (Unsloth) appears as the bundled OpenCode provider; Tiers 2-4 (LiteLLM / MiniMax / Gemini) appear as configured upstream providers |
+
+#### §12.3.2 — Capabilities alongside bonneagar + the dev setup
+
+| openchamber.dev capability | How it uses the bonneagar stack |
+|---|---|
+| Browser chat with the AG-UI chat window | Routes through the `litellm` stack → falls through to the `unsloth-serve` stack → the `pangolin` private resource target → `host.docker.internal:8888` on your Mac |
+| Persistent session state | Backed by the `locket` sidecar-injected SQLite volume (the same `LOCKET_TOKEN` that protects Infisical secrets) |
+| Multi-device sync | Goes through the `pangolin` Newt WireGuard tunnel; the `pocket-id` OIDC layer authenticates every device |
+| MCP tool calls (firecrawl / ccc / cognee / etc.) | Routed through the `opencode.json` 12-MCP runtime in your `~/.config/opencode/opencode.jsonc`; the OpenChamber UI displays the tool calls inline |
+| Provider switching | Driven by `baml_src/clients.baml`'s `ClientRegistry` — the OpenChamber UI reads the same `deployment-choice.yaml` toggle |
+| Theme + UI preferences | Persisted in OpenChamber's SQLite volume; restored on browser restart |
+
+#### §12.3.3 — How to add openchamber.dev to your deployment
+
+5-step recipe:
+
+```bash
+# 1. cd to the openchamber stack
+cd bonneagar/stacks/openchamber
+
+# 2. Hydrate secrets from Infisical via Locket
+locket inject -- docker compose up -d
+
+# 3. (bunchloch only) Configure external-runtime mode
+export OPENCODE_HOST=http://host.docker.internal:4096
+export OPENCODE_PORT=4096
+export OPENCODE_SKIP_START=true
+
+# 4. Open the UI
+open https://openchamber.cianchosaint.ie
+
+# 5. Sign in via Pocket ID passkey
+```
+
+Cross-references:
+- The full 80-line canonical doc lives at `bonneagar/stacks/openchamber/README.md`
+- The openspec change that added the bunchloch external-runtime mode: `2026-07-28-openchamber-bunchloch-dev-parity-v1`
+- The infrastructure-stacks spec delta is in `openspec/specs/infrastructure-stacks/spec.md`
+
+### §12.4 — mise (the 32-task namespaced workflow)
+
+The 6 namespaces: `core:`, `lint:`, `sync:`, `openspec:`, `devops:`, `cianchosaint:`.
+
+The 3 tasks a new user runs on day 1:
+
+```bash
+# 1. The full bootstrap (sync + lint + test)
+mise run sync:all && mise run openspec:validate && mise run test:smoke
+
+# 2. The OSINT allowlist audit
+mise run lint:license
+
+# 3. The provider health check
+mise run cianchosaint:provider:health-check
+```
+
+The 5 most useful `cianchosaint:` tasks:
+
+```bash
+mise run cianchosaint:bipp:v1:m1         # An Garda Síochána — 14 cohorts
+mise run cianchosaint:bipp:v1:m2         # UK 43 forces (data.police.uk) — 392 cohorts
+mise run cianchosaint:bidp:v1:m1        # UK MoD + RAF + RN + Army — 32 cohorts
+mise run cianchosaint:biip:v1:m1        # UK ISC + IPCO + IPT — 24 cohorts
+mise run cianchosaint:provider:health-check   # 4-tier provider health
+```
+
+The `deployment-choice.yaml` enablement file (the single toggle point) lives at the repo root.
+
+### §12.5 — `opencode.json` + the `.cocoindex_code/guides.yml` (the dual-search)
+
+**The 12-MCP runtime** (`opencode.json`): ccc + firecrawl + crawl4ai + chrome + dlt-workspace + motherduck + cognee + graphiti + design-system + langfuse + infisical + huggingface.
+
+**The `.cocoindex_code/guides.yml`** — 12 concept guides that ship with cianchosaint. Each maps a high-level concept (e.g. "openspec-change-search", "dlt-source-search", "BAML extraction search") to the canonical files. When a search query matches a guide's description, `ccc:search` returns a `[guide]` hit pointing the user at the canonical set, even if no individual file scored high on its own.
+
+**Why dual-search matters for police/Garda/intel:** every Firecrawl call MUST be paired with a `ccc:search` so both tool names appear in the Langfuse trace (the audit trail is the licence's load-bearing requirement).
+
+### §12.6 — The 5 dispatchable opencode subagents
+
+| Subagent | When to dispatch |
+|---|---|
+| `data-platform` | Adding a new DLT source + a BAML extraction + a CocoIndex flow |
+| `infrastructure` | Adding a new Docker Compose stack to `bonneagar/stacks/` |
+| `agent-platform` | Adding a new agent or specialist |
+| `frontend-apps` | Adding a new per-persona web surface |
+| `research` | OSINT discovery + new source catalogue entries |
+
+### §12.7 — The 16 domain packages — features/benefits/usage
+
+Per the 2026-09-26 Firecrawl MCP research (with HuggingFace + Unsloth Studio info/stats/blog/docs prioritised):
+
+| Package | Canonical features (from docs) | Cianchosaint usage | Best practice |
+|---|---|---|---|
+| **BAML** | Schema-first LLM extraction; type-safe; Python/TS/Ruby; `baml_py.ClientRegistry` for runtime model overrides | The BAML functions across `baml_src/cianchosaint/` | Resolve model choice via `MODEL_REGISTRY` (NOT hardcoded strings); use `ClientRegistry` for runtime swaps |
+| **CocoIndex v1** | Real-time embedding; incremental updates (only re-embeds changed chunks); declarative Python; `@coco.fn(memo=True)` cached by hash | The CocoIndex flows in `cocoindex_flows/cianchosaint/` | Use `shared_lifespan` for LANCE_DB + EMBEDDER ContextKeys |
+| **DLT** | Schema evolution with `freeze` / `discard_row` / `discard_value` policies; 100+ sources; @dlt.resource + @dlt.source; incremental cursors persisted between runs | The 928 DLT sources in `dlt_sources/cianchosaint/` | Use `@dlt.resource(write_disposition="append")` + `JurisdictionPipelineBase` |
+| **LanceDB** | Columnar vector store; multimodal; time-travel; PyArrow-native | The 24 companion tables in `md:cianchosaint.lc.*` | Use `BAAI/bge-m3` (1024 dim, 8192 tokens, multilingual dense+sparse+colbert) |
+| **DuckLake** | ACID on object storage; time-travel; open table format; Garage S3 backend | The 24 BIEP tables + `gov.ie` circulars | Use MotherDuck managed DuckLake |
+| **MotherDuck** | Cloud DuckDB; serverless; Postgres endpoint; Hyper-tenancy | `md:cianchosaint` database | Use the pg_duckdb proxy for low-latency reads |
+| **Dagster** | Asset-centric orchestration; sensor-based; R1-R4 conformance check | The 833 assets in `orchestration/defs/` | Use `JurisdictionAssetsBase` + the GA subclass |
+| **Google ADK** | Agent framework; function calling; multi-agent; `make_cianchosaint_agent()` factory | The 24 per-persona agents in `agents/cianchosaint/` | Use the factory + `AGENT_FACTORY_REGISTRY` |
+| **AG-UI** | Agent-UI streaming; SSE-based; CopilotKit-compatible | The chat window in `web/apps/ciafagent-*` | Use the `register_adk_agent()` helper |
+| **CopilotKit** | React chat components; tool rendering; `useAgent` + `useFrontendTool` | The 8 per-persona web apps | Use `useAgent` + `useFrontendTool` |
+| **TanStack Start** | SSR + file-based routing; TanStack Query; oRPC | The 8 web apps + `web/apps/ciafagent-self-host` | Use the TanStack Query + the embedded Hono API |
+| **LiteLLM** | Unified LLM gateway; 76-entry MODEL_REGISTRY; `litellm_settings.fallbacks` chains | The `litellm` stack in `bonneagar/stacks/litellm/` | Use the `default` chokepoint alias (routes to MODEL_REGISTRY["text_llm"]["default"]) |
+| **Unsloth Studio** | Local GGUF inference; OpenAI-compatible API; 70% VRAM reduction; Q4_K_M / Q5_K_M / Q8_0 quants | The `unsloth-serve` stack in `bonneagar/stacks/unsloth-serve/` | Run on the host (bunchloch) not in Docker; pair with `llama-swap` for dynamic model swapping |
+| **Pangolin** | WireGuard tunnels; Pocket ID OIDC; CrowdSec IDS; Traefik reverse proxy | The 13 stacks' private-resource target | Use Pocket ID passkeys for SSO; Newt client for the analyst's laptop |
+| **Langfuse** | LLM tracing; prompt mgmt; cost tracking; `@observe` decorator | The observability layer for all 4 tiers | Use `@observe` + cost tracking; pair with Firecrawl for dual-search audit trail |
+| **Infisical** | Secrets management; SDK + UI; `infisical://` refs in `secrets.env` | The `dev-baile` vault + the Locket sidecar | Use `infisical://dev-baile/...` refs in `secrets.env` |
 
 ---
 

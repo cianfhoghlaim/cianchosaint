@@ -31,22 +31,31 @@ provider_order:
 provider_overrides:
   unsloth_studio:
     base_url: http://unsloth-serve:8889/api/v1
-    model: minimax-m3
+    # MODEL_REGISTRY lookup (was hardcoded "minimax-m3" — see
+    # openspec/changes/cianchosaint-baml-centralised-model-registry-v1).
+    # Resolves via meaisinfhoghlaim.models.model_for("text_llm", "default").
+    model: "{{ registry.text_llm.default }}"
     timeout_seconds: 30.0
     enabled: true
   litellm:
     base_url: https://litellm.cianchosaint.ie
-    model: minimax-m3
+    # MODEL_REGISTRY lookup — the LiteLLM gateway routes through the canonical
+    # `default` chokepoint alias (which maps to minimax-m3).
+    model: "{{ registry.text_llm.default }}"
     timeout_seconds: 30.0
     enabled: true
   minimax_token_plan:
     base_url: https://api.minimax.io/v1
-    model: minimax-m3
+    # MODEL_REGISTRY lookup — the MiniMax Token Plan direct API uses
+    # `token_plan_primary` (canonical direct-API role for MiniMax M3).
+    model: "{{ registry.text_llm.token_plan_primary }}"
     timeout_seconds: 30.0
     enabled: true
   gemini_api:
     base_url: https://generativelanguage.googleapis.com/v1beta
-    model: gemini-2.5-pro
+    # MODEL_REGISTRY lookup — the Gemini last-resort uses `strong_hosted`
+    # (Gemini 2.5 Pro, the canonical strong hosted model).
+    model: "{{ registry.text_llm.strong_hosted }}"
     timeout_seconds: 30.0
     enabled: true
 

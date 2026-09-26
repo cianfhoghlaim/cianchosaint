@@ -21,6 +21,12 @@
 // ====== PRIMARY: Unsloth Studio (Tier 1) ======
 // Local self-hosted inference (BAAI/bge-m3, Qwen2.5-VL-7B-Instruct,
 // etc.). Default for every cianchosaint LLM call.
+//
+// Per the openspec/changes/cianchosaint-baml-centralised-model-registry-v1/spec.md,
+// the model field is now resolved at runtime via BAML's ClientRegistry
+// (configured by baml_src/_shared/model_registry_helper.py). The
+// `minimax-m3` below is the placeholder; the actual model key is
+// resolved via meaisinfhoghlaim.models.model_for("text_llm", "default").
 
 client<llm> Primary {
   provider "openai-generic"
@@ -38,6 +44,9 @@ client<llm> Primary {
 // Routes through the existing litellm.cianfhoghlaim.ie proxy.
 // Activated when Unsloth Studio is unavailable (5xx, timeout, or
 // circuit-breaker open).
+//
+// The model field is resolved at runtime via MODEL_REGISTRY
+// (see model_registry_helper.py).
 
 client<llm> Fallback {
   provider "openai-generic"
@@ -54,6 +63,9 @@ client<llm> Fallback {
 // ====== EMERGENCY: MiniMax Token Plan (Tier 3) ======
 // Direct API to api.minimax.io/v1 (the user holds a MiniMax coding
 // plan). Activated when both Unsloth Studio AND LiteLLM are down.
+//
+// The model field is resolved at runtime via MODEL_REGISTRY
+// (see model_registry_helper.py).
 
 client<llm> Emergency {
   provider "openai-generic"
@@ -71,9 +83,12 @@ client<llm> Emergency {
 // Direct API to generativelanguage.googleapis.com. Activated when
 // all 3 prior tiers are down. NOT used for cianchosaint default —
 // only for last-resort fallback.
+//
+// The model field is resolved at runtime via MODEL_REGISTRY
+// (see model_registry_helper.py).
 
 client<llm> LastResort {
-  provider "openai-generic"
+  provider "google-ai"
   options {
     base_url env.GEMINI_BASE_URL
     api_key env.GEMINI_API_KEY

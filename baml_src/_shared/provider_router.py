@@ -306,7 +306,15 @@ def _providers_from_yaml(cfg: dict[str, Any]) -> list[ProviderConfig]:
 
     Per the openspec/changes/cianchosaint-provider-router-v1/spec.md,
     Requirement: Per-deployment config (YAML-driven).
+
+    Per the openspec/changes/cianchosaint-baml-centralised-model-registry-v1/spec.md,
+    Requirement: Centralised model choice via MODEL_REGISTRY — every
+    `{{ registry.<family>.<role> }}` placeholder in the YAML is resolved
+    via `model_registry_helper._resolve_registry_placeholder()` (which
+    calls `meaisinfhoghlaim.models.model_for(family, role)`).
     """
+    from .model_registry_helper import _substitute_registry_placeholders
+
     by_name = {p.name: p for p in _providers_from_env()}
     order = cfg.get("provider_order") or list(by_name)
     providers: list[ProviderConfig] = []
@@ -316,12 +324,17 @@ def _providers_from_yaml(cfg: dict[str, Any]) -> list[ProviderConfig]:
             logger.warning("unknown_provider_in_yaml", extra={"name": name})
             continue
         override = (cfg.get("provider_overrides") or {}).get(name) or {}
+        # Resolve MODEL_REGISTRY placeholders (e.g. "{{ registry.text_llm.default }}"
+        # → "minimax-m3" via meaisinfhoghlaim.models.model_for).
+        resolved_model = _substitute_registry_placeholders(
+            override.get("model", base.model)
+        )
         providers.append(
             ProviderConfig(
                 name=base.name,
                 base_url=override.get("base_url", base.base_url),
                 api_key=override.get("api_key", base.api_key),
-                model=override.get("model", base.model),
+                model=resolved_model,
                 timeout_seconds=float(
                     override.get("timeout_seconds", base.timeout_seconds)
                 ),
