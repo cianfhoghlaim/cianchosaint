@@ -36,7 +36,7 @@ Per the LiteLLM release-support policy (2026-06-29): "LiteLLM will only actively
 | **langfuse** | `4.7.0` | `4.7.0` | `4.x` (latest patch) | **aligned** (Stage 2b.1 complete) | 2b ✅ |
 | **langfuse-worker** | `4.7.0` | `4.7.0` | `4.x` (latest patch) | **aligned** (Stage 2b.1 complete) | 2b ✅ |
 | **komodo** | `komodo-core:2 + komodo-periphery:2-dev + ferretdb:2` | `komodo-core:2 + komodo-periphery:2-dev + ferretdb:2` | `v2.3.3` (latest; we're on the v2 track) | **aligned** (Stage 2b.2 complete) | 2b ✅ |
-| **openchamber** | `1.22.2` | `1.22.2` | `1.22.2` (Sep 5, 2026) | **aligned** (image-only; Stage 2b.3 complete) | 2b ✅ |
+| **openchamber** | `1.22.2` | `1.22.2` | `1.22.2` (Sep 5, 2026) | **aligned** (image-only Stage 2b.3; full refactor Stage 4 complete) | 2b+4 ✅ |
 | **crawl4ai** | `v0.9.4` | `v0.9.4` | `v0.9.4` (Sep 23, 2026) | **aligned** (Stage 2c complete) | 2c ✅ |
 | **garage** | `v2.4.1` | `v2.4.1` | `v2.4.1` (Sep 8, 2026) | **aligned** (Stage 2c complete) | 2c ✅ |
 | **stagehand** | `local` | `n/a` | n/a | local-only | skip |
@@ -120,7 +120,7 @@ Sample current header pattern:
 | 2b | litellm + langfuse + komodo + openchamber image | 3 changes | pending |
 | 2c | crawl4ai + garage + infisical | `2026-09-26-loc-data-storage-stack-upgrade-v1/` |
 | 3 | dagster + dagster-dlt + dagster-dbt + cocoindex + baml-py + dlt + duckdb + motherduck + lancedb + google-adk + langfuse-py + litellm-py | `2026-09-26-biep-data-platform-deps-bump-v1/` |
-| 4 | openchamber full refactor (1.0 → 1.22) | `2026-09-26-openchamber-v1.22-major-upgrade-v1/` |
+| **4** | **openchamber full refactor (1.0 → 1.22)** | **`2026-09-26-openchamber-v1.22-major-upgrade-v1/`** | **✅ SHIPPED 2026-09-26** |
 | 5 | lancedb Lance v1 → Lance v2 in-place migration | `2026-09-26-lancedb-v0.39-lance-v2-upgrade-v1/` |
 | 6 | refresh all 79 skill version headers | `2026-09-26-skill-version-header-refresh-v1/` |
 | 7 | add the GH workflow + Dagster sensor + `mise run devops:version-drift` + `docs/VERSION-DRIFT-POLICY.md` | `2026-09-26-version-drift-monitoring-v1/` |

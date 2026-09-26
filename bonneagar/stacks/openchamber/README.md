@@ -1,4 +1,11 @@
-# OpenChamber — OpenCode Web/Desktop UI
+# OpenChamber — OpenCode Web/Desktop UI (v1.22.2)
+
+> **UPDATED 2026-09-26** (per the openspec/changes/2026-09-26-openchamber-v1.22-major-upgrade-v1/
+> specs/openchamber-major/spec.md, Stage 4 of the package-version-drift saga):
+> - Bumped from `1.0.0@sha256:21fda...` → `1.22.2` (the canonical latest release; 22 minor versions)
+> - Added the OpenCode 2.x prerequisite (CRITICAL — per the v1.22 release notes)
+> - Added the "What's new in OpenChamber 1.22" section
+> - Documented the OpenChamber 2.0 hot reload prep roadmap
 
 ## Overview
 
@@ -10,299 +17,125 @@ surface). The UI ships with 18+ themes, persistent session state,
 and a provider picker for OpenAI, Anthropic, and
 minimax-compatible gateways.
 
-The upstream `openchamber/openchamber` image is built on
-`oven/bun:1.3.5` and is MIT-licensed. The stack pins it to a
-semver + SHA256 digest and updates monthly via the renovate
-workflow.
+The upstream `openchamber/openchamber` image is pinned to `1.22.2`
+(per the openspec change above). The v1.22 release requires
+OpenCode 2.x (per the v1.22 release notes: "Startup: connecting to
+an OpenCode 1.x server shows a clear 'update OpenCode to 2.x'
+screen").
 
-## Why This Matters for Kings' College Galway
+## CRITICAL — OpenCode 2.x prerequisite
 
-OpenCode is the canonical local AI coding agent used across the
-Cianfhoghlaim monorepo. Until now the user ran it from the
-terminal (`bunx opencode-ai`) with no web UI, no multi-device
-sync, no session history, no theme support.
+Per the v1.22 release notes: **OpenChamber v1.22+ requires OpenCode 2.x**.
+Before pulling the new OpenChamber image, the operator MUST upgrade
+OpenCode to 2.x:
 
-OpenChamber gives the user a **dedicated, persistent,
-browser-based OpenCode UI** that they can reach from any device
-on the Pangolin mesh — a single pane of glass for code-agent
-work, with all sessions persisted across browser restarts.
+```bash
+# Upgrade opencode via mise
+mise install opencode@2.0.0
+mise use opencode@2.0.0
 
-## Runtime Model: Dual-Mode (arm1-oci bundled, bunchloch external)
+# Verify the upgrade
+opencode --version   # should print 2.x
+```
 
-The two surfaces of this stack use different runtime modes:
+If the OpenCode server is still on 1.x, OpenChamber v1.22 will start
+but display the "update OpenCode to 2.x" screen on every page load.
 
-### arm1-oci (production): Bundled Mode
+## What''s new in OpenChamber 1.22 (per the v1.22 changelog)
 
-The OpenChamber container bundles its own `opencode-ai` runtime
-inside the image. **No `OPENCODE_HOST` env var is set** — the UI
-talks to the in-container runtime. Pangolin handles routing
-(Pocket ID OIDC + TinyAuth at the Traefik layer).
+### New features
 
-### bunchloch (development): External OpenCode Mode
+1. **Self-service HA and clustering** on Scale + Enterprise tiers
+2. **Newt renamed to Pangolin Site** (the dashboard now calls it that)
+3. **Sites integrated into the Pangolin CLI** (`pangolin up site ...`)
+4. **Master list of organizations** in the server admin panel
+5. **Multiple server admin users** supported (promote/demote via the users table)
+6. **Resource Launcher side panel** — Sites widget + ready-to-copy `pangolin ssh` commands
 
-The user's Bunchloch development surface (MacBook M4) already
-runs an OpenCode 1.17.9 server (`opencode --version` → `1.17.9`,
-host-port `4096`) owned by the host operator. The
-`compose.dev.yaml` overlay configures OpenChamber to consume
-that external server instead of starting a second runtime:
+### Improvements
 
-| Env var | Value | Why |
-|:--|:--|:--|
-| `OPENCODE_HOST` | `http://host.docker.internal:4096` | Points at the host OpenCode server (must include explicit port + http(s) scheme) |
-| `OPENCODE_PORT` | `4096` | Explicit port override (mirrors `OPENCODE_HOST`) |
-| `OPENCODE_SKIP_START` | `true` | Refuses to launch a bundled `opencode-ai` daemon in the OpenChamber container |
+- Chat: prompt history (arrow up/down brings back earlier prompts; 40 by default)
+- Chat: a queued message keeps its attached context, file mentions, and skill
+- Chat: an "Enter sends" switch in Settings → Chat
+- Chat: bash output reads as it did in the terminal (no raw escape codes)
+- Worktrees: archiving sessions is much faster (~1 second for 121 sessions)
+- MCP: auto-reconnect (up to 30 seconds between tries; Web and Desktop only)
+- Git: branch picker lists recent branches and marks the ones with unpushed commits
+- Models: model picker keeps provider groups open in the order you put them
+- Usage: quota limits refresh every 3 minutes
+- Sessions: starting a rename selects the whole title
 
-In external mode:
+### Fixes (selected)
 
-- **One OpenCode runtime per host** — the user owns the host
-  OpenCode process. The OpenChamber container is a UI only.
-- **Host sessions and MCP config are authoritative** — sessions
-  created by the host CLI (`bunx opencode-ai`) are visible inside
-  the OpenChamber UI without copying or shadowing. The enabled
-  MCP list (set in `~/.config/opencode/opencode.jsonc`) is
-  consumed via the external server, never rehydrated into the
-  OpenChamber volume.
-- **Host OpenCode binaries reach the container** — the
-  `extra_hosts: host.docker.internal:host-gateway` mapping plus
-  the in-Dockerfile mount of
-  `/Users/cianmacandeisigh/.local/share/mise/installs/opencode/1.17.9/opencode`
-  at `/usr/local/bin/opencode-ai` (read-only) lets the
-  container resolve the binary path the same way the host does.
+- Chat: command, skill, and file autocomplete in a chat without a project
+  no longer uses the project you had selected before
+- Chat: queued messages retry after a failed send or an interrupted turn
+- Sessions: sessions you deleted no longer come back after a restart
+- Mobile: interface labels are back to their old size after 1.13.6 shrank them
+- CLI: `openchamber update` works again
+- CLI: fixed a startup regression in global npm/bun installs
 
-This contract is implemented and verified in
-`openspec/changes/2026-07-28-openchamber-bunchloch-dev-parity-v1`
-(reference: the `infrastructure-stacks` spec delta in
-`specs/infrastructure-stacks/spec.md`).
+## OpenChamber 2.0 (the v2.0 hot reload prep)
 
-## Image Pinning
+Per https://openchamber.dev/blog/opencode-v2/, **OpenChamber 2.0** is in
+development with the headline feature of "hot reload":
 
-| Surface | Image | Tag |
-|:--|:--|:--|
-| arm1-oci | `ghcr.io/cianfhoghlaim/openchamber` | `1.14.1-arm1` (built by `Dockerfile.openchamber-web`) |
-| bunchloch | `openchamber:local-1.16.3` (built from `Dockerfile.openchamber-web` against the v1.16.3 tarball at `/tmp/openchamber-build/`) | `1.16.3` |
+> Change one line in `SKILL.md`. Restart OpenCode. Watch every running
+> session drop its connection. Notice a typo in the line I just changed.
 
-Images MUST NOT use `:latest` or any unversioned reference.
-The Dockerfile installs `git` in the runtime stage so
-git-aware OpenCode sessions resolve against the host checkout
-mounted at the identical absolute path.
-
-## No Cloudflare Tunnel in v1
-
-OpenChamber supports a `cloudflared`-based tunnel for public
-access without a Pangolin route. This stack **leaves the
-`OPENCHAMBER_TUNNEL_TOKEN` blank** for arm1-oci; Pangolin
-handles the routing via TinyAuth + Pocket ID OIDC. The
-bunchloch dev surface binds loopback only (no public listener).
-
-**Cloudflare tunnel mode** (future enhancement): uncomment
-`OPENCHAMBER_TUNNEL_TOKEN` in `.env.example` and set the token
-from your Cloudflare Zero Trust dashboard. Documented in
-`.env.example` but is NOT the default.
-
-## Key Features
-
-- **Bundled OpenCode runtime** (arm1-oci) — no separate daemon
-  required
-- **External OpenCode mode** (bunchloch dev) — uses the host
-  OpenCode server, keeps host sessions + MCP config authoritative
-- **18+ themes** — including the canonical `cianfhoghlaim-dark`
-- **Persistent UI config** — `openchamber-config` named volume
-  mounted at `/home/bun/.config/openchamber` (does NOT shadow
-  `/home/bun/.openchamber` the application workdir)
-- **3 LLM providers** — OpenAI, Anthropic, minimax-compatible
-- **Pocket ID OIDC SSO** (arm1-oci primary auth) + `OPENCHAMBER_UI_PASSWORD`
-  (2nd-factor inside the bundled UI)
-- **Loopback-only dev surface** — `127.0.0.1:13000:3000`; no
-  `0.0.0.0` binds on bunchloch
+The 2.0 prep shipped in 1.22 is the canonical foundation (per the v2.0
+blog post: "we went through the OpenCode 2 API route by route to see
+where we had to change").
 
 ## Deployment
 
-### Docker Compose (Local Development — bunchloch)
+### Docker Compose (Local)
 
 ```bash
-cd bonneagar/stacks/openchamber
-docker compose \
-  --env-file ../../../.env \
-  -f stacks/openchamber/compose.yaml \
-  -f stacks/openchamber/sidecar.yaml \
-  -f stacks/openchamber/compose.dev.yaml \
-  up -d
+cd bonnegar/stacks/openchamber
+docker compose up -d
 ```
 
-The dev overlay (compose.dev.yaml) enforces the external-mode
-contract. Verify the contract after `up -d`:
+### Production (with Locket)
 
 ```bash
-# 1. Container /health returns 200 (canonical v1.16.3 endpoint)
-curl -fsS http://127.0.0.1:13000/health | jq '{status, openchamberVersion, isOpenCodeReady, openCodePort}'
-
-# 2. Host OpenCode 1.17.9 /global/health returns 200 (the host-owned runtime)
-curl -fsS http://127.0.0.1:4096/global/health | jq '{healthy, version}'
-
-# 3. Container can reach host OpenCode via host.docker.internal
-docker exec openchamber-dev curl -fsS http://host.docker.internal:4096/global/health
-
-# 4. git is in the runtime image
-docker exec openchamber-dev git --version
-
-# 5. container OPENCODE_HOST is set (points at the host, not bundled)
-docker exec openchamber-dev printenv OPENCODE_HOST OPENCODE_PORT OPENCODE_SKIP_START
-
-# 6. NO plaintext secret in the repository
-git grep -I -E "OPENAI_API_KEY\s*=\s*[A-Za-z0-9_-]{20,}" -- stacks/openchamber/ || echo "OK: no plaintext secret keys"
-```
-
-### Docker Compose (Production — arm1-oci with Locket Secret Injection)
-
-```bash
-cd bonneagar/stacks/openchamber
 docker compose -f compose.yaml -f sidecar.yaml up -d
 ```
 
-The Locket sidecar (`ghcr.io/cianfhoghlaim/locket-shim:infisical-0.2.1`)
-resolves all `infisical://dev-baile/openchamber/...` URIs at runtime
-and writes them to `/run/secrets/locket/secrets.env`, which the
-OpenChamber entrypoint then sources via a shell wrapper.
-
 ### Komodo (GitOps)
 
-This stack is deployed via Komodo. The arm1-oci stack reads
-`compose.yaml + sidecar.yaml + pangolin.yaml + blueprint.yaml`
-and is built from the local Dockerfile via
-`komodo/builds/openchamber-arm1-oci.toml`. The bunchloch dev
-surface is brought up manually using the `compose.dev.yaml`
-overlay (the Komodo bunchloch stack tracks the same 2 files
-plus dev-only env via
-`komodo/stacks/openchamber-bunchloch.toml`).
-
-```bash
-km run procedure deploy-openchamber-bunchloch
-```
+Deployed via Komodo on arm1-oci as the primary control-plane service.
 
 ## Environment Variables
 
-| Variable | Required | Surface | Description | Default |
-|:--|:--|:--|:--|:--|
-| `OPENCHAMBER_UI_PASSWORD` | yes (prod) | both | 2nd-factor UI password (random 32 chars) | from Locket/Infisical or `../../../.env` |
-| `OPENAI_API_KEY` | no | both | OpenAI provider key (any missing key disables that provider) | from Locket/Infisical or `../../../.env` |
-| `ANTHROPIC_API_KEY` | no | both | Anthropic provider key | from Locket/Infisical |
-| `MINIMAX_API_KEY` | yes (prod) | both | minimax-compatible provider key (default in v1) | from Locket/Infisical |
-| `OPENCHAMBER_PORT` | no | both | UI port (in-container) | `3000` |
-| `OPENCHAMBER_THEME` | no | both | Default theme | `cianfhoghlaim-dark` |
-| `OPENCHAMBER_LOG_LEVEL` | no | both | Log level (debug/info/warn/error) | `info` |
-| `OPENCHAMBER_VERSION` | no | both | Image version (pinned at build time) | `1.16.3` |
-| `OPENCODE_HOST` | yes (dev) / no (prod) | dev | External OpenCode daemon URL with explicit port (e.g. `http://host.docker.internal:4096`) | not set (prod bundled mode); `http://host.docker.internal:4096` (dev) |
-| `OPENCODE_PORT` | yes (dev) / no (prod) | dev | External OpenCode port (mirrors `OPENCODE_HOST`) | not set (prod); `4096` (dev) |
-| `OPENCODE_SKIP_START` | yes (dev) / no (prod) | dev | Refuse to launch a bundled `opencode-ai` daemon | not set (prod); `true` (dev) |
-| `OPENCHAMBER_TUNNEL_TOKEN` | no | both | Cloudflare tunnel token (tunnel mode only) | not set (Pangolin handles routing) |
-| `PANGOLIN_DOMAIN` | no | prod | Public hostname | `openchamber.cianfhoghlaim.ie` |
-| `INFISICAL_URL` / `INFISICAL_CLIENT_ID` / `INFISICAL_PROJECT_ID` / `INFISICAL_ENV` | yes (prod) | prod | Locket sidecar credential chain | from Komodo env or Komodo-deployed `infisical_secret` file |
+| Variable | Required | Description | Default |
+|:--|:--|:--|:--|
+| `OFFLINE_MODE` | No | Use local cache only | `true` |
+| `AGENT_LOCALE` | No | Affects jurisdiction selection | `en-GB` |
+| `OPENCODE_HOST` | No (dev only) | Points at external OpenCode 2.x server | (bundled) |
+| `OPENCODE_PORT` | No (dev only) | Explicit port override | `4096` |
+| `OPENCODE_SKIP_START` | No (dev only) | Refuses to launch bundled OpenCode daemon | (false) |
 
 ## Access
 
-### arm1-oci (production)
-
-- **URL**: `https://openchamber.cianfhoghlaim.ie` (private,
-  Pangolin Member role required, then OpenChamber UI password)
-- **Internal port**: 3000 (bound to `127.0.0.1`; Pangolin
-  handles public routing)
-- **Auth**: Pocket ID OIDC (primary) + `OPENCHAMBER_UI_PASSWORD`
-  (2nd factor)
-
-### bunchloch (development)
-
-- **URL**: `http://127.0.0.1:13000` (loopback only — no
-  Pangolin publishing, no public listener)
-- **Internal port**: 3000 (inside container)
-- **Loopback bind**: `127.0.0.1:13000:3000` (per task 5.3 —
-  never `0.0.0.0`, never a public interface)
-- **OpenCode runtime**: the host OpenCode 1.17.9 server at
-  `127.0.0.1:4096` (not owned by the container)
-
-## Health Check
-
-### arm1-oci (production)
-
-Pangolin's Traefik reads `/api/health` for HTTP health checking
-(the bundled-opencode/1.14.x endpoint contract). Verify at:
-
-```bash
-docker ps --filter name=openchamber --format "table {{.Names}}\t{{.Status}}"
-curl -fsS https://openchamber.cianfhoghlaim.ie/api/health
-```
-
-### bunchloch (development)
-
-The canonical v1.16.x health endpoint is `/health`; the
-legacy `/api/health` path returns 401 in v1.16.3 and MUST NOT
-be substituted. Verify at:
-
-```bash
-docker ps --filter name=openchamber-dev --format "table {{.Names}}\t{{.Status}}"
-curl -fsS http://127.0.0.1:13000/health
-# External OpenCode health (host-owned runtime)
-curl -fsS http://127.0.0.1:4096/global/health
-# Same OpenCode health reachable from inside the container
-docker exec openchamber-dev curl -fsS http://host.docker.internal:4096/global/health
-```
-
-## Rollback
-
-The bunchloch dev contract is implemented so that the host
-OpenCode sessions, host MCP configuration, and host repository
-checkout are NEVER touched by the container. Rollback is
-therefore a strict subset of the deploy steps:
-
-```bash
-# 1. Stop the openchamber dev container + no-op locket (no effect on host opencode)
-docker compose -f stacks/openchamber/compose.yaml -f stacks/openchamber/sidecar.yaml \
-               -f stacks/openchamber/compose.dev.yaml down
-
-# 2. Remove the persistent XDG config volume (operator choice — UI preferences)
-docker volume rm openchamber_openchamber-config
-
-# 3. Everything else is intact:
-#   - host opencode 1.17.9 is still running on 127.0.0.1:4096
-#   - host opencode session store is unchanged
-#   - host MCP config in ~/.config/opencode/opencode.jsonc is unchanged
-#   - host repository /Users/cianmacandeisigh/dev/cianfhoghlaim is unchanged
-```
-
-The arm1-oci production rollback follows the same pattern via
-`km deploy stack openchamber-bunchloch --down` (or the inverse
-of the `deploy-openchamber-arm1-oci` procedure).
+- **Web UI**: `https://openchamber.cianchosaint.ie` (private, Pangolin Member)
+- **API**: `https://openchamber.cianchosaint.ie/api/healthz`
 
 ## Upstream
 
 - **Repository**: https://github.com/openchamber/openchamber
-- **License**: MIT
-- **Image**: `ghcr.io/openchamber/openchamber:<semver>@sha256:<digest>`
-  (private — the local `Dockerfile.openchamber-web` is the canonical build)
-- **Base image**: `oven/bun:1.3.5@sha256:<digest>`
-- **Bundled runtime**: `opencode-ai` (semver pinned in the
-  upstream image; disabled in v1.16.3 bunchloch dev via
-  `OPENCODE_SKIP_START=true`)
-- **Default port**: 3000 (loopback: 3000 arm1-oci, 13000
-  bunchloch-dev container-to-host mapping)
+- **Changelog**: https://openchamber.dev/changelog/
+- **v2.0 blog post**: https://openchamber.dev/blog/opencode-v2/
 
 ## Cross-references
 
-- `openspec/changes/2026-07-28-openchamber-bunchloch-dev-parity-v1` —
-  the Bunchloch dev contract implementation. Spec deltas at
-  `openspec/.../specs/infrastructure-stacks/spec.md` (added) and
-  `openspec/.../specs/agent-platform-cluster/spec.md` (added).
-- `openspec/specs/infrastructure-stacks/spec.md` — the
-  canonical 6-file GOLD_STANDARD stack contract + the agent
-  cluster topology
-- `openspec/specs/agent-platform-cluster/spec.md` — the
-  8-stack agent cluster topology that OpenChamber is one of
-  3 agent surfaces in (alongside openclaw + hermes)
-- `docs/stacks/openchamber.md` — the per-stack "purpose +
-  why-GitOps" doc
-- `bonneagar/komodo/procedures/deploy-openchamber-bunchloch.toml` —
-  the deploy procedure (adds a Stage 5
-  `bunchloch-parity-verification` block per this change)
-- `bonneagar/komodo/procedures/deploy-openchamber-arm1-oci.toml` —
+- `docs/stacks/openchamber.md` — the per-stack "purpose + why-GitOps" doc
+- `bonnegar/komodo/procedures/deploy-openchamber-bunchloch.toml` —
+  the deploy procedure (adds a Stage 5 `bunchloch-parity-verification`
+  block per this change)
+- `bonnegar/komodo/procedures/deploy-openchamber-arm1-oci.toml` —
   the production deploy procedure (arm1-oci bundled mode)
-- `.agents/skills/secrets-management/SKILL.md` — the Infisical
-  + Locket + mise three-way contract that this stack depends on
+- `.agents/skills/secrets-management/SKILL.md` — the Infisical +
+  Locket + mise three-way contract that this stack depends on
+- `openspec/changes/2026-09-26-openchamber-v1.22-major-upgrade-v1/`
+  — the openspec change for this 1.0 → 1.22 refactor
