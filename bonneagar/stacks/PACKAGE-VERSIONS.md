@@ -35,7 +35,7 @@ Per the LiteLLM release-support policy (2026-06-29): "LiteLLM will only actively
 | **litellm** | `v1.102.0` | `v1.102.0` | `v1.102.0` (Sep 19, 2026) | **aligned** (Stage 2b.1 complete) | 2b ✅ |
 | **langfuse** | `4.7.0` | `4.7.0` | `4.x` (latest patch) | **aligned** (Stage 2b.1 complete) | 2b ✅ |
 | **langfuse-worker** | `4.7.0` | `4.7.0` | `4.x` (latest patch) | **aligned** (Stage 2b.1 complete) | 2b ✅ |
-| **komodo** | `ferretdb:2 (indirect)` | `needs-verification` | `v2.3.3` (latest) | needs-verification | 2b |
+| **komodo** | `komodo-core:2 + komodo-periphery:2-dev + ferretdb:2` | `komodo-core:2 + komodo-periphery:2-dev + ferretdb:2` | `v2.3.3` (latest; we're on the v2 track) | **aligned** (Stage 2b.2 complete) | 2b ✅ |
 | **openchamber** | `1.0.0@sha256:21fda...` | `1.0.0@sha256:21fda...` | `1.22.2` (Sep 5, 2026) | behind 22 minor | 2b+4 |
 | **crawl4ai** | `v0.9.2` | `v0.9.2` | `v0.9.4` (Sep 23, 2026) | behind 2 patch | 2c |
 | **garage** | `v2.3.0` | `v2.3.0` | `v2.4.1` (Sep 8, 2026) | behind 1 minor | 2c |
