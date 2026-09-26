@@ -32,7 +32,7 @@ services:
     # 2026-08-21-litellm-1.91-to-1.97-and-mcp-oauth-2.0-v1/ proposal).
     # The database variant bundles Prisma binaries required for the
     # lakehouse-postgres (db=litellm) backend.
-    image: ghcr.io/berriai/litellm-database:v1.97.0
+    image: ghcr.io/berriai/litellm-database:v1.102.0
     container_name: litellm
     restart: unless-stopped
     # Command: load the model registry from /app/config/config.yaml

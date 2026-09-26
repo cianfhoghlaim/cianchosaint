@@ -5,17 +5,31 @@ Original: cianfhoghlaim/cianfhoghlaim (per the openspec/changes/cianchosaint-rep
 Migrated to cianchosaint: 2026-08-23
 Licence: BUSL-1.1 (per LICENSE.md)
 
-Wholesale-copied from cianfhoghlaim/cianfhoghlaim@litellm/SKILL.md.
+UPDATED 2026-09-26 (per the openspec/changes/2026-09-26-litellm-langfuse-upgrade-v1/
+specs/litellm-stack/spec.md, Stage 2b.1 of the package-version-drift saga):
+- Bumped version from 1.97.0 → 1.102.0 (Sep 19, 2026 release)
+- Added "Release-support rolling-window" section (only 4 most recent minor lines supported)
+- Documented the v1.98 → v1.102 gap (Auto router, Native OCR, MCP Gateway)
 -->
 ---
 name: litellm
-description: Expert assistance for unified LLM access with LiteLLM v1.97 (per-model routing groups, cosign-verified Docker, MCP Gateway GA, OAuth 2.0 v2, DCR, Rust-based /v1/messages, tool-result guardrails, OpenTelemetry v2 metrics, vector stores, workflows, providers incl. OpenAI / Anthropic / Azure AI / Bedrock / DeepSeek / xAI / Gemini / ModelScope / LibertAI / Parasail / Pinstripes / TinyFish / FastCRW).
+description: Expert assistance for unified LLM access with LiteLLM v1.102 (per-model routing groups, cosign-verified Docker, MCP Gateway GA, OAuth 2.0 v2, DCR, Rust-based /v1/messages, tool-result guardrails, OpenTelemetry v2 metrics, vector stores, workflows, providers incl. OpenAI / Anthropic / Azure AI / Bedrock / DeepSeek / xAI / Gemini / ModelScope / LibertAI / Parasail / Pinstripes / TinyFish / FastCRW).
 ---
 
 # LiteLLM - Unified LLM Interface
 
-**Version:** 1.97.0 | **Last Updated:** 2026-08-21
-**Live evidence**: PyPI `litellm==1.97.0` (2026-08-21); `ghcr.io/berriai/litellm-database:v1.97.0` pinned in `bonneagar/stacks/litellm/compose.yaml` per `openspec/changes/2026-08-21-litellm-1.91-to-1.97-and-mcp-oauth-2.0-v1/`.
+**Version:** 1.102.0 | **Last Updated:** 2026-09-26
+**Live evidence**: PyPI `litellm==1.102.0` (2026-09-19); `ghcr.io/berriai/litellm-database:v1.102.0` pinned in `bonnegar/stacks/litellm/compose.yaml` per `openspec/changes/2026-09-26-litellm-langfuse-upgrade-v1/` (Stage 2b.1 of the package-version-drift saga).
+
+## ⚠️ CRITICAL — Release-support rolling-window
+
+Per the [LiteLLM release-support policy](https://docs.litellm.ai/blog/version-support) (June 29, 2026):
+
+> LiteLLM will only actively support the four most recent stable minor lines. Everything 1.85.x and earlier has reached end of life.
+
+**As of 2026-09-26, the 4 supported minor lines are 1.99.x, 1.100.x, 1.101.x, and 1.102.x.** We're on 1.102.0 (the latest).
+
+## What's new in v1.102 (the upgrade)
 
 ## What's new in v1.97 (the upgrade)
 

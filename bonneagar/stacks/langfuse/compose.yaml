@@ -38,7 +38,7 @@ services:
   # The v4 server auto-migrates the v3 Postgres schema on first boot.
   # ---------------------------------------------------------------------------
   langfuse-worker:
-    image: langfuse/langfuse-worker:4
+    image: langfuse/langfuse-worker:4.7.0
     container_name: langfuse-worker
     restart: unless-stopped
     # Cross-project deps are managed by Komodo's [stack.depends_on] in
@@ -128,7 +128,7 @@ services:
   # Setting this to true skips the redundant check + lets the web server start.
   # ---------------------------------------------------------------------------
   langfuse-web:
-    image: langfuse/langfuse:4
+    image: langfuse/langfuse:4.7.0
     container_name: langfuse-web
     restart: unless-stopped
     # Cross-project deps are managed by Komodo's [stack.depends_on] in

@@ -32,9 +32,9 @@ Per the LiteLLM release-support policy (2026-06-29): "LiteLLM will only actively
 | **gerbil** | `1.5.1` | `1.5.1` | `1.5.1` (Aug 31, 2026) | **aligned** (Stage 2a complete) | 2a ✅ |
 | **newt** | `latest` (legacy) | `1.16.x` (legacy) | `1.16.x` | aligned; legacy container kept for backward compat | 2a ✅ |
 | **pangolin-cli** | `latest` (v1.23+ canonical) | `latest` (v1.23+ canonical) | `latest` | aligned; new-site pattern | 2a ✅ |
-| **litellm** | `v1.97.0` | `v1.97.0` | `v1.102.0` (Sep 19, 2026) | behind 5 minor (LiteLLM rolling-window!) | 2b |
-| **langfuse** | `4` | `4` | `4.x` (latest patch) | aligned | 2b |
-| **langfuse-worker** | `4` | `4` | `4.x` (latest patch) | aligned | 2b |
+| **litellm** | `v1.102.0` | `v1.102.0` | `v1.102.0` (Sep 19, 2026) | **aligned** (Stage 2b.1 complete) | 2b ✅ |
+| **langfuse** | `4.7.0` | `4.7.0` | `4.x` (latest patch) | **aligned** (Stage 2b.1 complete) | 2b ✅ |
+| **langfuse-worker** | `4.7.0` | `4.7.0` | `4.x` (latest patch) | **aligned** (Stage 2b.1 complete) | 2b ✅ |
 | **komodo** | `ferretdb:2 (indirect)` | `needs-verification` | `v2.3.3` (latest) | needs-verification | 2b |
 | **openchamber** | `1.0.0@sha256:21fda...` | `1.0.0@sha256:21fda...` | `1.22.2` (Sep 5, 2026) | behind 22 minor | 2b+4 |
 | **crawl4ai** | `v0.9.2` | `v0.9.2` | `v0.9.4` (Sep 23, 2026) | behind 2 patch | 2c |
@@ -65,7 +65,7 @@ Per the LiteLLM release-support policy (2026-06-29): "LiteLLM will only actively
 | **motherduck** | `>=0.10.0` | `>=0.10` | (PyPI lookup failed — verify via `pip index versions motherduck`) | unverified | 3 |
 | **lancedb** | `>=0.20.0` | `>=0.15` | `0.39.0` (Aug 31, 2026) | cianchosaint behind 19 minor; cianfhoghlaim behind 24 minor | 3+5 |
 | **google-adk** | unpinned | `>=2.5.0,<3` | `2.10.0` (Sep 10, 2026) | cianfhoghlaim behind 5 minor | 3 |
-| **langfuse-py** | `>=4.0.0` | `>=4.15.1 (via logfire)` | `4.15.6` | behind 15 minor (real-time needs ≥4.7.0) | 3 |
+| **langfuse-py** | `>=4.7.0,<5.0` | `>=4.15.1 (via logfire)` | `4.15.6` | **aligned** (Stage 2b.1 complete) | 3 ✅ |
 | **litellm-py** | unpinned | `>=1.97.0` | `1.102.1` (Sep 19, 2026) | cianfhoghlaim behind 5 minor | 3 |
 | **firecrawl-py** | unpinned | `>=4.28.2` | `4.44.0` | behind 16 minor | skip |
 | **marimo** | unpinned | `>=0.23.10` | `0.25.0` (Sep 11, 2026) | unverified (unpinned) | skip |
