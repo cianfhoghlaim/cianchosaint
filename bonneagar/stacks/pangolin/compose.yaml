@@ -10,7 +10,11 @@
 # + TinyAuth for OIDC SSO, plus Locket sidecar for Infisical secret injection.
 #
 # Database: PostgreSQL 17 (per docs.pangolin.net/self-host/advanced/database-options)
-# Image:    fosrl/pangolin:ee-latest (per docs.pangolin.net/self-host/enterprise-edition)
+# Image:    fosrl/pangolin:ee-1.23.0 (pinned per the 2026-09-26-pangolin-newt-v1.23-upgrade-v1
+#          openspec change — Stage 2a of the package-version-drift saga).
+#          Bumped from fosrl/pangolin:ee-latest (the previous "latest" pin) to the
+#          canonical v1.23.0 release (Sep 15, 2026) per the canonical
+#          PACKAGE-VERSIONS.md.
 # =============================================================================
 
 name: pangolin
@@ -41,7 +45,7 @@ services:
   # PANGOLIN EE — Identity-aware tunneled reverse proxy
   # ---------------------------------------------------------------------------
   pangolin:
-    image: fosrl/pangolin:ee-latest
+    image: fosrl/pangolin:ee-1.23.0
     container_name: pangolin
     restart: unless-stopped
     depends_on:
@@ -61,7 +65,7 @@ services:
   # GERBIL — WireGuard tunnel controller
   # ---------------------------------------------------------------------------
   gerbil:
-    image: fosrl/gerbil:latest
+    image: fosrl/gerbil:1.5.1
     container_name: gerbil
     restart: unless-stopped
     depends_on:

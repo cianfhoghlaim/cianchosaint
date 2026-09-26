@@ -4,8 +4,18 @@
 # Licence: BUSL-1.1 (per LICENSE.md)
 #
 # =============================================================================
-# NEWT - Pangolin Tunnel Agent
+# NEWT — Pangolin Tunnel Agent (LEGACY — kept for backward compat)
 # =============================================================================
+# ⚠️  NEW per Pangolin v1.23.0 (Sep 15, 2026): use pangolin-site.yaml instead.
+#
+# The new canonical pattern is `fosrl/pangolin-cli` (the Pangolin CLI that
+# supersedes the standalone Newt binary). See `bonneagar/stacks/pangolin-site/`
+# for the v1.23+ migration guide.
+#
+# Per the v1.23 docs: "Existing Newt deployments keep working. Leave them as they
+# are, or switch to the CLI when you want to. Newt will continue to be provided
+# in all of its current forms for the foreseeable future."
+#
 # Connects local services to Pangolin via WireGuard tunnel.
 #
 # USAGE:

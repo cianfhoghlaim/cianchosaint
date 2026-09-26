@@ -5,20 +5,27 @@ Original: cianfhoghlaim/cianfhoghlaim (per the openspec/changes/cianchosaint-rep
 Migrated to cianchosaint: 2026-08-23
 Licence: BUSL-1.1 (per LICENSE.md)
 
-Wholesale-copied from cianfhoghlaim/cianfhoghlaim@pangolin/SKILL.md.
+UPDATED 2026-09-26 (per the openspec/changes/2026-09-26-pangolin-newt-v1.23-upgrade-v1/
+specs/pangolin-stack/spec.md, Stage 2a of the package-version-drift saga):
+- Bumped version to 1.23.0 (Sep 15, 2026 release)
+- Added "What's new in Pangolin 1.23" section
+- Updated Newt → Pangolin Site rename documentation
+- Updated Gerbil version to 1.5.1
 -->
 ---
 name: pangolin
-description: Expert assistance for Fossorial Pangolin network infrastructure. Use when users need VPN configuration, reverse proxy setup, Traefik integration, WireGuard tunnels, or secure private network access.
+description: Expert assistance for Fossorial Pangolin network infrastructure. Use when users need VPN configuration, reverse proxy setup, Traefik integration, WireGuard tunnels, secure private network access. Covers v1.23.0 (Sep 2026) with the Newt → Pangolin Site rename + self-service HA/clustering.
 ---
 
 # Pangolin - Network Infrastructure Platform
 
-**Version:** 1.19.4 | **Last Updated:** 2026-06-29
+**Version:** 1.23.0 | **Last Updated:** 2026-09-26
 **Upstream docs:** https://docs.pangolin.net (Mintlify-hosted)
 **Repo:** https://github.com/fosrl/pangolin  (note: `fosrl`, not `fossoriale`)
-**Newt connector:** https://github.com/fosrl/newt (v1.13.0+ required for browser SSH/RDP/VNC)
-**Badger plugin:** v1.4.1+ (Traefik plugin required for 1.19 browser SSH)
+**Pangolin Site (was Newt):** https://github.com/fosrl/pangolin-cli (v1.23+ — the CLI that supersedes the standalone Newt binary)
+**Newt connector (legacy):** https://github.com/fosrl/newt (existing deployments keep working per v1.23 docs)
+**Gerbil:** v1.5.1 (Aug 31, 2026 — latest)
+**Private AI Gateway:** requires clients post-2026-08-19 (per v1.23 release notes)
 
 ## Overview
 
@@ -30,7 +37,30 @@ Pangolin is a network infrastructure management platform:
 - **Service Discovery**: Automatic service registration
 - **Docker Integration**: Container-aware networking
 
-**Repository**: https://github.com/fosrl/pangolin  (renamed from `fossoriale`)
+ **Repository**: https://github.com/fosrl/pangolin  (renamed from `fossoriale`)
+
+## What's new in Pangolin 1.23 (Sep 15, 2026)
+
+Per the [v1.23 release blog](https://pangolin.net/news/1-23-release):
+
+1. **Self-service high availability and clustering** on Scale + Enterprise tiers. DNS resolution + certificate management that used to live outside the stack now run inside Pangolin itself.
+2. **Newt renamed to Pangolin Site** — the dashboard now treats the CLI method (`fosrl/pangolin-cli`) as the preferred, default way to install a new site.
+3. **Sites integrated into the Pangolin CLI** — `pangolin up site --id <id> --secret <secret> --endpoint <endpoint>` is now the canonical command.
+4. **Master list of organizations** in the server admin panel.
+5. **Multiple server admin users** supported (promote/demote via the users table).
+6. **Resource Launcher side panel** — Sites widget + ready-to-copy `pangolin ssh` commands for SSH private resources.
+
+**The "Newt → Pangolin Site" rename migration** (the load-bearing change):
+
+- The standalone Newt binary (`fosrl/newt:1.16.x`) **continues to work** per v1.23 docs: *"Existing Newt deployments keep working. Leave them as they are, or switch to the CLI when you want to. Newt will continue to be provided in all of its current forms for the foreseeable future."*
+- New deployments SHOULD use `fosrl/pangolin-cli` (the v1.23+ canonical pattern) via `bonneagar/stacks/pangolin-site/`.
+- The dashboard now shows "Pangolin Site" as the canonical name, but recognises the legacy Newt binary.
+
+**Per the 2026-09-26-pangolin-newt-v1.23-upgrade-v1 openspec change** (Stage 2a of the package-version-drift saga):
+- `bonneagar/stacks/pangolin/compose.yaml` — `pangolin: image: fosrl/pangolin:ee-1.23.0` (pinned)
+- `bonneagar/stacks/pangolin/compose.yaml` — `gerbil: image: fosrl/gerbil:1.5.1` (pinned)
+- `bonneagar/stacks/pangolin-site/` (NEW) — the v1.23+ canonical new-site pattern
+- `bonneagar/stacks/pangolin/newt.yaml` (kept for backward compat; header comment added)
 
 ## When to Use This Skill
 

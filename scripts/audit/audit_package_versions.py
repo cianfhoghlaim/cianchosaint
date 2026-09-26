@@ -54,9 +54,10 @@ from pathlib import Path
 
 PACKAGE_TABLE: list[dict] = [
     # ===== IaC stack Docker images (both repos) =====
-    {"name": "pangolin",           "kind": "docker", "image": "fosrl/pangolin",     "pinned_ciancho": "ee-latest",  "pinned_cianfhog": "ee-1.21.1",  "policy": "exact", "stage": "2a"},
-    {"name": "gerbil",             "kind": "docker", "image": "fosrl/gerbil",       "pinned_ciancho": "latest",     "pinned_cianfhog": "1.5.0",     "policy": "exact", "stage": "2a"},
-    {"name": "newt",               "kind": "docker", "image": "fosrl/newt",         "pinned_ciancho": "latest",     "pinned_cianfhog": "latest",    "policy": "exact", "stage": "2a", "note": "Pangolin 1.23 renamed Newt → Pangolin Site"},
+    {"name": "pangolin",           "kind": "docker", "image": "fosrl/pangolin",     "pinned_ciancho": "ee-1.23.0",  "pinned_cianfhog": "ee-1.23.0",  "policy": "exact", "stage": "2a"},
+    {"name": "gerbil",             "kind": "docker", "image": "fosrl/gerbil",       "pinned_ciancho": "1.5.1",      "pinned_cianfhog": "1.5.1",     "policy": "exact", "stage": "2a"},
+    {"name": "newt",               "kind": "docker", "image": "fosrl/newt",         "pinned_ciancho": "latest",     "pinned_cianfhog": "1.16.x",    "policy": "exact", "stage": "2a", "note": "Pangolin 1.23 renamed Newt → Pangolin Site; legacy container kept for backward compat"},
+    {"name": "pangolin-cli",       "kind": "docker", "image": "fosrl/pangolin-cli", "pinned_ciancho": "latest",     "pinned_cianfhog": "latest",    "policy": "exact", "stage": "2a", "note": "v1.23+ canonical new-site pattern (replaces standalone Newt binary)"},
     {"name": "infisical",          "kind": "docker", "image": "infisical/infisical", "pinned_ciancho": "v0.161.12",  "pinned_cianfhog": "v0.161.12", "policy": "exact", "stage": "2c"},
     {"name": "litellm",            "kind": "docker", "image": "ghcr.io/berriai/litellm-database", "pinned_ciancho": "v1.97.0",   "pinned_cianfhog": "v1.97.0",   "policy": "exact", "stage": "2b"},
     {"name": "langfuse",           "kind": "docker", "image": "langfuse/langfuse",  "pinned_ciancho": "4",          "pinned_cianfhog": "4",         "policy": "exact", "stage": "2b"},

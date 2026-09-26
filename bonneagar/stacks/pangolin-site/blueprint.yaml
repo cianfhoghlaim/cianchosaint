@@ -1,0 +1,15 @@
+# =============================================================================
+# PANGOLIN SITE — no blueprint (the tunnel agent doesn't expose an HTTP surface)
+# =============================================================================
+# Per the 2026-09-26-pangolin-newt-v1.23-upgrade-v1 openspec change (Stage 2a).
+# The pangolin-site stack is a tunnel agent — it does not expose a web surface,
+# so it has no Pangolin private-resource blueprint to declare.
+#
+# The stack-doctor audit gate still expects this file to exist (the
+# 6-file GOLD_STANDARD pattern) but with a `noop: true` block.
+# =============================================================================
+
+pangolin:
+  private-resources: {}
+  noop: true
+  noop-reason: "tunnel agent stack (no HTTP surface)"

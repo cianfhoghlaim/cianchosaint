@@ -28,9 +28,10 @@ Per the LiteLLM release-support policy (2026-06-29): "LiteLLM will only actively
 | Stack | Pinned (cianchosaint) | Pinned (cianfhoghlaim) | Latest | Drift | Stage |
 |---|---|---|---|---|---|
 | **infisical** | `v0.161.12` | `v0.161.12` | (TBD; needs PyPI-equivalent) | needs-verification | 2c |
-| **pangolin** | `ee-latest` | `ee-1.21.1` | `1.23.0` (Sep 16, 2026) | cianfhoghlaim behind 2 minor | 2a |
-| **gerbil** | `latest` | `1.5.0` | `1.5.1` (Aug 31, 2026) | aligned (patch diff only) | 2a |
-| **newt** | `latest` | `latest` | `1.16.x` | cianchosaint aligned; cianfhoghlaim unverified | 2a |
+| **pangolin** | `ee-1.23.0` | `ee-1.23.0` | `1.23.0` (Sep 16, 2026) | **aligned** (Stage 2a complete) | 2a ✅ |
+| **gerbil** | `1.5.1` | `1.5.1` | `1.5.1` (Aug 31, 2026) | **aligned** (Stage 2a complete) | 2a ✅ |
+| **newt** | `latest` (legacy) | `1.16.x` (legacy) | `1.16.x` | aligned; legacy container kept for backward compat | 2a ✅ |
+| **pangolin-cli** | `latest` (v1.23+ canonical) | `latest` (v1.23+ canonical) | `latest` | aligned; new-site pattern | 2a ✅ |
 | **litellm** | `v1.97.0` | `v1.97.0` | `v1.102.0` (Sep 19, 2026) | behind 5 minor (LiteLLM rolling-window!) | 2b |
 | **langfuse** | `4` | `4` | `4.x` (latest patch) | aligned | 2b |
 | **langfuse-worker** | `4` | `4` | `4.x` (latest patch) | aligned | 2b |
@@ -113,10 +114,10 @@ Sample current header pattern:
 
 ## What gets bumped when (the saga timeline)
 
-| Stage | Bumps | Openspec change(s) |
-|---|---|---|
-| 2a | pangolin + gerbil + newt | `2026-09-26-pangolin-newt-v1.23-upgrade-v1/` |
-| 2b | litellm + langfuse + komodo + openchamber image | 3 changes |
+| Stage | Bumps | Openspec change(s) | Status |
+|---|---|---|---|
+| **2a** | **pangolin + gerbil + newt + pangolin-cli (new)** | **`2026-09-26-pangolin-newt-v1.23-upgrade-v1/`** | **✅ SHIPPED 2026-09-26** |
+| 2b | litellm + langfuse + komodo + openchamber image | 3 changes | pending |
 | 2c | crawl4ai + garage + infisical | `2026-09-26-loc-data-storage-stack-upgrade-v1/` |
 | 3 | dagster + dagster-dlt + dagster-dbt + cocoindex + baml-py + dlt + duckdb + motherduck + lancedb + google-adk + langfuse-py + litellm-py | `2026-09-26-biep-data-platform-deps-bump-v1/` |
 | 4 | openchamber full refactor (1.0 → 1.22) | `2026-09-26-openchamber-v1.22-major-upgrade-v1/` |

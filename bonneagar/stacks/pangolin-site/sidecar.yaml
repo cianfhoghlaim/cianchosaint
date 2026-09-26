@@ -1,0 +1,21 @@
+# CIANCHOSAINT wholesale-copy of cianfhoghlaim/cianfhoghlaim @ main branch.
+# Original: cianfhoghlaim/cianfhoghlaim (per the openspec/changes/cianchosaint-repo-bootstrap-v2/specs/cianchosaint-bootstrap-v2/spec.md).
+# Migrated to cianchosaint: 2026-08-23
+# Licence: BUSL-1.1 (per LICENSE.md)
+#
+# =============================================================================
+# PANGOLIN SITE — Locket Sidecar Override
+# =============================================================================
+# Overrides the Pangolin Site container to source SITE_ID + SITE_SECRET
+# from Locket-resolved Infisical secrets at runtime.
+#
+# Per the 2026-09-26-pangolin-newt-v1.23-upgrade-v1 openspec change (Stage 2a).
+# =============================================================================
+
+services:
+  pangolin-site:
+    depends_on:
+      locket:
+        condition: service_healthy
+    volumes:
+      - pangolin-site-secrets:/run/secrets/locket:ro

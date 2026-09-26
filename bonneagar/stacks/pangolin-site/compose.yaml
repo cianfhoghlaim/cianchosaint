@@ -1,0 +1,110 @@
+# CIANCHOSAINT wholesale-copy of cianfhoghlaim/cianfhoghlaim @ main branch.
+# Original: cianfhoghlaim/cianfhoghlaim (per the openspec/changes/cianchosaint-repo-bootstrap-v2/specs/cianchosaint-bootstrap-v2/spec.md).
+# Migrated to cianchosaint: 2026-08-23
+# Licence: BUSL-1.1 (per LICENSE.md)
+#
+# =============================================================================
+# PANGOLIN SITE — v1.23+ canonical new-site pattern (NEW 2026-09-26)
+# =============================================================================
+# Pangolin v1.23.0 (Sep 15, 2026) renamed Newt → "Pangolin Site" and integrated
+# site installation into the Pangolin CLI (`fosrl/pangolin-cli`). The standalone
+# Newt binary continues to work (per v1.23 docs) but new deployments should use
+# the canonical pattern below.
+#
+# Per the v1.23 release blog (https://pangolin.net/news/1-23-release):
+#   - Sites integrated into the Pangolin CLI: `pangolin up site ...`
+#   - Container image: fosrl/pangolin-cli
+#   - Cross-platform service installer (systemd on Linux, launchd on macOS,
+#     Windows service on Windows)
+#   - The dashboard now treats the CLI method as the preferred way to install
+#     a new site
+#
+# Per the 2026-09-26-pangolin-newt-v1.23-upgrade-v1 openspec change.
+# =============================================================================
+
+name: pangolin-site
+
+services:
+  # ---------------------------------------------------------------------------
+  # PANGOLIN SITE — Tunnel agent (the v1.23+ replacement for standalone Newt)
+  # ---------------------------------------------------------------------------
+  pangolin-site:
+    image: fosrl/pangolin-cli:latest
+    container_name: pangolin-site
+    restart: unless-stopped
+    depends_on:
+      locket:
+        condition: service_healthy
+    environment:
+      PANGOLIN_ENDPOINT: ${PANGOLIN_ENDPOINT:-https://pangolin.cianchosaint.ie}
+      # SITE_ID + SITE_SECRET resolved by Locket from Infisical at runtime
+      SITE_ID_FILE: /run/secrets/locket/pangolin_site_id
+      SITE_SECRET_FILE: /run/secrets/locket/pangolin_site_secret
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - pangolin-site-secrets:/run/secrets/locket:ro
+    labels:
+      - "komodo.skip=true"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      pangolin: null
+      komodo_komodo: null
+
+  # ---------------------------------------------------------------------------
+  # LOCKET — Secrets management sidecar for the Pangolin Site
+  # ---------------------------------------------------------------------------
+  locket:
+    image: ghcr.io/bpbradley/locket:infisical
+    container_name: pangolin-site-locket
+    user: "65532:65532"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    command:
+      - "--provider=infisical"
+      - "--infisical-url=https://infisical.cianchosaint.ie"
+      - "--infisical-client-id=${INFISICAL_CLIENT_ID}"
+      - "--infisical-client-secret=file:/run/secrets/infisical_secret"
+      - "--infisical-default-environment=${INFISICAL_ENVIRONMENT:-dev}"
+      - "--infisical-default-project-id=${INFISICAL_PROJECT_ID:-}"
+      - "--map=/templates:/run/secrets/locket"
+      - "--mode=${LOCKET_MODE:-watch}"
+    secrets:
+      - infisical_secret
+    volumes:
+      - ./secrets.env:/templates/secrets.env:ro
+      - pangolin-site-secrets:/run/secrets/locket
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    healthcheck:
+      test: ["CMD", "/locket", "healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      pangolin: null
+      komodo_komodo: null
+
+volumes:
+  pangolin-site-secrets:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: uid=65532,gid=65532,mode=700
+
+secrets:
+  infisical_secret:
+    file: ${INFISICAL_SECRET_FILE:-../../infisical_secret}
+
+networks:
+  pangolin:
+    name: pangolin
+    external: true
+  komodo_komodo:
+    name: komodo_komodo
+    external: true
