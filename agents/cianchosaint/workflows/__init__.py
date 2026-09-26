@@ -11,15 +11,29 @@
 
 """cianchosaint.agents.cianchosaint.workflows — canonical 3am-workflow surface.
 
-Re-exports:
+Re-exports (lazy):
 - `politician_resolver_workflow` (the canonical Workflow graph)
 - `fastapi_app` (the canonical trigger server)
-- `deploy.sh` (the canonical Cloud Run deploy)
 """
 
 from __future__ import annotations
 
-from .nightly import politician_resolver_workflow
-from .trigger_server import fastapi_app
+
+def __getattr__(name):
+    """Lazy re-export (per cianfhoghlaim's workflow package convention).
+
+    Avoids pulling in `google.adk` (which is not installed in dev) at
+    import-time. Modules are loaded on first access.
+    """
+    if name == "politician_resolver_workflow":
+        from .nightly import politician_resolver_workflow as _fn
+
+        return _fn
+    if name == "fastapi_app":
+        from .trigger_server import fastapi_app as _fn
+
+        return _fn
+    raise AttributeError(f"module 'agents.cianchosaint.workflows' has no attribute {name!r}")
+
 
 __all__ = ["politician_resolver_workflow", "fastapi_app"]

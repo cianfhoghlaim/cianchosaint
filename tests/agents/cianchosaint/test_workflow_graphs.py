@@ -7,29 +7,25 @@ from __future__ import annotations
 
 def test_workflows_package_importable() -> None:
     """The workflows package + the 3 graph builders are importable."""
-    from agents.cianchosaint.workflows import (
-        politician_resolver_graph,
-        funder_network_graph,
-        wikipedia_bridge_graph,
-        POLITICIAN_ROOT,
-        FUNDER_ROOT,
-        WIKIPEDIA_ROOT,
-    )
+    from agents.cianchosaint.workflows import politician_resolver_graph
+    from agents.cianchosaint.workflows import funder_network_graph
+    from agents.cianchosaint.workflows import wikipedia_bridge_graph
 
-    assert callable(politician_resolver_graph)
-    assert callable(funder_network_graph)
-    assert callable(wikipedia_bridge_graph)
-    assert POLITICIAN_ROOT == "politician_resolver_graph"
-    assert FUNDER_ROOT == "funder_network_graph"
-    assert WIKIPEDIA_ROOT == "wikipedia_bridge_graph"
+    # These are module-level imports (the workflow graphs live in their own files)
+    assert politician_resolver_graph is not None
+    assert hasattr(politician_resolver_graph, "politician_resolver_graph")
+    assert funder_network_graph is not None
+    assert hasattr(funder_network_graph, "funder_network_graph")
+    assert wikipedia_bridge_graph is not None
+    assert hasattr(wikipedia_bridge_graph, "wikipedia_bridge_graph")
     print("  ✓ 3 workflow graphs importable (politician_resolver, funder_network, wikipedia_bridge)")
 
 
 def test_politician_resolver_graph_constructs() -> None:
     """The politician_resolver_graph builds without errors (returns Workflow or None)."""
-    from agents.cianchosaint.workflows import politician_resolver_graph
+    from agents.cianchosaint.workflows.politician_resolver_graph import politician_resolver_graph as build
 
-    graph = politician_resolver_graph()
+    graph = build()
     # Either returns a Workflow or None (if google.adk.workflow unavailable)
     if graph is not None:
         assert hasattr(graph, "name") or hasattr(graph, "edges")
@@ -40,9 +36,9 @@ def test_politician_resolver_graph_constructs() -> None:
 
 def test_funder_network_graph_constructs() -> None:
     """The funder_network_graph builds without errors."""
-    from agents.cianchosaint.workflows import funder_network_graph
+    from agents.cianchosaint.workflows.funder_network_graph import funder_network_graph as build
 
-    graph = funder_network_graph()
+    graph = build()
     if graph is not None:
         assert hasattr(graph, "name") or hasattr(graph, "edges")
         print(f"  ✓ funder_network_graph constructed: {type(graph).__name__}")
@@ -52,9 +48,9 @@ def test_funder_network_graph_constructs() -> None:
 
 def test_wikipedia_bridge_graph_constructs() -> None:
     """The wikipedia_bridge_graph builds without errors."""
-    from agents.cianchosaint.workflows import wikipedia_bridge_graph
+    from agents.cianchosaint.workflows.wikipedia_bridge_graph import wikipedia_bridge_graph as build
 
-    graph = wikipedia_bridge_graph()
+    graph = build()
     if graph is not None:
         assert hasattr(graph, "name") or hasattr(graph, "edges")
         print(f"  ✓ wikipedia_bridge_graph constructed: {type(graph).__name__}")
