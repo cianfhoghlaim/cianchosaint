@@ -71,7 +71,7 @@ services:
   # GARAGE - Enhanced S3-Compatible Storage with Virtual-Host DNS
   # ---------------------------------------------------------------------------
   garage:
-    image: dxflrs/garage:v2.3.0
+    image: dxflrs/garage:v2.4.1
     container_name: lakehouse-garage
     restart: unless-stopped
     ports:

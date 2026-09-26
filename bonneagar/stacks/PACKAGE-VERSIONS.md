@@ -27,7 +27,7 @@ Per the LiteLLM release-support policy (2026-06-29): "LiteLLM will only actively
 
 | Stack | Pinned (cianchosaint) | Pinned (cianfhoghlaim) | Latest | Drift | Stage |
 |---|---|---|---|---|---|
-| **infisical** | `v0.161.12` | `v0.161.12` | (TBD; needs PyPI-equivalent) | needs-verification | 2c |
+| **infisical** | `v0.165.15` | `v0.165.15` | `v0.165.15` (latest weekly) | **aligned** (Stage 2c complete) | 2c ✅ |
 | **pangolin** | `ee-1.23.0` | `ee-1.23.0` | `1.23.0` (Sep 16, 2026) | **aligned** (Stage 2a complete) | 2a ✅ |
 | **gerbil** | `1.5.1` | `1.5.1` | `1.5.1` (Aug 31, 2026) | **aligned** (Stage 2a complete) | 2a ✅ |
 | **newt** | `latest` (legacy) | `1.16.x` (legacy) | `1.16.x` | aligned; legacy container kept for backward compat | 2a ✅ |
@@ -37,8 +37,8 @@ Per the LiteLLM release-support policy (2026-06-29): "LiteLLM will only actively
 | **langfuse-worker** | `4.7.0` | `4.7.0` | `4.x` (latest patch) | **aligned** (Stage 2b.1 complete) | 2b ✅ |
 | **komodo** | `komodo-core:2 + komodo-periphery:2-dev + ferretdb:2` | `komodo-core:2 + komodo-periphery:2-dev + ferretdb:2` | `v2.3.3` (latest; we're on the v2 track) | **aligned** (Stage 2b.2 complete) | 2b ✅ |
 | **openchamber** | `1.22.2` | `1.22.2` | `1.22.2` (Sep 5, 2026) | **aligned** (image-only; Stage 2b.3 complete) | 2b ✅ |
-| **crawl4ai** | `v0.9.2` | `v0.9.2` | `v0.9.4` (Sep 23, 2026) | behind 2 patch | 2c |
-| **garage** | `v2.3.0` | `v2.3.0` | `v2.4.1` (Sep 8, 2026) | behind 1 minor | 2c |
+| **crawl4ai** | `v0.9.4` | `v0.9.4` | `v0.9.4` (Sep 23, 2026) | **aligned** (Stage 2c complete) | 2c ✅ |
+| **garage** | `v2.4.1` | `v2.4.1` | `v2.4.1` (Sep 8, 2026) | **aligned** (Stage 2c complete) | 2c ✅ |
 | **stagehand** | `local` | `n/a` | n/a | local-only | skip |
 | **locket** | `local` | `n/a` | n/a | local-only | skip |
 | **openclaw** | `local` | `local` | n/a | local-only | skip |
