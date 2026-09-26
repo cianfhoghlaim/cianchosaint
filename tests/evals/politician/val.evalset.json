@@ -1,0 +1,62 @@
+[
+  {
+    "eval_id": "val_farage",
+    "conversation": [
+      {
+        "invocation_id": "inv_val_farage",
+        "user_content": {
+          "parts": [{"text": "Collect Nigel Farage's politician profile"}],
+          "role": "user"
+        },
+        "final_response": null
+      }
+    ],
+    "expected": {
+      "canonical_name": "Nigel Farage",
+      "party_id": "reform-uk",
+      "jurisdiction": "uk_hoc",
+      "social_handles": ["@Nigel_Farage"],
+      "public_metrics": {"followers": 1500000}
+    }
+  },
+  {
+    "eval_id": "val_polanski",
+    "conversation": [
+      {
+        "invocation_id": "inv_val_polanski",
+        "user_content": {
+          "parts": [{"text": "Collect Zack Polanski's politician profile"}],
+          "role": "user"
+        },
+        "final_response": null
+      }
+    ],
+    "expected": {
+      "canonical_name": "Zack Polanski",
+      "party_id": "green-party-ew",
+      "jurisdiction": "uk_hoc",
+      "social_handles": ["@ZackPolanski"],
+      "public_metrics": {"followers": 25000}
+    }
+  },
+  {
+    "eval_id": "val_odowd",
+    "conversation": [
+      {
+        "invocation_id": "inv_val_odowd",
+        "user_content": {
+          "parts": [{"text": "Collect John O'Dowd's politician profile"}],
+          "role": "user"
+        },
+        "final_response": null
+      }
+    ],
+    "expected": {
+      "canonical_name": "John O'Dowd",
+      "party_id": "sinn-fein",
+      "jurisdiction": "ni_assembly",
+      "social_handles": ["@JohnODowdSF"],
+      "public_metrics": {"followers": 40000}
+    }
+  }
+]
