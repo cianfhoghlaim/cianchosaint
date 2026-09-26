@@ -65,7 +65,7 @@ PACKAGE_TABLE: list[dict] = [
     {"name": "komodo-core",        "kind": "docker", "image": "ghcr.io/moghtech/komodo-core", "pinned_ciancho": "2",       "pinned_cianfhog": "2",      "policy": "exact", "stage": "2b"},
     {"name": "komodo-periphery",   "kind": "docker", "image": "ghcr.io/moghtech/komodo-periphery", "pinned_ciancho": "2-dev", "pinned_cianfhog": "2-dev", "policy": "exact", "stage": "2b"},
     {"name": "ferretdb",           "kind": "docker", "image": "ghcr.io/ferretdb/ferretdb", "pinned_ciancho": "2",       "pinned_cianfhog": "2",      "policy": "exact", "stage": "2b", "note": "Komodo 1.18+ requires FerretDB v2 (per v1.18 release notes)"},
-    {"name": "openchamber",        "kind": "docker", "image": "ghcr.io/openchamber/openchamber", "pinned_ciancho": "1.0.0@sha256:21fda...", "pinned_cianfhog": "1.0.0@sha256:21fda...", "policy": "exact", "stage": "2b+4"},
+    {"name": "openchamber",        "kind": "docker", "image": "ghcr.io/openchamber/openchamber", "pinned_ciancho": "1.22.2",   "pinned_cianfhog": "1.22.2",  "policy": "exact", "stage": "2b"},
     {"name": "crawl4ai",           "kind": "docker", "image": "unclecode/crawl4ai", "pinned_ciancho": "v0.9.2",     "pinned_cianfhog": "v0.9.2",    "policy": "exact", "stage": "2c"},
     {"name": "garage",             "kind": "docker", "image": "dxflrs/garage",      "pinned_ciancho": "v2.3.0",      "pinned_cianfhog": "v2.3.0",     "policy": "exact", "stage": "2c"},
     {"name": "stagehand",         "kind": "docker", "image": "cianchosaint/stagehand", "pinned_ciancho": "local",  "pinned_cianfhog": "n/a",       "policy": "exact", "stage": "skip"},

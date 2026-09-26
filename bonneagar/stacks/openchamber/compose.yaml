@@ -40,7 +40,7 @@ services:
     # sha256:64-hex shape). TODO: re-run with live GHCR access on
     # arm1-oci to replace the mock digest with the real one.
     # Pin format: `ghcr.io/<org>/<repo>:<tag>@sha256:<64-hex>`.
-    image: ghcr.io/openchamber/openchamber:1.0.0@sha256:21fda9fc9b0eb7ade140fb763d72779b039ba185be3beafad207a3f88978eae3
+    image: ghcr.io/openchamber/openchamber:1.22.2
     container_name: openchamber
     restart: unless-stopped
     security_opt:
