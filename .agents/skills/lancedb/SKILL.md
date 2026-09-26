@@ -23,7 +23,7 @@ description: Expert assistance for vector database development with LanceDB. Use
 
 # LanceDB - Embedded Vector Database
 
-**Version:** >=0.39.0 (pylance >= 0.39) | **Last Updated:** 2026-09-26
+**Version:** >=0.39,<1.0 | **Last Updated:** 2026-09-26
 
 ## Overview
 
@@ -819,3 +819,12 @@ Cross-references:
   per-subject notebooks that join DuckLake + LanceDB
 - [`.agents/skills/baml/SKILL.md`](../baml/SKILL.md) — the
   `ExtractCrossLinguisticConcept` cross-linguistic alignment
+
+
+## Version policy
+
+Per [`docs/SKILL-VERSION-HEADER-POLICY.md`](../../../../docs/SKILL-VERSION-HEADER-POLICY.md) (the canonical refresh policy):
+
+- The canonical refresh cadence is weekly (Stage 7 GH workflow) + on-demand (per openspec change)
+- The canonical command is `python3 scripts/audit/refresh_skill_versions.py`
+- The canonical package→skill mapping is at [`scripts/audit/PACKAGE_TO_SKILL_MAP.md`](../../../../scripts/audit/PACKAGE_TO_SKILL_MAP.md)

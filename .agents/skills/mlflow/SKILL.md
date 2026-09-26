@@ -14,7 +14,7 @@ description: Expert assistance for ML lifecycle management with MLflow. Use when
 
 # MLflow - ML Lifecycle Platform
 
-**Version:** 3.14.0 | **Last Updated:** 2026-06-29
+**Version:** 3.x | **Last Updated:** 2026-09-26
 **Python:** >=3.10 | **PyPI releases:** 182 (latest 3.14.0 on 2026-06-17)
 **LTS branch:** 2.22.5 (2026-05-12)
 
@@ -478,3 +478,12 @@ mlflow.create_external_model(name="my-external-model")
 6. **MLflow 3 model_id URIs**: prefer `models:/<model_id>` over `runs:/<run_id>/path` for new code
 7. **Serialization pinning**: set `serialization_format` explicitly on `log_model` calls in v3.14.0+ to avoid the default flip
 8. **Local Cianfhoghlaim code**: `cianfhoghlaim/core/obs/observability/mlflow_config.py` should migrate `runs:/{run_id}/model` → `models:/{model_info.model_id}` for MLflow 3
+
+
+## Version policy
+
+Per [`docs/SKILL-VERSION-HEADER-POLICY.md`](../../../../docs/SKILL-VERSION-HEADER-POLICY.md) (the canonical refresh policy):
+
+- The canonical refresh cadence is weekly (Stage 7 GH workflow) + on-demand (per openspec change)
+- The canonical command is `python3 scripts/audit/refresh_skill_versions.py`
+- The canonical package→skill mapping is at [`scripts/audit/PACKAGE_TO_SKILL_MAP.md`](../../../../scripts/audit/PACKAGE_TO_SKILL_MAP.md)

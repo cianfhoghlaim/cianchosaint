@@ -14,7 +14,7 @@ description: Expert assistance for Komodo infrastructure management platform. Us
 
 # Komodo - Infrastructure Management Platform
 
-**Version:** 2.2.0 | **Last Updated:** 2026-06-29
+**Version:** 2 | **Last Updated:** 2026-09-26
 
 ## Overview
 
@@ -454,3 +454,12 @@ against the live Komodo state, and emits a diff.
 - `.agents/skills/kubernetes/SKILL.md` — the scale-out
   trigger (K8s for multi-host)
 - `.agents/skills/monorepo/SKILL.md` — bun + uv + turbo
+
+
+## Version policy
+
+Per [`docs/SKILL-VERSION-HEADER-POLICY.md`](../../../../docs/SKILL-VERSION-HEADER-POLICY.md) (the canonical refresh policy):
+
+- The canonical refresh cadence is weekly (Stage 7 GH workflow) + on-demand (per openspec change)
+- The canonical command is `python3 scripts/audit/refresh_skill_versions.py`
+- The canonical package→skill mapping is at [`scripts/audit/PACKAGE_TO_SKILL_MAP.md`](../../../../scripts/audit/PACKAGE_TO_SKILL_MAP.md)

@@ -5,7 +5,7 @@ description: Vector + graph hybrid database combining Redis-compatible graph que
 
 # FalkorDB
 
-**Version:** 4.18.11 | **Last Updated:** 2026-06-29  (verified live via browserbase + github.com/FalkorDB/FalkorDB/releases)
+**Version:** 4.18.11+ | **Last Updated:** 2026-09-26  (verified live via browserbase + github.com/FalkorDB/FalkorDB/releases)
 **Latest release:** 2026-06-24 by @swilly22 (commit e78f370)  https://github.com/FalkorDB/FalkorDB/releases/tag/v4.18.11
 
 ## Overview

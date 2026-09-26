@@ -21,7 +21,7 @@ See the linked spec changes for full details.
 
 # Graphiti - Temporal Knowledge Graph Memory
 
-**Version:** graphiti-core 0.29.2 (PyPI, 2026-06-25) | **Last Updated:** 2026-06-29
+**Version:** graphiti-core 0.29.2+ | **Last Updated:** 2026-09-26
 **Verified upstream:** `https://github.com/getzep/graphiti/releases` v0.29.2 (`ff7e29c`)
 **Docs:** https://help.getzep.com/graphiti (root URL — no double `/graphiti/graphiti/` prefix)
 **llms.txt:** https://help.getzep.com/llms.txt (best for agents)

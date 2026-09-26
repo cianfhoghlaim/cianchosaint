@@ -122,7 +122,7 @@ Sample current header pattern:
 | 3 | dagster + dagster-dlt + dagster-dbt + cocoindex + baml-py + dlt + duckdb + motherduck + lancedb + google-adk + langfuse-py + litellm-py | `2026-09-26-biep-data-platform-deps-bump-v1/` |
 | **4** | **openchamber full refactor (1.0 → 1.22)** | **`2026-09-26-openchamber-v1.22-major-upgrade-v1/`** | **✅ SHIPPED 2026-09-26** |
 | **5** | **lancedb Lance v1 → Lance v2 in-place migration** | **`2026-09-26-lancedb-v0.39-lance-v2-upgrade-v1/`** | **✅ SHIPPED 2026-09-26** |
-| 6 | refresh all 79 skill version headers | `2026-09-26-skill-version-header-refresh-v1/` |
+| **6** | **refresh all 79 skill version headers** | **`2026-09-26-skill-version-header-refresh-v1/`** | **✅ SHIPPED 2026-09-26** |
 | 7 | add the GH workflow + Dagster sensor + `mise run devops:version-drift` + `docs/VERSION-DRIFT-POLICY.md` | `2026-09-26-version-drift-monitoring-v1/` |
 
 ---

@@ -14,7 +14,7 @@ description: Expert assistance for DuckDB analytical database. Use when users ne
 
 # DuckDB - In-Process Analytical Database
 
-**Version:** 1.x | **Last Updated:** 2025-01
+**Version:** >=1.5.5,<1.6.0 | **Last Updated:** 2026-09-26
 
 ## Overview
 
@@ -462,3 +462,11 @@ Cross-references:
 - [`.agents/skills/ibis/SKILL.md`](../ibis/SKILL.md) — the Ibis
   backend on top of `md:cianfhoghlaim`
 - **GitHub**: https://github.com/duckdb/duckdb
+
+## Version policy
+
+Per [`docs/SKILL-VERSION-HEADER-POLICY.md`](../../../../docs/SKILL-VERSION-HEADER-POLICY.md) (the canonical refresh policy):
+
+- The canonical refresh cadence is weekly (Stage 7 GH workflow) + on-demand (per openspec change)
+- The canonical command is `python3 scripts/audit/refresh_skill_versions.py`
+- The canonical package→skill mapping is at [`scripts/audit/PACKAGE_TO_SKILL_MAP.md`](../../../../scripts/audit/PACKAGE_TO_SKILL_MAP.md)

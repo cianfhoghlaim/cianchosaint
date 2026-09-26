@@ -122,3 +122,12 @@ The script reads `scripts/audit/audit_package_versions.py:PACKAGE_TABLE` (the ca
 **Live evidence**: per `scripts/audit/audit_package_versions.py` (run 2026-09-26), the canonical version-drift baseline shows: 4 aligned, 1 behind-1-minor, 1 behind-2-3-minor (DuckDB), 11 behind-N-minor (4-26 minor), 8 behind-major (e.g., openai 2.x → 3.x), 14 unknown (mostly unpinned or network errors).
 
 **Refresh cadence:** weekly GH workflow (added in Stage 7) + on-demand per Stage 2-6 bumps.
+
+
+## Version policy
+
+Per [`docs/SKILL-VERSION-HEADER-POLICY.md`](../../../../docs/SKILL-VERSION-HEADER-POLICY.md) (the canonical refresh policy):
+
+- The canonical refresh cadence is weekly (Stage 7 GH workflow) + on-demand (per openspec change)
+- The canonical command is `python3 scripts/audit/refresh_skill_versions.py`
+- The canonical package→skill mapping is at [`scripts/audit/PACKAGE_TO_SKILL_MAP.md`](../../../../scripts/audit/PACKAGE_TO_SKILL_MAP.md)

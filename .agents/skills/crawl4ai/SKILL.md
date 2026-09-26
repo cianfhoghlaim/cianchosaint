@@ -14,7 +14,7 @@ description: Complete toolkit for web crawling and data extraction using Crawl4A
 
 # Crawl4AI
 
-**Version:** 0.9.2 | **Last Updated:** 2026-08-21
+**Version:** 0.9.4 | **Last Updated:** 2026-09-26
 
 ## Overview
 

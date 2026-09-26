@@ -14,7 +14,7 @@ description: Expert assistance for LLM observability with Langfuse (Python SDK v
 
 # Langfuse - OpenTelemetry-Native LLM Observability Platform
 
-**Version:** Python SDK v4.12.0 / JS SDK v5.9.0 / Platform v3.125+ | **Last Updated:** 2026-06-29
+**Version:** 4.7.0 | **Last Updated:** 2026-09-26
 
 ## Overview
 
@@ -296,3 +296,12 @@ npm install langfuse
 8. Self-host `langfuse/langfuse:latest` → must pin to **v3.125.0+** for Python SDK v4.
 9. Wrapping the whole OpenAI client with `@observe()` → v3 has dedicated `from langfuse.openai import openai` drop-in.
 10. Calling `langfuse.flush()` inside `@observe()` body → v3 flush is global + automatic.
+
+
+## Version policy
+
+Per [`docs/SKILL-VERSION-HEADER-POLICY.md`](../../../../docs/SKILL-VERSION-HEADER-POLICY.md) (the canonical refresh policy):
+
+- The canonical refresh cadence is weekly (Stage 7 GH workflow) + on-demand (per openspec change)
+- The canonical command is `python3 scripts/audit/refresh_skill_versions.py`
+- The canonical package→skill mapping is at [`scripts/audit/PACKAGE_TO_SKILL_MAP.md`](../../../../scripts/audit/PACKAGE_TO_SKILL_MAP.md)

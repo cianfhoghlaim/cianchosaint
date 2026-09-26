@@ -14,7 +14,7 @@ description: Expert assistance for AI memory systems with Cognee. Use when users
 
 # Cognee - AI Memory Platform
 
-**Version:** >=1.0.0,<2 (v1.0 surface) — verified against **cognee 1.2.2** (PyPI 2026-06-26) | **Last Updated:** 2026-06-29
+**Version:** >=1.0.0,<2 (v1.0 surface) — verified against **cognee 1.2.2** (PyPI 2026-06-26) | **Last Updated:** 2026-09-26
 **Live docs root:** https://docs.cognee.ai (Mintlify) | **Verified URLs:** `/getting-started/{installation,quickstart}`, `/python-api`, `/python-api/{remember,recall,search-type}`, `/cognee-mcp/{mcp-overview,mcp-tools}` | **llms.txt:** https://docs.cognee.ai/llms.txt
 **Python:** >=3.10,<3.15 | **Default LLM:** openai/gpt-5-mini | **Default embeddings:** openai/text-embedding-3-large (3072-d)
 
