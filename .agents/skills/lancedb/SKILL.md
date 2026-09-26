@@ -6,6 +6,15 @@ Migrated to cianchosaint: 2026-08-23
 Licence: BUSL-1.1 (per LICENSE.md)
 
 Wholesale-copied from cianfhoghlaim/cianfhoghlaim@lancedb/SKILL.md.
+
+UPDATED 2026-09-26 (per openspec/changes/2026-09-26-lancedb-v0.39-lance-v2-upgrade-v1,
+Stage 5 of the package-version-drift saga): The 24 BIEP companion tables are
+now in Lance v2 format (the v2 format was added in lancedb 0.10 and is the
+default in 0.39). The migration was in-place (one-time cutover per the
+locked Q3). For existing v1 tables, run `scripts/migrate_lance_v1_to_v2.py`.
+Per https://www.lancedb.com/blog/lance-file-format-2-2-taming-complex-data:
+'The migration path is straightforward: existing projects can follow the
+batched migration examples in the docs to upgrade their tables.'
 -->
 ---
 name: lancedb

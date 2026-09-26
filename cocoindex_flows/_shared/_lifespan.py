@@ -91,6 +91,17 @@ except ImportError as e:
 #              so a model swap auto-re-embeds.
 # `RESOLVED_FILE_REGISTRY` — the resolved file registry (used by the
 #              3 v1 Apps that walk the filesystem).
+#
+# UPDATED 2026-09-26 (per openspec/changes/2026-09-26-lancedb-v0.39-lance-v2-upgrade-v1,
+# Stage 5 of the package-version-drift saga): The 24 BIEP companion tables
+# are now migrated to Lance v2 format (added in lancedb 0.10). The migration
+# is in-place (one-time cutover per the locked Q3). New tables created via
+# CocoIndex's `mount_table_target` use the v2 format by default (the library
+# uses the latest Lance format available). Run `scripts/migrate_lance_v1_to_v2.py`
+# to migrate existing v1 tables (the script is atomic per-table with rollback
+# on failure). Per https://www.lancedb.com/blog/lance-file-format-2-2-taming-complex-data:
+# 'The migration path is straightforward: existing projects can follow the batched
+# migration examples in the docs to upgrade their tables.'
 if COCOINDEX_AVAILABLE:
     LANCE_DB = coco.ContextKey[coco_lancedb.LanceAsyncConnection](  # type: ignore[index]
         "cianfhoghlaim_lance_db"

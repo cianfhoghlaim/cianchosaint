@@ -81,7 +81,7 @@ PACKAGE_TABLE: list[dict] = [
     {"name": "dlt",                "kind": "pypi", "pypi": "dlt",         "pinned_ciancho": ">=1.30,<2.0", "pinned_cianfhog": ">=1.30,<2.0", "policy": "caret", "stage": "3"},
     {"name": "duckdb",             "kind": "pypi", "pypi": "duckdb",      "pinned_ciancho": ">=1.5.5,<1.6.0","pinned_cianfhog": ">=1.5.5,<1.6.0", "policy": "caret", "stage": "3"},
     {"name": "motherduck",         "kind": "pypi", "pypi": "motherduck",  "pinned_ciancho": ">=0.10,<1.0", "pinned_cianfhog": ">=0.10,<1.0", "policy": "caret", "stage": "3"},
-    {"name": "lancedb",            "kind": "pypi", "pypi": "lancedb",     "pinned_ciancho": ">=0.39,<1.0", "pinned_cianfhog": ">=0.39,<1.0", "policy": "caret", "stage": "3"},
+    {"name": "lancedb",            "kind": "pypi", "pypi": "lancedb",     "pinned_ciancho": ">=0.39,<1.0", "pinned_cianfhog": ">=0.39,<1.0", "policy": "caret", "stage": "3+5", "note": "Lance v2 in-place migration complete (Stage 5)"},
     {"name": "google-adk",         "kind": "pypi", "pypi": "google-adk",  "pinned_ciancho": "unpinned",    "pinned_cianfhog": ">=2.9.0,<3", "policy": "caret", "stage": "3"},
     {"name": "langfuse-py",        "kind": "pypi", "pypi": "langfuse",    "pinned_ciancho": ">=4.7.0,<5.0", "pinned_cianfhog": ">=4.15.1 (via logfire)", "policy": "caret", "stage": "3"},
     {"name": "litellm-py",         "kind": "pypi", "pypi": "litellm",     "pinned_ciancho": "unpinned",    "pinned_cianfhog": ">=1.97.0",   "policy": "caret", "stage": "3"},

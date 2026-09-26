@@ -63,7 +63,7 @@ Per the LiteLLM release-support policy (2026-06-29): "LiteLLM will only actively
 | **dlt** | `>=1.30,<2.0` | `>=1.30,<2.0` | `1.30.0` (Sep 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
 | **duckdb** | `>=1.5.5,<1.6.0` | `>=1.5.5,<1.6.0` | `1.5.5` LTS | **aligned** (Stage 3 complete) | 3 ✅ |
 | **motherduck** | `>=0.10,<1.0` | `>=0.10,<1.0` | (latest 0.x) | **aligned** (Stage 3 complete) | 3 ✅ |
-| **lancedb** | `>=0.39,<1.0` | `>=0.39,<1.0` | `0.39.0` (Aug 31, 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
+| **lancedb** | `>=0.39,<1.0` | `>=0.39,<1.0` | `0.39.0` (Aug 31, 2026) | **aligned** (Stage 3 complete; Lance v2 in-place migration Stage 5 complete) | 3+5 ✅ |
 | **google-adk** | unpinned | `>=2.9.0,<3` | `2.10.0` (Sep 10, 2026) | **aligned** (Stage 3 complete) | 3 ✅ |
 | **langfuse-py** | `>=4.7.0,<5.0` | `>=4.15.1 (via logfire)` | `4.15.6` | **aligned** (Stage 2b.1 complete) | 3 ✅ |
 | **litellm-py** | unpinned | `>=1.97.0` | `1.102.1` (Sep 19, 2026) | cianfhoghlaim behind 5 minor | 3 |
@@ -121,7 +121,7 @@ Sample current header pattern:
 | 2c | crawl4ai + garage + infisical | `2026-09-26-loc-data-storage-stack-upgrade-v1/` |
 | 3 | dagster + dagster-dlt + dagster-dbt + cocoindex + baml-py + dlt + duckdb + motherduck + lancedb + google-adk + langfuse-py + litellm-py | `2026-09-26-biep-data-platform-deps-bump-v1/` |
 | **4** | **openchamber full refactor (1.0 → 1.22)** | **`2026-09-26-openchamber-v1.22-major-upgrade-v1/`** | **✅ SHIPPED 2026-09-26** |
-| 5 | lancedb Lance v1 → Lance v2 in-place migration | `2026-09-26-lancedb-v0.39-lance-v2-upgrade-v1/` |
+| **5** | **lancedb Lance v1 → Lance v2 in-place migration** | **`2026-09-26-lancedb-v0.39-lance-v2-upgrade-v1/`** | **✅ SHIPPED 2026-09-26** |
 | 6 | refresh all 79 skill version headers | `2026-09-26-skill-version-header-refresh-v1/` |
 | 7 | add the GH workflow + Dagster sensor + `mise run devops:version-drift` + `docs/VERSION-DRIFT-POLICY.md` | `2026-09-26-version-drift-monitoring-v1/` |
 
