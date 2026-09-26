@@ -9,7 +9,7 @@
 
 """Cianchosaint tools — 21 FunctionTool-wrapped helpers shared by
 the 3 root agents and the 15 specialists + the new 4 politician-adjacent
-tools."""
+tools + the LongRunningFunctionTool wrapper (per cianchosaint-long-running-tools-v1)."""
 
 from .adjacent_context_resolver import (
     adjacent_context_resolver,
@@ -19,6 +19,11 @@ from .collaboration_workspace import collaboration_workspace_tool
 from .cross_jurisdiction_query import cross_jurisdiction_query_tool
 from .cyberchef_execute import cyberchef_execute_tool
 from .foia_request import foia_request_tool
+from .long_running import (
+    LongRunningFunctionTool,
+    LongRunningStore,
+    staleness_before_tool_callback,
+)
 from .force_lookup import force_lookup_tool
 from .funder_network_graph import funder_network_graph, funder_network_graph_tool
 from .garda_form_fill import garda_form_fill_tool
@@ -59,6 +64,8 @@ __all__ = [
     "funder_network_graph",
     "funder_network_graph_tool",
     "garda_form_fill_tool",
+    "LongRunningFunctionTool",
+    "LongRunningStore",
     "met_form_fill_tool",
     "ncsc_device_security_status_tool",
     "pdf_reference_search_tool",
@@ -66,6 +73,7 @@ __all__ = [
     "politician_account_resolver_tool",
     "psni_form_fill_tool",
     "reform_uk_pilot_tool",
+    "staleness_before_tool_callback",
     "statute_lookup_tool",
     "stroom_query_tool",
     "wikipedia_bridge",
